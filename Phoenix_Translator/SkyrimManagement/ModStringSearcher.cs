@@ -7,6 +7,43 @@ using PhoenixEngine.Translate;
 
 namespace PhoenixTranslator.SkyrimManagement
 {
+    public enum SkyrimEntryType
+    {
+        Null,
+        Folder,
+        Mod
+    }
+
+    public class SkyrimEntry
+    {
+        public SkyrimEntryType Type = SkyrimEntryType.Null;
+
+        public string Name = "";
+        public string Path = "";
+
+        public SkyrimMod Mod = null;
+
+        public SkyrimEntry()
+        {
+        }
+
+        public SkyrimEntry(SkyrimMod Mod)
+        {
+            this.Name = Mod.ModName;
+            this.Path = Mod.ModPath;
+            this.Type = SkyrimEntryType.Mod;
+
+            this.Mod = Mod;
+        }
+
+        public SkyrimEntry(string Path)
+        {
+            this.Name = System.IO.Path.GetFileName(Path);
+            this.Path = Path;
+            this.Type = SkyrimEntryType.Folder;
+        }
+    }
+
     public class SkyrimMod
     {
         public string ModPath = "";
@@ -103,20 +140,23 @@ namespace PhoenixTranslator.SkyrimManagement
     }
     public class ModStringSearcher
     {
-        public List<string> SearchStr(List<SkyrimMod> Mods, string Str)
+        public List<string> SearchStr(List<SkyrimEntry> Entries, string Str)
         {
             List<string> RetrievedFiles = new List<string>();
 
             ModReader NReader = new ModReader();
             NReader.Init();
 
-            foreach (SkyrimMod Mod in Mods)
+            foreach (SkyrimEntry Entry in Entries)
             {
-                foreach (var GetFile in Mod.AvailableFiles)
+                if (Entry.Type == SkyrimEntryType.Mod)
                 {
-                    if (NReader.Contains(GetFile, Str))
+                    foreach (var GetFile in Entry.Mod.AvailableFiles)
                     {
-                        RetrievedFiles.Add(GetFile);
+                        if (NReader.Contains(GetFile, Str))
+                        {
+                            RetrievedFiles.Add(GetFile);
+                        }
                     }
                 }
             }
@@ -124,9 +164,9 @@ namespace PhoenixTranslator.SkyrimManagement
             NReader.Close();
             return RetrievedFiles;
         }
-        public List<SkyrimMod> ScanMods(string TargetPath)
+        public List<SkyrimEntry> ScanMods(string TargetPath)
         {
-            List<SkyrimMod> Mods = new List<SkyrimMod>();
+            List<SkyrimEntry> Entries = new List<SkyrimEntry>();
             if (Directory.Exists(TargetPath))
             {
                 if (!IsMod(TargetPath, out string CModName, out List<string> CAvailableFiles,out long CModID))
@@ -134,19 +174,24 @@ namespace PhoenixTranslator.SkyrimManagement
                     foreach (var GetChildPath in Directory.GetDirectories(TargetPath))
                     {
                         //To ensure performance, only one level of the directory is scanned.
-                        if (IsMod(GetChildPath, out string ModName, out List<string> AvailableFiles,out long ModID))
+                        if (IsMod(GetChildPath, out string ModName, out List<string> AvailableFiles, out long ModID))
                         {
-                            Mods.Add(new SkyrimMod(GetChildPath,ModName,AvailableFiles,ModID));
+                            Entries.Add(new SkyrimEntry(new SkyrimMod(GetChildPath, ModName, AvailableFiles, ModID)));
+                        }
+                        else
+                        {
+                            //Paths where no Mod was found are still added to the array, making it easier for the user to select a path at the next level.
+                            Entries.Add(new SkyrimEntry(GetChildPath));
                         }
                     }
                 }
                 else
                 {
-                    Mods.Add(new SkyrimMod(TargetPath,CModName,CAvailableFiles,CModID));
+                    Entries.Add(new SkyrimEntry(new SkyrimMod(TargetPath,CModName,CAvailableFiles,CModID)));
                 }
             }
 
-            return Mods;
+            return Entries;
         }
 
         public bool IsMod(string ModPath, out string ModName, out List<string> AvailableFiles,out long ModID)

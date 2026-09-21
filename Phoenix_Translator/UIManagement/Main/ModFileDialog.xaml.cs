@@ -26,9 +26,10 @@ namespace PhoenixTranslator
         {
             if (ModView == null)
             {
-                ModView = new BlockListView(CModView, 500);
+                ModView = new BlockListView(CModView, 130);
 
-
+                ModView.ExColStyles.Add(new ExColStyle(1, GridUnitType.Star));
+                ModView.ExColStyles.Add(new ExColStyle(1, GridUnitType.Star));
                 ModView.ExColStyles.Add(new ExColStyle(1, GridUnitType.Star));
                 ModView.ExColStyles.Add(new ExColStyle(1, GridUnitType.Star));
                 ModView.ExColStyles.Add(new ExColStyle(1, GridUnitType.Star));
@@ -46,52 +47,57 @@ namespace PhoenixTranslator
 
         public ModStringSearcher StringSearcher = new ModStringSearcher();
 
-        public List<SkyrimMod> CurrentMods = null;
+        public List<SkyrimEntry> CurrentEntries = null;
         private void SetPath_Click(object sender, RoutedEventArgs e)
         {
-            CurrentMods = StringSearcher.ScanMods(PathBox.Text);
+            CurrentEntries = StringSearcher.ScanMods(PathBox.Text);
 
-            UPDateMods(CurrentMods);
+            UPDateMods(CurrentEntries);
         }
 
-        public void UPDateMods(List<SkyrimMod> Mods)
+        public void UPDateMods(List<SkyrimEntry> Entries)
         {
-            int ColumnLength = 5;
+            this.Dispatcher.Invoke(new Action(() =>
+            {
+                ModView.Clear();
+            }));
 
-            int CurrentLength = 5;
+            int ColumnLength = 7;
 
-            List<SkyrimMod> ModBlocks = new List<SkyrimMod>();
+            int CurrentLength = 7;
 
-            foreach (var GetMod in Mods)
+            List<SkyrimEntry> EntryBlocks = new List<SkyrimEntry>();
+
+            foreach (var GetEntry in Entries)
             {
                 if (CurrentLength > 0)
                 {
                     CurrentLength--;
-                    ModBlocks.Add(GetMod);
+                    EntryBlocks.Add(GetEntry);
                 }
 
                 if (CurrentLength == 0)
                 {
                     this.Dispatcher.Invoke(new Action(() =>
                     {
-                        ModView.AddRow(UIHelper.CreateModLine(ModBlocks).ToArray());
+                        ModView.AddRow(UIHelper.CreateEntryLine(EntryBlocks).ToArray());
                     }));
 
-                    ModBlocks.Clear();
+                    EntryBlocks.Clear();
                     CurrentLength = ColumnLength;
                 }
             }
 
-            if (ModBlocks.Count > 0)
+            if (EntryBlocks.Count > 0)
             {
                 for (int i = 0; i < CurrentLength; i++)
                 {
-                    ModBlocks.Add(new SkyrimMod());
+                    EntryBlocks.Add(new SkyrimEntry());
                 }
 
                 this.Dispatcher.Invoke(new Action(() =>
                 {
-                    ModView.AddRow(UIHelper.CreateModLine(ModBlocks).ToArray());
+                    ModView.AddRow(UIHelper.CreateEntryLine(EntryBlocks).ToArray());
                 }));
             }
 

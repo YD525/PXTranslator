@@ -17,7 +17,7 @@ namespace PhoenixTranslator.UIManagement
         public List<ExRow> Rows = new List<ExRow>();
         public double LineHeight = 0;
 
-        public BlockListView(Grid Parent, double LineHeight = 50)
+        public BlockListView(Grid Parent, double LineHeight)
         {
             Style ScrollBarStyle = new Style(typeof(ScrollBar))
             {

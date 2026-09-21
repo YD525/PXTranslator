@@ -56,7 +56,7 @@ namespace PhoenixTranslator
         {
             try
             {
-                new ModFileDialog().Show();
+                //new ModFileDialog().Show();
 
                 PhoenixApp.Init(this);
 

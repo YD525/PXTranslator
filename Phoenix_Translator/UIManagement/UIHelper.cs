@@ -21,6 +21,8 @@ using PhoenixEngine;
 using PhoenixEngine.Platform;
 using PhoenixEngine.Unit;
 using ModFileParser;
+using PhoenixTranslator.UIManagement.Preview;
+using System.Web.WebSockets;
 
 namespace PhoenixTranslator.UIManage
 {
@@ -93,9 +95,131 @@ namespace PhoenixTranslator.UIManage
     public class UIHelper
     {
         #region ModFileDialog
-        public static List<Grid> CreateModLine(List<SkyrimMod>Items)
+        private static SolidColorBrush EntryPicBG = new SolidColorBrush(Color.FromRgb(72,72,72));
+        private static SolidColorBrush EntryTextBG = new SolidColorBrush(Color.FromRgb(48,48,48));
+        private static SolidColorBrush EntryTextColor = new SolidColorBrush(Colors.White);
+        public static List<Grid> CreateEntryLine(List<SkyrimEntry> Entries)
         {
-            return new List<Grid>();
+            List<Grid> Grids = new List<Grid>();
+            foreach (var GetEntry in Entries)
+            {
+                if (GetEntry.Type == SkyrimEntryType.Null)
+                {
+                    Grids.Add(new Grid());
+                }
+                else
+                {
+                    Grid MainGrid = new Grid();
+
+                    RowDefinition Row1st = new RowDefinition();
+                    RowDefinition Row2nd = new RowDefinition();
+
+                    Row1st.Height = new GridLength(0.7, GridUnitType.Star);
+                    Row2nd.Height = new GridLength(0.3, GridUnitType.Star);
+
+                    MainGrid.RowDefinitions.Add(Row1st);
+                    MainGrid.RowDefinitions.Add(Row2nd);
+
+                    MainGrid.Margin = new Thickness(2.5);
+
+                    if (GetEntry.Type == SkyrimEntryType.Folder)
+                    {
+                        Grid PicGrid = new Grid();
+                        Border PicBorder = new Border();
+                        PicBorder.CornerRadius = new CornerRadius(9,9,0,0);
+                        PicBorder.Background = EntryPicBG;
+
+                        PreviewIcon Icon = new PreviewIcon();
+
+                        Icon.Icon = PreviewIconName.Projects;
+                        Icon.FontSize = 25;
+                        Icon.Foreground = EntryTextColor;
+
+                        PicBorder.Child = Icon;
+                        PicGrid.Children.Add(PicBorder);
+
+                        Grid.SetRow(PicGrid,0);
+                        MainGrid.Children.Add(PicGrid);
+
+                        Border TextBorder = new Border();
+                        TextBorder.CornerRadius = new CornerRadius(0,0,9,9);
+                        TextBorder.Background = EntryTextBG;
+
+                        TextBox Tittle = new TextBox();
+                        Tittle.FontSize = 8;
+                        Tittle.Text = GetEntry.Name;
+                        Tittle.Foreground = EntryTextColor;
+                        Tittle.VerticalAlignment = VerticalAlignment.Center;
+                        Tittle.HorizontalAlignment = HorizontalAlignment.Center;
+                        Tittle.FontWeight = FontWeights.Bold;
+                        Tittle.IsReadOnly = true;
+                        Tittle.BorderBrush = null;
+                        Tittle.BorderThickness = new Thickness(0);
+                        Tittle.Background = null;
+                        Tittle.TextWrapping = TextWrapping.Wrap;
+                        Tittle.AcceptsReturn = true;
+                        Tittle.TabIndex = -1;
+                        Tittle.HorizontalContentAlignment = HorizontalAlignment.Center;
+
+                        TextBorder.Child = Tittle;
+
+                        Grid.SetRow(TextBorder, 1);
+                        MainGrid.Children.Add(TextBorder);
+
+                        Grids.Add(MainGrid);
+                    }
+                    else
+                    if (GetEntry.Type == SkyrimEntryType.Mod)
+                    {
+                        Grid PicGrid = new Grid();
+                        Border PicBorder = new Border();
+                        PicBorder.CornerRadius = new CornerRadius(9, 9, 0, 0);
+                        PicBorder.Background = EntryPicBG;
+
+                        PreviewIcon Icon = new PreviewIcon();
+
+                        Icon.Icon = PreviewIconName.Document;
+                        Icon.FontSize = 25;
+                        Icon.Foreground = EntryTextColor;
+
+                        PicBorder.Child = Icon;
+                        PicGrid.Children.Add(PicBorder);
+
+                        Grid.SetRow(PicGrid, 0);
+                        MainGrid.Children.Add(PicGrid);
+
+                        Border TextBorder = new Border();
+                        TextBorder.CornerRadius = new CornerRadius(0, 0, 9, 9);
+                        TextBorder.Background = EntryTextBG;
+
+                        TextBox Tittle = new TextBox();
+                        Tittle.FontSize = 8;
+                        Tittle.Text = GetEntry.Mod.ModName;
+                        Tittle.Tag = GetEntry.Mod.ModID;
+                        Tittle.Foreground = EntryTextColor;
+                        Tittle.VerticalAlignment = VerticalAlignment.Center;
+                        Tittle.HorizontalAlignment = HorizontalAlignment.Center;
+                        Tittle.FontWeight = FontWeights.Bold;
+                        Tittle.IsReadOnly = true;
+                        Tittle.BorderBrush = null;
+                        Tittle.BorderThickness = new Thickness(0);
+                        Tittle.Background = null;
+                        Tittle.TextWrapping = TextWrapping.Wrap;
+                        Tittle.AcceptsReturn = true;
+                        Tittle.TabIndex = -1;
+                        Tittle.HorizontalContentAlignment = HorizontalAlignment.Center;
+
+                        TextBorder.Child = Tittle;
+
+                        Grid.SetRow(TextBorder, 1);
+                        MainGrid.Children.Add(TextBorder);
+
+                        Grids.Add(MainGrid);
+                    }
+                }
+              
+            }
+            return Grids;
         }
 
         #endregion
