@@ -50,75 +50,8 @@
                 </Grid>
                 
                 <Grid Name="CModView" Grid.Row="3" Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Grid Grid.Row="0" Grid.Column="0" Margin="5">
-                        <Border CornerRadius="9" Background="#FF484848">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="0.7*"/>
-                                    <RowDefinition Height="0.3*"/>
-                                </Grid.RowDefinitions>
-
-                                <Grid Grid.Row="0">
-                                    <preview:PreviewIcon Icon="Projects"  FontSize="50" Foreground="White"/>
-                                </Grid>
-
-                                <Border Grid.Row="1" CornerRadius="0 0 9 9" Background="White">
-                                    <Grid>
-
-                                        <Label Foreground="Black" FontWeight="Bold" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            XXX
-                                        </Label>
-                                    </Grid>
-                                </Border>
-                            </Grid>
-                        </Border>
-                    </Grid>
-
-
-                    <Grid Grid.Row="0" Grid.Column="1" Margin="5">
-                        <Border CornerRadius="9" Background="#FF484848">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="0.7*"/>
-                                    <RowDefinition Height="0.3*"/>
-                                </Grid.RowDefinitions>
-
-                                <Grid Grid.Row="0">
-                                    <preview:PreviewIcon Icon="Document" FontSize="50" Foreground="White"/>
-                                </Grid>
-
-                                <Border Grid.Row="1" CornerRadius="0 0 9 9" Background="White">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="0.5*"/>
-                                            <RowDefinition Height="0.5*"/>
-                                        </Grid.RowDefinitions>
-
-                                        <Label Foreground="Black" FontWeight="Bold" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            XXX.esp
-                                        </Label>
-
-                                        <Label Foreground="Black" Grid.Row="1" FontSize="8" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            ModID:0000
-                                        </Label>
-                                    </Grid>
-                                </Border>
-                            </Grid>
-                        </Border>
-                    </Grid>
+                  
+                  
                 </Grid>
             </Grid>
         </Grid>
