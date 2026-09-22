@@ -1356,7 +1356,6 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0">
                                 <StackPanel.Resources>
                                     <Style TargetType="ToggleButton">
-                                        <Setter Property="Width" Value="50"/>
                                         <Setter Property="Height" Value="24"/>
                                         <Setter Property="Background" Value="Transparent"/>
                                         <Setter Property="BorderThickness" Value="0"/>
@@ -1379,9 +1378,15 @@
                                     </Style>
                                 </StackPanel.Resources>
 
-                                <ToggleButton x:Name="IsSearchBtn" ToolTip="SearchBtn" Margin="0,0,2,0">
+                                <ToggleButton x:Name="IsClearBtn" ToolTip="ClearBtn" Margin="0,0,5,0">
                                     <Border CornerRadius="5" BorderThickness="0.5" BorderBrush="White">
-                                        <TextBlock Padding="5 5 5 5" Text="Search" Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
+                                        <TextBlock Padding="10 5 10 5" Text="Clear" Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
+                                    </Border>
+                                </ToggleButton>
+
+                                <ToggleButton x:Name="IsSearchBtn" ToolTip="SearchBtn" Margin="0,0,5,0">
+                                    <Border CornerRadius="5" BorderThickness="0.5" BorderBrush="White">
+                                        <TextBlock Padding="10 5 10 5" Text="Search" Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
                                     </Border>
                                 </ToggleButton>
                             </StackPanel>
@@ -1428,7 +1433,6 @@
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0">
                                 <StackPanel.Resources>
                                     <Style TargetType="ToggleButton">
-                                        <Setter Property="Width" Value="50"/>
                                         <Setter Property="Height" Value="24"/>
                                         <Setter Property="Background" Value="Transparent"/>
                                         <Setter Property="BorderThickness" Value="0"/>
@@ -1451,11 +1455,25 @@
                                     </Style>
                                 </StackPanel.Resources>
 
-                                <ToggleButton x:Name="IsSelectPathBtn" ToolTip="SelectPathBtn" Margin="0,0,2,0">
+                                <ToggleButton x:Name="IsBackBtn" ToolTip="BackBtn" Margin="0,0,5,0">
                                     <Border CornerRadius="5" BorderThickness="0.5" BorderBrush="White">
-                                        <TextBlock Padding="5 5 5 5" Text="Select" Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
+                                        <TextBlock Padding="10 5 10 5" Text="Back" Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
                                     </Border>
                                 </ToggleButton>
+                                
+                                <ToggleButton x:Name="IsShowBtn" ToolTip="ShowBtn" Margin="0,0,5,0">
+                                    <Border CornerRadius="5" BorderThickness="0.5" BorderBrush="White">
+                                        <TextBlock Padding="10 5 10 5" Text="..." Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
+                                    </Border>
+                                </ToggleButton>
+                                
+                                <ToggleButton x:Name="IsSelectBtn" ToolTip="SelectBtn" Margin="0,0,5,0">
+                                    <Border CornerRadius="5" BorderThickness="0.5" BorderBrush="White">
+                                        <TextBlock Padding="10 5 10 5" Text="SCan" Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
+                                    </Border>
+                                </ToggleButton>
+
+                             
                             </StackPanel>
                         </Grid>
                     </Border>
@@ -1884,5 +1902,66 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="ModActionButton" TargetType="Button">
+
+        <Setter Property="Foreground" Value="#FFE8E8E8"/>
+        <Setter Property="Background" Value="#303030"/>
+        <Setter Property="BorderBrush" Value="#505050"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Padding" Value="12,5"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border x:Name="ButtonBorder"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5">
+
+                        <ContentPresenter
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"/>
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+                        <!-- Hover -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                Property="Background"
+                                Value="#404040"/>
+                            <Setter TargetName="ButtonBorder"
+                                Property="BorderBrush"
+                                Value="#FFF7F1BA"/>
+                        </Trigger>
+
+
+                        <!-- Press -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="ButtonBorder"
+                                Property="Background"
+                                Value="#505050"/>
+                        </Trigger>
+
+
+                        <!-- Disabled -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity"
+                                Value="0.5"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
     </Style>
 </ResourceDictionary>

@@ -842,6 +842,8 @@ namespace ModFileParser
 
                     InitOnce = false;
 
+                    Query();
+
                     return SelectSig("ALL");
                 }
             }

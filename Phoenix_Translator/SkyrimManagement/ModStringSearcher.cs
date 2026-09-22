@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using ModFileParser;
@@ -21,26 +22,31 @@ namespace PhoenixTranslator.SkyrimManagement
         public string Name = "";
         public string Path = "";
 
+        public DateTime CreateTime = DateTime.MinValue;
+
         public SkyrimMod Mod = null;
 
         public SkyrimEntry()
         {
         }
 
-        public SkyrimEntry(SkyrimMod Mod)
+        public SkyrimEntry(DateTime CreateTime,SkyrimMod Mod)
         {
             this.Name = Mod.ModName;
             this.Path = Mod.ModPath;
             this.Type = SkyrimEntryType.Mod;
 
+            this.CreateTime = CreateTime;
             this.Mod = Mod;
         }
 
-        public SkyrimEntry(string Path)
+        public SkyrimEntry(DateTime CreateTime,string Path)
         {
             this.Name = System.IO.Path.GetFileName(Path);
             this.Path = Path;
             this.Type = SkyrimEntryType.Folder;
+
+            this.CreateTime = CreateTime;
         }
     }
 
@@ -88,6 +94,13 @@ namespace PhoenixTranslator.SkyrimManagement
             Pex.Create(0, new PhoenixEngine.Memory.P_Dict<string, PhoenixEngine.Memory.P_String>());
             MCM = new MCMReader();
             MCM.Create(0, new PhoenixEngine.Memory.P_Dict<string, PhoenixEngine.Memory.P_String>());
+        }
+
+        public void ChangeUniqueKey(int i)
+        { 
+            Esp.FileUniqueKey = i;
+            Pex.FileUniqueKey = i;
+            MCM.FileUniqueKey = i;
         }
 
         public bool Contains(string Path, string Str)
@@ -138,58 +151,76 @@ namespace PhoenixTranslator.SkyrimManagement
             MCM?.Close();
         }
     }
+
     public class ModStringSearcher
     {
-        public List<string> SearchStr(List<SkyrimEntry> Entries, string Str)
+        public Dictionary<SkyrimEntry, List<string>> SearchStr(List<SkyrimEntry> Entries, string Str)
         {
-            List<string> RetrievedFiles = new List<string>();
-
+            Dictionary<SkyrimEntry, List<string>> NModRetrievalInfo = new Dictionary<SkyrimEntry, List<string>>();
             ModReader NReader = new ModReader();
             NReader.Init();
+
+            int i = 0;
 
             foreach (SkyrimEntry Entry in Entries)
             {
                 if (Entry.Type == SkyrimEntryType.Mod)
                 {
+                    i++;
+
+                    NReader.ChangeUniqueKey(i);
+
                     foreach (var GetFile in Entry.Mod.AvailableFiles)
                     {
                         if (NReader.Contains(GetFile, Str))
                         {
-                            RetrievedFiles.Add(GetFile);
+                            if (!NModRetrievalInfo.ContainsKey(Entry))
+                            {
+                                NModRetrievalInfo.Add(Entry, new List<string>());
+                            }
+
+                            NModRetrievalInfo[Entry].Add(GetFile);
                         }
                     }
                 }
             }
 
             NReader.Close();
-            return RetrievedFiles;
+            return NModRetrievalInfo;
         }
         public List<SkyrimEntry> ScanMods(string TargetPath)
         {
             List<SkyrimEntry> Entries = new List<SkyrimEntry>();
+
             if (Directory.Exists(TargetPath))
             {
                 if (!IsMod(TargetPath, out string CModName, out List<string> CAvailableFiles,out long CModID))
                 {
                     foreach (var GetChildPath in Directory.GetDirectories(TargetPath))
                     {
+                        DateTime FolderCreateTime = Directory.GetCreationTime(GetChildPath);
+
                         //To ensure performance, only one level of the directory is scanned.
                         if (IsMod(GetChildPath, out string ModName, out List<string> AvailableFiles, out long ModID))
                         {
-                            Entries.Add(new SkyrimEntry(new SkyrimMod(GetChildPath, ModName, AvailableFiles, ModID)));
+                            Entries.Add(new SkyrimEntry(FolderCreateTime,new SkyrimMod(GetChildPath, ModName, AvailableFiles, ModID)));
                         }
                         else
                         {
                             //Paths where no Mod was found are still added to the array, making it easier for the user to select a path at the next level.
-                            Entries.Add(new SkyrimEntry(GetChildPath));
+                            Entries.Add(new SkyrimEntry(FolderCreateTime,GetChildPath));
                         }
                     }
                 }
                 else
                 {
-                    Entries.Add(new SkyrimEntry(new SkyrimMod(TargetPath,CModName,CAvailableFiles,CModID)));
+                    DateTime TargetCreateTime = Directory.GetCreationTime(TargetPath);
+
+                    Entries.Add(new SkyrimEntry(TargetCreateTime,new SkyrimMod(TargetPath,CModName,CAvailableFiles,CModID)));
                 }
             }
+
+            Entries.Sort((x, y) => y.CreateTime.CompareTo(x.CreateTime));
 
             return Entries;
         }

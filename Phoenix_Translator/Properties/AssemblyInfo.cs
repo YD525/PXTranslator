@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Phoenix Translator(SSE)")]
+[assembly: AssemblyTitle("PX Translator(SSE)")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Phoenix Translator(SSE)")]
-[assembly: AssemblyCopyright("Copyright © YD525  2025")]
+[assembly: AssemblyProduct("PX Translator(SSE)")]
+[assembly: AssemblyCopyright("Copyright © Phoenix Translator(SSE)  2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -48,5 +48,5 @@ using System.Windows;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("2.0.0.20")]
-[assembly: AssemblyFileVersion("2.0.0.20")]
+[assembly: AssemblyVersion("2.0.0.21")]
+[assembly: AssemblyFileVersion("2.0.0.21")]
