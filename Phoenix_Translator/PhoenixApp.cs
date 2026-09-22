@@ -199,12 +199,14 @@ namespace PhoenixTranslator
     {
         /// <summary>Provides the explicitly selected translation configuration preset.</summary>
         /// <remarks>Settings created before presets existed migrate safely to <c>Custom</c>.</remarks>
-        public TranslationPreset Preset { get; set; } = TranslationPreset.Custom;
+        public TranslationPreset Preset { get; set; } = TranslationPreset.Balanced;
         public int Style { get; set; } = 1;
         public double FormHeight { get; set; } = 850;
         public double FormWidth { get; set; } = 1200;
         public Languages CurrentUILanguage { get; set; } = Languages.English;
         public string SkyrimPath { get; set; } = "";
+
+        public string LastSetModFolder { get; set; } = "";
 
         public GameNames GameType { get; set; } = GameNames.Skyrim;
         public double WritingAreaHeight { get; set; } = 0;
@@ -268,6 +270,7 @@ namespace PhoenixTranslator
                             this.FormWidth = GetSetting.FormWidth;
                             this.CurrentUILanguage = GetSetting.CurrentUILanguage;
                             this.SkyrimPath = GetSetting.SkyrimPath;
+                            this.LastSetModFolder = GetSetting.LastSetModFolder;
                             this.GameType = GetSetting.GameType;
                             this.WritingAreaHeight = GetSetting.WritingAreaHeight;
                             this.ViewMode = GetSetting.ViewMode;

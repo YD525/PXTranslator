@@ -140,7 +140,7 @@ namespace PhoenixTranslator.ApplicationLayer
                     profile = CreateProfile(200, 3900, false, false, false, 88, 75);
                     return true;
                 case TranslationPreset.QualityFirst:
-                    profile = CreateProfile(1000, 3900, true, false, true, 100, 60);
+                    profile = CreateProfile(1000, 5500, true, false, true, 100, 60);
                     return true;
                 case TranslationPreset.SpeedFirst:
                     profile = CreateProfile(200, 5000, false, true, false, 68, 95);

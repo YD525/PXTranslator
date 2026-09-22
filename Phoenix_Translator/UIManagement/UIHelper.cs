@@ -12,7 +12,6 @@ using PhoenixTranslator.UIManagement;
 using System.Globalization;
 using System.Linq;
 using System.IO;
-using System.Xml;
 using System.Windows.Markup;
 using static PhoenixTranslator.UIManagement.NodeStyleWin;
 using System.Runtime.CompilerServices;
@@ -22,7 +21,6 @@ using PhoenixEngine.Platform;
 using PhoenixEngine.Unit;
 using ModFileParser;
 using PhoenixTranslator.UIManagement.Preview;
-using System.Web.WebSockets;
 
 namespace PhoenixTranslator.UIManage
 {
@@ -95,10 +93,21 @@ namespace PhoenixTranslator.UIManage
     public class UIHelper
     {
         #region ModFileDialog
+
+        public class EntryBlockLink
+        {
+            public Border FloatingPanel = null;
+            public Label FloatingText = null;
+            public long ModID = 0;
+
+            public SkyrimEntry Entry = null;
+            public ModFileDialog Parent = null;
+        }
+
         private static SolidColorBrush EntryPicBG = new SolidColorBrush(Color.FromRgb(72,72,72));
         private static SolidColorBrush EntryTextBG = new SolidColorBrush(Color.FromRgb(48,48,48));
         private static SolidColorBrush EntryTextColor = new SolidColorBrush(Colors.White);
-        public static List<Grid> CreateEntryLine(List<SkyrimEntry> Entries)
+        public static List<Grid> CreateEntryLine(ModFileDialog Parent,List<SkyrimEntry> Entries)
         {
             List<Grid> Grids = new List<Grid>();
             foreach (var GetEntry in Entries)
@@ -119,17 +128,58 @@ namespace PhoenixTranslator.UIManage
 
                     MainGrid.RowDefinitions.Add(Row1st);
                     MainGrid.RowDefinitions.Add(Row2nd);
-
+                    MainGrid.Background = new SolidColorBrush(Colors.Transparent);
                     MainGrid.Margin = new Thickness(2.5);
+
+                    Border FloatingPanel = new Border();
+                    FloatingPanel.Visibility = Visibility.Collapsed;
+                    FloatingPanel.CornerRadius = new CornerRadius(9);
+                    FloatingPanel.Margin = new Thickness(5);
+                    FloatingPanel.Background = new SolidColorBrush(Colors.White);
+                    FloatingPanel.Opacity = 0.6;
+                    FloatingPanel.Cursor = Cursors.Hand;
+                    Grid.SetRowSpan(FloatingPanel,2);
+                    Panel.SetZIndex(FloatingPanel, 998);
+
+                    MainGrid.Children.Add(FloatingPanel);
+
+                    Label FloatingText = new Label();
+                    FloatingText.Visibility = Visibility.Collapsed;
+                    FloatingText.FontSize = 10;
+                    FloatingText.Foreground = new SolidColorBrush(Colors.Black);
+                    FloatingText.VerticalAlignment = VerticalAlignment.Center;
+                    FloatingText.HorizontalAlignment = HorizontalAlignment.Center;
+                    FloatingText.Cursor = Cursors.Hand;
+                    FloatingText.IsHitTestVisible = false;
+
+                    Grid.SetRowSpan(FloatingText, 2);
+                    Panel.SetZIndex(FloatingText, 999);
+
+                    MainGrid.Children.Add(FloatingText);
+
+                    EntryBlockLink NEntryBlockLink = new EntryBlockLink();
+                    NEntryBlockLink.FloatingPanel = FloatingPanel;
+                    NEntryBlockLink.FloatingText = FloatingText;
+                    NEntryBlockLink.ModID = 0;
+
+                    NEntryBlockLink.Entry = GetEntry;
+                    NEntryBlockLink.Parent = Parent;
+
+                    FloatingPanel.Tag = NEntryBlockLink;
 
                     if (GetEntry.Type == SkyrimEntryType.Folder)
                     {
+                        FloatingText.Content = "Go To";
+
                         Grid PicGrid = new Grid();
+                        PicGrid.IsHitTestVisible = false;
                         Border PicBorder = new Border();
+                        PicBorder.IsHitTestVisible = false;
                         PicBorder.CornerRadius = new CornerRadius(9,9,0,0);
                         PicBorder.Background = EntryPicBG;
 
                         PreviewIcon Icon = new PreviewIcon();
+                        Icon.IsHitTestVisible = false;
 
                         Icon.Icon = PreviewIconName.Projects;
                         Icon.FontSize = 25;
@@ -142,6 +192,7 @@ namespace PhoenixTranslator.UIManage
                         MainGrid.Children.Add(PicGrid);
 
                         Border TextBorder = new Border();
+                        TextBorder.IsHitTestVisible = false;
                         TextBorder.CornerRadius = new CornerRadius(0,0,9,9);
                         TextBorder.Background = EntryTextBG;
 
@@ -165,19 +216,23 @@ namespace PhoenixTranslator.UIManage
 
                         Grid.SetRow(TextBorder, 1);
                         MainGrid.Children.Add(TextBorder);
-
-                        Grids.Add(MainGrid);
                     }
                     else
                     if (GetEntry.Type == SkyrimEntryType.Mod)
                     {
+                        FloatingText.Content = "Open Mod";
+
+                        NEntryBlockLink.ModID = GetEntry.Mod.ModID;
+
                         Grid PicGrid = new Grid();
+                        PicGrid.IsHitTestVisible = true;
                         Border PicBorder = new Border();
+                        PicBorder.IsHitTestVisible = true;
                         PicBorder.CornerRadius = new CornerRadius(9, 9, 0, 0);
                         PicBorder.Background = EntryPicBG;
 
                         PreviewIcon Icon = new PreviewIcon();
-
+                        Icon.IsHitTestVisible = true;
                         Icon.Icon = PreviewIconName.Document;
                         Icon.FontSize = 25;
                         Icon.Foreground = EntryTextColor;
@@ -189,13 +244,13 @@ namespace PhoenixTranslator.UIManage
                         MainGrid.Children.Add(PicGrid);
 
                         Border TextBorder = new Border();
+                        TextBorder.IsHitTestVisible = true;
                         TextBorder.CornerRadius = new CornerRadius(0, 0, 9, 9);
                         TextBorder.Background = EntryTextBG;
 
                         TextBox Tittle = new TextBox();
                         Tittle.FontSize = 8;
                         Tittle.Text = GetEntry.Mod.ModName;
-                        Tittle.Tag = GetEntry.Mod.ModID;
                         Tittle.Foreground = EntryTextColor;
                         Tittle.VerticalAlignment = VerticalAlignment.Center;
                         Tittle.HorizontalAlignment = HorizontalAlignment.Center;
@@ -213,14 +268,72 @@ namespace PhoenixTranslator.UIManage
 
                         Grid.SetRow(TextBorder, 1);
                         MainGrid.Children.Add(TextBorder);
-
-                        Grids.Add(MainGrid);
                     }
+
+                    MainGrid.Tag = NEntryBlockLink;
+
+                    Grids.Add(MainGrid);
+
+                    MainGrid.MouseEnter +=new MouseEventHandler((Sender,E) => {
+                        if (Sender is Grid)
+                        {
+                            Grid Grid = (Grid)Sender;
+                            if (Grid.Tag is EntryBlockLink)
+                            {
+                                EntryBlockLink Link = (EntryBlockLink)Grid.Tag;
+                                Link.FloatingText.Visibility = Visibility.Visible;
+                                Link.FloatingPanel.Visibility = Visibility.Visible;
+                            }
+                        }
+                    });
+
+                    MainGrid.MouseLeave += new MouseEventHandler((Sender, E) => {
+                        if (Sender is Grid)
+                        {
+                            Grid Grid = (Grid)Sender;
+                            if (Grid.Tag is EntryBlockLink)
+                            {
+                                EntryBlockLink Link = (EntryBlockLink)Grid.Tag;
+                                Link.FloatingText.Visibility = Visibility.Collapsed;
+                                Link.FloatingPanel.Visibility = Visibility.Collapsed;
+                            }
+                        }
+                    });
+                  
+                    FloatingPanel.PreviewMouseLeftButtonDown += new MouseButtonEventHandler((Sender, E) =>
+                    {
+                        Border Border = (Border)Sender;
+                        if (Border.Tag is EntryBlockLink)
+                        {
+                            EntryBlockLink Link = (EntryBlockLink)Border.Tag;
+                            Link.FloatingText.Visibility = Visibility.Collapsed;
+                            Link.FloatingPanel.Visibility = Visibility.Collapsed;
+
+                            if (Link.Entry.Type == SkyrimEntryType.Folder)
+                            {
+                                Link.Parent.Dispatcher.Invoke(new Action(() =>
+                                {
+                                    Link.Parent.PathBox.Text = Link.Entry.Path;
+                                    Link.Parent.ScanPath();
+                                }));
+                            }
+                            else
+                            {
+                                Link.Parent.Dispatcher.Invoke(new Action(() =>
+                                {
+                                    Link.Parent.ShowAvailableFiles(Link.Entry,Link.Entry.Mod.AvailableFiles);
+                                }));
+                            }
+                        }
+                    });
                 }
               
             }
             return Grids;
         }
+
+       
+
 
         #endregion
         public static void ShowButton(Border NormalButton, bool Enable)

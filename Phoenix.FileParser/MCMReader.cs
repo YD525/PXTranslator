@@ -53,7 +53,7 @@ namespace ModFileParser
 
         public void Close()
         {
-            _Document.Clear();
+            _Document?.Clear();
         }
 
         private static byte[] ReadFile(string Path)
@@ -148,11 +148,18 @@ namespace ModFileParser
 
                     string Key = this.FileUniqueKey + "_" + GetEditorID;
 
+                    string AutoFindTranslated = "";
+
+                    if (_LinkRef.ContainsKey(Key))
+                    {
+                        AutoFindTranslated = _LinkRef[Key].String;
+                    }
+
                     Data[Key] = new MCMStrings()
                     {
                         EditID = GetEditorID,
                         Source = GetSourceValue,
-                        Translated = _LinkRef[Key].String
+                        Translated = AutoFindTranslated
                     };
                 }
             }

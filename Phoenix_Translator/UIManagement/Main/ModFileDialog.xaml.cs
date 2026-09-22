@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -15,6 +17,8 @@ namespace PhoenixTranslator
     /// </summary>
     public partial class ModFileDialog : Window
     {
+        public static ModFileDialog Instance = new ModFileDialog();
+
         public BlockListView ModView = null;
 
         public ModFileDialog()
@@ -37,22 +41,115 @@ namespace PhoenixTranslator
                 ModView.ExColStyles.Add(new ExColStyle(1, GridUnitType.Star));
             }
 
-            var Button = PathBox.Template.FindName("IsSelectPathBtn", PathBox) as ToggleButton;
+            var Button = PathBox.Template.FindName("IsSelectBtn", PathBox) as ToggleButton;
 
             if (Button != null)
             {
-                Button.Click += SetPath_Click;
+                Button.Click += ScanPath_Click;
+            }
+
+            Button = PathBox.Template.FindName("IsShowBtn", PathBox) as ToggleButton;
+
+            if (Button != null)
+            {
+                Button.Click += ShowPath_Click;
+            }
+
+            Button = PathBox.Template.FindName("IsBackBtn", PathBox) as ToggleButton;
+
+            if (Button != null)
+            {
+                Button.Click += BackPath_Click;
+            }
+
+            Button = SearchBox.Template.FindName("IsSearchBtn", SearchBox) as ToggleButton;
+            if (Button != null)
+            {
+                Button.Click += SearchFile_Click;
+            }
+
+            Button = SearchBox.Template.FindName("IsClearBtn", SearchBox) as ToggleButton;
+            if (Button != null)
+            {
+                Button.Click += ClearBtn_Click;
+            }
+
+            if (PhoenixApp.SelfSetting.LastSetModFolder != null)
+            {
+                if (PhoenixApp.SelfSetting.LastSetModFolder.Length > 0)
+                {
+                    if (Directory.Exists(PhoenixApp.SelfSetting.LastSetModFolder))
+                    {
+                        PathBox.Text = PhoenixApp.SelfSetting.LastSetModFolder;
+                        ScanPath();
+                    }
+                }
             }
         }
 
-        public ModStringSearcher StringSearcher = new ModStringSearcher();
+        private void ClearBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SearchBox.Text = string.Empty;
+            ScanPath();
+        }
 
+        public Dictionary<SkyrimEntry, List<string>> SearchInFo = null;
+        private void SearchFile_Click(object sender, RoutedEventArgs e)
+        {
+             SearchInFo = StringSearcher.SearchStr(CurrentEntries, SearchBox.Text);
+             UPDateMods(SearchInFo.Keys.ToList());
+        }
+
+
+        public ModStringSearcher StringSearcher = new ModStringSearcher();
         public List<SkyrimEntry> CurrentEntries = null;
-        private void SetPath_Click(object sender, RoutedEventArgs e)
+        private void ScanPath_Click(object sender, RoutedEventArgs e)
+        {
+            ScanPath();
+        }
+        public void ScanPath()
         {
             CurrentEntries = StringSearcher.ScanMods(PathBox.Text);
 
+            SearchInFo = null;
+
             UPDateMods(CurrentEntries);
+        }
+
+        private void ShowPath_Click(object sender, RoutedEventArgs e)
+        {
+            using (System.Windows.Forms.FolderBrowserDialog Dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                Dialog.Description = "Please select the root directory of the mod.";
+                Dialog.ShowNewFolderButton = true;
+
+                if (Dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    PathBox.Text =  Dialog.SelectedPath;
+                    ScanPath();
+                }
+            }
+        }
+
+        private void BackPath_Click(object sender, RoutedEventArgs e)
+        {
+            if (AvailableFilesView.Visibility == Visibility.Visible)
+            {
+                AvailableFilesView.Visibility = Visibility.Collapsed;
+                CModView.Visibility = Visibility.Visible;
+                return;
+            }
+
+            if (Directory.Exists(PathBox.Text) && PathBox.Text.Length > 0)
+            {
+                DirectoryInfo Parent = Directory.GetParent(PathBox.Text);
+
+                if (Parent != null)
+                {
+                    PathBox.Text = Parent.FullName;
+                    ScanPath();
+                }
+            }
         }
 
         public void UPDateMods(List<SkyrimEntry> Entries)
@@ -80,7 +177,7 @@ namespace PhoenixTranslator
                 {
                     this.Dispatcher.Invoke(new Action(() =>
                     {
-                        ModView.AddRow(UIHelper.CreateEntryLine(EntryBlocks).ToArray());
+                        ModView.AddRow(UIHelper.CreateEntryLine(this,EntryBlocks).ToArray());
                     }));
 
                     EntryBlocks.Clear();
@@ -97,26 +194,35 @@ namespace PhoenixTranslator
 
                 this.Dispatcher.Invoke(new Action(() =>
                 {
-                    ModView.AddRow(UIHelper.CreateEntryLine(EntryBlocks).ToArray());
+                    ModView.AddRow(UIHelper.CreateEntryLine(this,EntryBlocks).ToArray());
                 }));
             }
 
         }
-
-        private void Path_TextChanged(object sender, TextChangedEventArgs e)
+        public void ShowAvailableFiles(SkyrimEntry Entry, List<string>Files)
         {
+            AvailableFilesView.Visibility = Visibility.Visible;
+            CModView.Visibility = Visibility.Collapsed;
 
+            AvailableFileList.Items.Clear();
+
+            if (SearchInFo != null)
+            {
+                foreach (var File in SearchInFo[Entry])
+                {
+                    AvailableFileList.Items.Add(File);
+                }
+            }
+            else
+            {
+                foreach (var File in Files)
+                {
+                    AvailableFileList.Items.Add(File);
+                }
+            }
         }
 
-        private void SearchStr_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
-        }
-
-        private void SearchBox_KeyDown(object sender, KeyEventArgs e)
-        {
-
-        }
 
         private void Close_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -147,9 +253,38 @@ namespace PhoenixTranslator
             }
         }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ModFileDialog.Instance = new ModFileDialog();
+        }
+
         private void PathBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            PhoenixApp.SelfSetting.LastSetModFolder = PathBox.Text;
+        }
 
+        private void LoadCurrent_Click(object sender, RoutedEventArgs e)
+        {
+            if (AvailableFileList.SelectedItem != null)
+            {
+                string SelectedFile = AvailableFileList.SelectedItem.ToString();
+
+                PhoenixApp.WorkWin.Dispatcher.Invoke(new Action(() => {
+                    PhoenixApp.WorkWin.LoadFile(SelectedFile);
+                }));
+            }
+        }
+
+        private void LoadAll_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var GetFile in AvailableFileList.Items)
+            {
+                PhoenixApp.WorkWin.Dispatcher.Invoke(new Action(() => {
+                    PhoenixApp.WorkWin.LoadFile(GetFile.ToString());
+                }));
+            }
+
+            this.Close();
         }
     }
 }

@@ -529,7 +529,11 @@ public class YDListView
                 {
                     Grid Grid = UIHelper.CreateLine(FileRef, Row);
                     Grid.Tag = I;
-                    Grid.Width = this.Parent.ActualWidth - 15;
+                    try 
+                    { 
+                        Grid.Width = this.Parent.ActualWidth - 15;
+                    }
+                    catch { }
                     Grid.PreviewMouseLeftButtonDown += MainGrid_PreviewMouseLeftButtonDown;
                     Canvas.SetTop(Grid, CurrentTop);
                     Canvas.SetLeft(Grid, 0);

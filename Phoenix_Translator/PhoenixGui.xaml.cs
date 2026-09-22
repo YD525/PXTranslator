@@ -56,8 +56,6 @@ namespace PhoenixTranslator
         {
             try
             {
-                //new ModFileDialog().Show();
-
                 PhoenixApp.Init(this);
 
                 TranslatorInterface.Init();
@@ -592,16 +590,8 @@ namespace PhoenixTranslator
 
         public void LoadFile()
         {
-            var Dialog = new Microsoft.Win32.OpenFileDialog();
-            Dialog.Title = "Please select a file";
-            Dialog.Filter = "All files|*.*";
-            Dialog.Multiselect = false;
-
-            if (Dialog.ShowDialog() == true)
-            {
-                string SelectedFile = Dialog.FileName;
-                LoadFile(SelectedFile);
-            }
+            ModFileDialog.Instance.Owner = this;
+            ModFileDialog.Instance.Show();
         }
 
         public void LoadFile(string Path)
@@ -1446,10 +1436,11 @@ namespace PhoenixTranslator
         }
         public void SelectFristSettingNav()
         {
-            if (SettingNavs.Children.Count > 2)
+            int i = 3 + 1;
+            if (SettingNavs.Children.Count > i)
             {
-                if (SettingNavs.Children[2] is Border)
-                    SelectSettingNav((Border)SettingNavs.Children[2]);
+                if (SettingNavs.Children[i] is Border)
+                    SelectSettingNav((Border)SettingNavs.Children[i]);
             }
         }
 

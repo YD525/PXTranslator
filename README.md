@@ -1,4 +1,4 @@
-# Phoenix Translator
+# PX Translator
 
 **Phoenix Translator** is a free, open-source tool for Skyrim mod localization.
 
