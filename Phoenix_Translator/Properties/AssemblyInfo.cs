@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("PX Translator(SSE)")]
-[assembly: AssemblyCopyright("Copyright © Phoenix Translator(SSE)  2026")]
+[assembly: AssemblyCopyright("Copyright © PX Translator(SSE)  2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
