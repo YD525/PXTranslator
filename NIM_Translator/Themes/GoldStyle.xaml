@@ -1598,7 +1598,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="PhoenixTabItem" TargetType="TabItem">
+    <Style x:Key="NIMTabItem" TargetType="TabItem">
         <Setter Property="Padding" Value="12 6 8 6"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -1616,7 +1616,7 @@
 
                                 <TextBlock Name="Label" Grid.Column="1" Text="{TemplateBinding Header}" Foreground="#FFCFCFCF" FontSize="13.2" FontWeight="Medium" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
 
-                                <Border Name="CloseBtn" Cursor="Hand" Tag="PhoenixTabClose" Grid.Column="2" Width="16" Height="16" CornerRadius="4" Margin="8 0 0 0" Background="Transparent" Visibility="Collapsed">
+                                <Border Name="CloseBtn" Cursor="Hand" Tag="NIMTabClose" Grid.Column="2" Width="16" Height="16" CornerRadius="4" Margin="8 0 0 0" Background="Transparent" Visibility="Collapsed">
                                     <Viewbox Width="9" Height="9" Stretch="Uniform">
                                         <Canvas Width="12" Height="12">
                                             <Path Data="M2,2 L10,10 M10,2 L2,10" Stroke="#FF9A9A9A" StrokeThickness="1.4" StrokeStartLineCap="Round" StrokeEndLineCap="Round" IsHitTestVisible="False"/>
@@ -1660,8 +1660,8 @@
     </Style>
 
 
-    <Style x:Key="PhoenixTabControl" TargetType="TabControl">
-        <Setter Property="ItemContainerStyle" Value="{StaticResource PhoenixTabItem}"/>
+    <Style x:Key="NIMTabControl" TargetType="TabControl">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource NIMTabItem}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -1676,7 +1676,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Border Name="AddTabBtn" Grid.Column="0" Cursor="Hand" Tag="PhoenixTabAdd" Width="22" Height="22" Margin="0 0 6 0"
+                                <Border Name="AddTabBtn" Grid.Column="0" Cursor="Hand" Tag="NIMTabAdd" Width="22" Height="22" Margin="0 0 6 0"
                                 CornerRadius="5" Background="#FF2A2A2A" VerticalAlignment="Center">
                                     <Viewbox Width="10" Height="10" Stretch="Uniform">
                                         <Canvas Width="12" Height="12">

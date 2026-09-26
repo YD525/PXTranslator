@@ -5,11 +5,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using PhoenixEngine.Engine.ADO;
+using NIMEngine.Engine.ADO;
 using NIM.UIManagement;
-using PhoenixEngine.ADO;
-using PhoenixEngine.Memory;
-using PhoenixEngine.Translate;
+using NIMEngine.ADO;
+using NIMEngine.Memory;
+using NIMEngine.Translate;
 using NIM.ModParser;
 
 namespace NIM

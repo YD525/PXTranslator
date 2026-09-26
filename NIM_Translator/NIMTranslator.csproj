@@ -76,9 +76,9 @@
       <HintPath>$(DependencyRoot)\PexInterface.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PhoenixEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+    <Reference Include="NIMEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(DependencyRoot)\PhoenixEngine\PhoenixEngine.dll</HintPath>
+      <HintPath>$(DependencyRoot)\NIMEngine\NIMEngine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -472,7 +472,7 @@
       <Link>PEX.Interop.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="$(DependencyRoot)\PhoenixEngine\**\*.*" Exclude="$(DependencyRoot)\PhoenixEngine\PhoenixEngine.dll">
+    <Content Include="$(DependencyRoot)\NIMEngine\**\*.*" Exclude="$(DependencyRoot)\NIMEngine\NIMEngine.dll">
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -481,7 +481,7 @@
     <Error Condition="!Exists('$(DependencyRoot)\EspReader.dll')" Text="EspReader.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
     <Error Condition="!Exists('$(DependencyRoot)\PEX.Interop.dll')" Text="PEX.Interop.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
     <Error Condition="!Exists('$(DependencyRoot)\PexInterface.dll')" Text="PexInterface.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
-    <Error Condition="!Exists('$(DependencyRoot)\PhoenixEngine\PhoenixEngine.dll')" Text="PhoenixEngine.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
+    <Error Condition="!Exists('$(DependencyRoot)\NIMEngine\NIMEngine.dll')" Text="NIMEngine.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
   </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

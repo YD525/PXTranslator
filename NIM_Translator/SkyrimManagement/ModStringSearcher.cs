@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using NIM.ModParser;
-using PhoenixEngine.Language;
-using PhoenixEngine.Translate;
+using NIMEngine.Language;
+using NIMEngine.Translate;
 
 namespace NIM.SkyrimManagement
 {
@@ -89,11 +89,11 @@ namespace NIM.SkyrimManagement
             _Instance = new Translator("ModSearch", Languages.English, Languages.English, true);
 
             Esp = new EspReader();
-            Esp.Create(0,new PhoenixEngine.Memory.P_Dict<string, PhoenixEngine.Memory.P_String>());
+            Esp.Create(0,new NIMEngine.Memory.P_Dict<string, NIMEngine.Memory.P_String>());
             Pex = new PexReader();
-            Pex.Create(0, new PhoenixEngine.Memory.P_Dict<string, PhoenixEngine.Memory.P_String>());
+            Pex.Create(0,new NIMEngine.Memory.P_Dict<string, NIMEngine.Memory.P_String>());
             MCM = new MCMReader();
-            MCM.Create(0, new PhoenixEngine.Memory.P_Dict<string, PhoenixEngine.Memory.P_String>());
+            MCM.Create(0,new NIMEngine.Memory.P_Dict<string, NIMEngine.Memory.P_String>());
         }
 
         public void ChangeUniqueKey(int i)

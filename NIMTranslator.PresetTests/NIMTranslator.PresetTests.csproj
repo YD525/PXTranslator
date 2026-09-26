@@ -159,6 +159,7 @@
     <EmbeddedResource Include="..\NIM_Translator\Properties\Resources.resx">
       <Link>Properties\Resources.resx</Link>
       <LogicalName>PhoenixTranslator.Properties.Resources.resources</LogicalName>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

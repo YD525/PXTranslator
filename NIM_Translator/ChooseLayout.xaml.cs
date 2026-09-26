@@ -46,12 +46,12 @@ namespace NIM
 
         private void Modern_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            NIMApp.SelfSetting.Layout = PhoenixLayout.Modern;
+            NIMApp.SelfSetting.Layout = NIMLayout.Modern;
             RunModern();
         }
         private void Classic_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            NIMApp.SelfSetting.Layout = PhoenixLayout.Classic;
+            NIMApp.SelfSetting.Layout = NIMLayout.Classic;
             RunClassic();
         }
 
@@ -105,14 +105,14 @@ namespace NIM
             ChangeState(ModernState, ModernIsReady);
             ChangeState(ClassicState, ClassicIsReady);
 
-            if (NIMApp.SelfSetting.Layout != PhoenixLayout.Null)
+            if (NIMApp.SelfSetting.Layout != NIMLayout.Null)
             {
-                if (NIMApp.SelfSetting.Layout == PhoenixLayout.Modern)
+                if (NIMApp.SelfSetting.Layout == NIMLayout.Modern)
                 {
                     RunModern();
                 }
                 else
-                if (NIMApp.SelfSetting.Layout == PhoenixLayout.Classic)
+                if (NIMApp.SelfSetting.Layout == NIMLayout.Classic)
                 {
                     RunClassic();
                 }

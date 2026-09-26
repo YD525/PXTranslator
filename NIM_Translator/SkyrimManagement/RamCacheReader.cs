@@ -4,8 +4,8 @@ using System.Text;
 using Newtonsoft.Json;
 using NIM.SkyrimModManager;
 using NIM.TranslateManage;
-using PhoenixEngine.Translate;
-using PhoenixEngine.Memory;
+using NIMEngine.Translate;
+using NIMEngine.Memory;
 
 namespace NIM.SkyrimManagement
 {

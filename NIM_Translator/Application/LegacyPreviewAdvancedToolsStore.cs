@@ -6,10 +6,10 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Text;
-using PhoenixEngine;
-using PhoenixEngine.ADO;
-using PhoenixEngine.Platform;
-using PhoenixEngine.Translate;
+using NIMEngine;
+using NIMEngine.ADO;
+using NIMEngine.Platform;
+using NIMEngine.Translate;
 
 namespace NIM.ApplicationLayer
 {

@@ -7,10 +7,10 @@ using NIM.UIManagement;
 using System;
 using Newtonsoft.Json;
 using NIM.UIManage;
-using PhoenixEngine;
-using PhoenixEngine.Language;
-using PhoenixEngine.ADO;
-using PhoenixEngine.Engine.ADO;
+using NIMEngine;
+using NIMEngine.Language;
+using NIMEngine.ADO;
+using NIMEngine.Engine.ADO;
 using NIM.ApplicationLayer;
 using NIM.UIManagement.Preview;
 
@@ -190,7 +190,7 @@ namespace NIM
         }
     }
 
-    public enum PhoenixLayout
+    public enum NIMLayout
     {
        Null = 0, Modern = 1, Classic = 2
     }
@@ -250,7 +250,7 @@ namespace NIM
 
         public string CustomFilterStr { get; set; } = "";
 
-        public PhoenixLayout Layout { get; set; } = PhoenixLayout.Null;
+        public NIMLayout Layout { get; set; } = NIMLayout.Null;
 
         public void ReadConfig()
         {

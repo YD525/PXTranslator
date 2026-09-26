@@ -175,7 +175,7 @@ namespace NIM.ApplicationLayer
             try
             {
                 var builder = new StringBuilder();
-                builder.AppendLine("Phoenix Translator diagnostic report");
+                builder.AppendLine("NIM Translator diagnostic report");
                 builder.AppendLine("Generated (UTC): " + DateTime.UtcNow.ToString("u", CultureInfo.InvariantCulture));
                 builder.AppendLine();
                 builder.AppendLine("Components");

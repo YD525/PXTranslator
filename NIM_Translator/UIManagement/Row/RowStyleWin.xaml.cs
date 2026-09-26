@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using ICSharpCode.AvalonEdit;
 using NIM.SkyrimManagement;
 using NIM.UIManage;
-using PhoenixEngine.Translate;
-using PhoenixEngine.Additional;
-using PhoenixEngine.Unit;
-using PhoenixEngine.Common;
-using PhoenixEngine.Memory;
+using NIMEngine.Translate;
+using NIMEngine.Additional;
+using NIMEngine.Unit;
+using NIMEngine.Common;
+using NIMEngine.Memory;
 using NIM.ModParser;
 
 namespace NIM.UIManagement

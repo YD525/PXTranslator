@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using PhoenixEngine.Common;
-using PhoenixEngine.Memory;
+using NIMEngine.Common;
+using NIMEngine.Memory;
 
 namespace NIM.ModParser
 {

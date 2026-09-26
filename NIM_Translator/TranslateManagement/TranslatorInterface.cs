@@ -3,11 +3,11 @@ using NIM.UIManagement;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using PhoenixEngine.Events;
-using PhoenixEngine.P_Delegate;
-using PhoenixEngine.Unit;
-using PhoenixEngine.Platform;
-using static PhoenixEngine.Platform.HumanTranslationApi;
+using NIMEngine.Events;
+using NIMEngine.P_Delegate;
+using NIMEngine.Unit;
+using NIMEngine.Platform;
+using static NIMEngine.Platform.HumanTranslationApi;
 using System.Windows;
 
 namespace NIM.TranslateManage

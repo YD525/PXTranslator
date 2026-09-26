@@ -314,7 +314,7 @@ namespace NIM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use existing Phoenix placeholders as values: {API_KEY}, {AI_Prompt}, {AI_Model}, {SourceStr}, {P_From}, and {P_To}..
+        ///   Looks up a localized string similar to Use existing NIM placeholders as values: {API_KEY}, {AI_Prompt}, {AI_Model}, {SourceStr}, {P_From}, and {P_To}..
         /// </summary>
         internal static string Advanced_Custom_Placeholders_Hint {
             get {
@@ -3284,7 +3284,7 @@ namespace NIM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phoenix Translator.
+        ///   Looks up a localized string similar to NIM Translator.
         /// </summary>
         internal static string Shell_Product_Name {
             get {
@@ -3338,7 +3338,7 @@ namespace NIM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ESP, ESM, PEX, MCM, XML, or an existing Phoenix project.
+        ///   Looks up a localized string similar to ESP, ESM, PEX, MCM, XML, or an existing NIM project.
         /// </summary>
         internal static string Shell_ProjectOpen_SupportedFormats {
             get {
@@ -3455,7 +3455,7 @@ namespace NIM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phoenix Translator and its supporting Phoenix Engine, PexInterface, PexReader, and EspReader projects are maintained by their respective YD525 contributors. Third-party acknowledgements remain governed by the licenses distributed with each dependency..
+        ///   Looks up a localized string similar to NIM Translator and its supporting NIM Engine, PexInterface, PexReader, and EspReader projects are maintained by their respective YD525 contributors. Third-party acknowledgements remain governed by the licenses distributed with each dependency..
         /// </summary>
         internal static string ShellServices_Credits_Content {
             get {
@@ -3554,7 +3554,7 @@ namespace NIM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to License terms are distributed with Phoenix Translator and each bundled dependency. Use the component assembly names shown in About to match deployed binaries with their accompanying license files and release metadata..
+        ///   Looks up a localized string similar to License terms are distributed with NIM Translator and each bundled dependency. Use the component assembly names shown in About to match deployed binaries with their accompanying license files and release metadata..
         /// </summary>
         internal static string ShellServices_Licenses_Content {
             get {
@@ -3617,7 +3617,7 @@ namespace NIM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phoenix Translator could not start.
+        ///   Looks up a localized string similar to NIM Translator could not start.
         /// </summary>
         internal static string Startup_Failed_Title {
             get {
@@ -4265,7 +4265,7 @@ namespace NIM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ESP, ESM, ESL, PEX, MCM TXT, XML, and Phoenix RamCache JSON projects are supported..
+        ///   Looks up a localized string similar to ESP, ESM, ESL, PEX, MCM TXT, XML, and NIM RamCache JSON projects are supported..
         /// </summary>
         internal static string Workspace_Empty_Hint {
             get {
@@ -5048,7 +5048,7 @@ namespace NIM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export Phoenix RamCache.
+        ///   Looks up a localized string similar to Export NIM RamCache.
         /// </summary>
         internal static string Workspace_Tools_ExportRamCache_Title {
             get {
@@ -5093,7 +5093,7 @@ namespace NIM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import Phoenix RamCache.
+        ///   Looks up a localized string similar to Import NIM RamCache.
         /// </summary>
         internal static string Workspace_Tools_ImportRamCache_Title {
             get {
@@ -5183,7 +5183,7 @@ namespace NIM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phoenix RamCache (*.json)|*.json.
+        ///   Looks up a localized string similar to NIM RamCache (*.json)|*.json.
         /// </summary>
         internal static string Workspace_Tools_RamCache_Filter {
             get {
@@ -5192,7 +5192,7 @@ namespace NIM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Phoenix RamCache file was exported..
+        ///   Looks up a localized string similar to The NIM RamCache file was exported..
         /// </summary>
         internal static string Workspace_Tools_RamCacheExported {
             get {
@@ -5309,7 +5309,7 @@ namespace NIM.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phoenix translation table|*.tsv.
+        ///   Looks up a localized string similar to NIM translation table|*.tsv.
         /// </summary>
         internal static string Workspace_Tools_Table_Filter {
             get {

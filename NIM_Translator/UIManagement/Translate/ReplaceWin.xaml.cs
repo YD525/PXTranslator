@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using NIM.UIManagement;
-using PhoenixEngine.Common;
-using PhoenixEngine.Engine.ADO;
-using PhoenixEngine.Memory;
-using PhoenixEngine.Translate;
+using NIMEngine.Common;
+using NIMEngine.Engine.ADO;
+using NIMEngine.Memory;
+using NIMEngine.Translate;
 
 namespace NIM
 {

@@ -8,17 +8,17 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using NIM.UIManage;
-using PhoenixEngine;
-using PhoenixEngine.Common;
-using PhoenixEngine.Engine;
-using PhoenixEngine.Language;
-using PhoenixEngine.Memory;
-using PhoenixEngine.P_Delegate;
-using PhoenixEngine.Platform;
-using PhoenixEngine.Platform.LocalAI;
-using PhoenixEngine.Request;
-using PhoenixEngine.Translate;
-using PhoenixEngine.Unit;
+using NIMEngine;
+using NIMEngine.Common;
+using NIMEngine.Engine;
+using NIMEngine.Language;
+using NIMEngine.Memory;
+using NIMEngine.P_Delegate;
+using NIMEngine.Platform;
+using NIMEngine.Platform.LocalAI;
+using NIMEngine.Request;
+using NIMEngine.Translate;
+using NIMEngine.Unit;
 using NIM.ApplicationLayer;
 
 namespace NIM
@@ -430,7 +430,7 @@ namespace NIM
         private void TestCall(object sender, MouseButtonEventArgs e)
         {
             PlatformConfig NPlatformConfig = new PlatformConfig();
-            NPlatformConfig.Platform = PhoenixEngine.Translate.PlatformType.CustomPlatform;
+            NPlatformConfig.Platform = NIMEngine.Translate.PlatformType.CustomPlatform;
             NPlatformConfig.Enable = true;
 
             int TestID = 525;
@@ -610,7 +610,7 @@ namespace NIM
         private void FinishBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             PlatformConfig NPlatformConfig = new PlatformConfig();
-            NPlatformConfig.Platform = PhoenixEngine.Translate.PlatformType.CustomPlatform;
+            NPlatformConfig.Platform = NIMEngine.Translate.PlatformType.CustomPlatform;
             NPlatformConfig.Enable = false;
 
             CustomPlatform.QueryRule = QueryRule;

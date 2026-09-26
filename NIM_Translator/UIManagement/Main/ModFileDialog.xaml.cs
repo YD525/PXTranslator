@@ -291,8 +291,8 @@ namespace NIM
         //{
         //    foreach (var GetFile in AvailableFileList.Items)
         //    {
-        //        PhoenixApp.WorkWin.Dispatcher.Invoke(new Action(() => {
-        //            PhoenixApp.WorkWin.LoadFile(CurrentEntry.Path + GetFile.ToString());
+        //        NIMApp.WorkWin.Dispatcher.Invoke(new Action(() => {
+        //            NIMApp.WorkWin.LoadFile(CurrentEntry.Path + GetFile.ToString());
         //        }));
         //    }
 

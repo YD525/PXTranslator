@@ -7,10 +7,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using PhoenixEngine;
-using PhoenixEngine.Language;
-using PhoenixEngine.Platform;
-using PhoenixEngine.Translate;
+using NIMEngine;
+using NIMEngine.Language;
+using NIMEngine.Platform;
+using NIMEngine.Translate;
 using NIM.UIManage;
 
 namespace NIM.ApplicationLayer
