@@ -54,8 +54,8 @@ namespace NIM.UIManagement
             InitializeComponent();
         }
 
-        public PhoenixGui _Parent = null;
-        public void SetFile(PhoenixGui Parent, string Path)
+        public NIMGui _Parent = null;
+        public void SetFile(NIMGui Parent, string Path)
         {
             if (Mod == null)
             {

@@ -34,12 +34,12 @@ namespace NIM
     /// <summary>
     /// Interaction logic for LexGui.xaml
     /// </summary>
-    public partial class PhoenixGui : Window
+    public partial class NIMGui : Window
     {
         private readonly TranslationPresetCoordinator _translationPresetCoordinator;
         private bool _isUpdatingTranslationPresetControls;
         private readonly PreviewDiagnosticService _diagnostics;
-        internal PhoenixGui(PreviewDiagnosticService diagnostics)
+        internal NIMGui(PreviewDiagnosticService diagnostics)
         {
             _translationPresetCoordinator = new TranslationPresetCoordinator(
                 new TranslationPresetService(),

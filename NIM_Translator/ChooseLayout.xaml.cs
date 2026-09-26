@@ -37,7 +37,7 @@ namespace NIM
 
         private void RunClassic()
         {
-            NIMApp.WorkWin = new PhoenixGui(_diagnostics);
+            NIMApp.WorkWin = new NIMGui(_diagnostics);
             NIMApp.CurrentLayout = NIMApp.WorkWin;
             NIMApp.WorkWin.Show();
 

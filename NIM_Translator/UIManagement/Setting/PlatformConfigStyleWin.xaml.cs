@@ -20,8 +20,8 @@ namespace NIM.UIManagement
     /// </summary>
     public partial class PlatformConfigStyleWin : Window
     {
-        private PhoenixGui _Owner;
-        public PlatformConfigStyleWin(PhoenixGui Owner)
+        private NIMGui _Owner;
+        public PlatformConfigStyleWin(NIMGui Owner)
         {
             InitializeComponent();
             this._Owner = Owner;

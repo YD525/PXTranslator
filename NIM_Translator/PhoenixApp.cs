@@ -75,7 +75,7 @@ namespace NIM
 
         public static DataBaseView DataBaseView = null;
 
-        public static PhoenixGui WorkWin = null;
+        public static NIMGui WorkWin = null;
         public static Window CurrentLayout = null;
 
         public static CGView CG = null;
@@ -174,7 +174,7 @@ namespace NIM
                     }));
             });
         }
-        public static void Init(PhoenixGui Win)
+        public static void Init(NIMGui Win)
         {
             if (Win != null)
             {

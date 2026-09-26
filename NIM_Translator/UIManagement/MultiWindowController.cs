@@ -21,7 +21,7 @@ namespace NIM.UIManagement
             }
         }
 
-        private static void OpenCodeWin(ModFile Mod, PhoenixGui Win)
+        private static void OpenCodeWin(ModFile Mod, NIMGui Win)
         {
             if (CodeWin == null)
             {
@@ -44,7 +44,7 @@ namespace NIM.UIManagement
             }
         }
 
-        private static void OpenTrackingWin(ModFile Mod, PhoenixGui Win)
+        private static void OpenTrackingWin(ModFile Mod, NIMGui Win)
         {
             if (TrackingWin == null)
             {
@@ -168,7 +168,7 @@ namespace NIM.UIManagement
         public static object AttachLock = new object();
 
         private static CancellationTokenSource _DebounceTokenSource;
-        public static void AttachMod(string SelectKey, PhoenixGui CurrentWin, ModFile Mod)
+        public static void AttachMod(string SelectKey, NIMGui CurrentWin, ModFile Mod)
         {
             if (SelectKey == null || SelectKey == string.Empty)
             {
