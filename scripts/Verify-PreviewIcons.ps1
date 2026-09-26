@@ -5,7 +5,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $manifestPath = Join-Path $PSScriptRoot 'FluentIconSubset.json'
 $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
-$fontPath = Join-Path $ProjectRoot 'Assets\Fonts\PhoenixFluentIcons.ttf'
+$fontPath = Join-Path $ProjectRoot 'Assets\Fonts\NIMFluentIcons.ttf'
 $sourcePath = Join-Path $ProjectRoot 'ThirdParty\FluentSystemIcons\SOURCE.json'
 $registryPath = Join-Path $ProjectRoot 'Application\Generated\PreviewIconRegistry.g.cs'
 

@@ -4,7 +4,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $repositoryRoot = Split-Path -Parent $PSScriptRoot
-$runner = Join-Path $repositoryRoot 'PhoenixTranslator.PresetTests\bin\x64\Release\PhoenixTranslator.PresetTests.exe'
+$runner = Join-Path $repositoryRoot 'NIMTranslator.PresetTests\bin\x64\Release\NIMTranslator.PresetTests.exe'
 
 if (-not (Test-Path -LiteralPath $runner)) {
     throw 'Build the Release x64 solution before measuring preview performance.'
