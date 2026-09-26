@@ -171,7 +171,7 @@
     <Compile Include="UIManagement\Main\DataBaseView.xaml.cs">
       <DependentUpon>DataBaseView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PhoenixApp.cs" />
+    <Compile Include="NIMApp.cs" />
     <Compile Include="IDEManagement\CompleteHelper.cs" />
     <Compile Include="UIManagement\Translate\HistoryWindow.xaml.cs">
       <DependentUpon>HistoryWindow.xaml</DependentUpon>
