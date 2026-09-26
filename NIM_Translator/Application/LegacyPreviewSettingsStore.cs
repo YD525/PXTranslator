@@ -23,12 +23,12 @@ namespace NIM.ApplicationLayer
         /// <inheritdoc />
         public IReadOnlyList<PreviewProviderOption> GetProviders()
         {
-            if (PhoenixApp.EngineSetting?.PlatformConfigs == null)
+            if (NIMApp.EngineSetting?.PlatformConfigs == null)
             {
                 return new List<PreviewProviderOption>();
             }
 
-            return PhoenixApp.EngineSetting.PlatformConfigs
+            return NIMApp.EngineSetting.PlatformConfigs
                 .OrderBy(pair => GetProviderName(pair.Key, pair.Value), StringComparer.CurrentCultureIgnoreCase)
                 .Select(pair => new PreviewProviderOption(
                     pair.Key,
@@ -52,7 +52,7 @@ namespace NIM.ApplicationLayer
         /// <inheritdoc />
         public PreviewSettingsSnapshot Load()
         {
-            if (PhoenixApp.EngineSetting == null)
+            if (NIMApp.EngineSetting == null)
             {
                 throw new InvalidOperationException("Engine configuration is not initialized.");
             }
@@ -68,29 +68,29 @@ namespace NIM.ApplicationLayer
                 HasStoredCredential = provider?.ApiKeys?.Any(key => !string.IsNullOrWhiteSpace(key)) == true,
                 LocalPortText = (provider?.LocalPort > 0 ? provider.LocalPort : 1234)
                     .ToString(CultureInfo.InvariantCulture),
-                SourceLanguage = PhoenixApp.SelfSetting.SourceLanguage.ToString(),
-                TargetLanguage = PhoenixApp.SelfSetting.TargetLanguage.ToString(),
-                EnableLanguageDetection = PhoenixApp.SelfSetting.EnableLanguageDetect,
-                EnableContext = PhoenixApp.EngineSetting.ContextEnable,
-                ContextLimitText = PhoenixApp.EngineSetting.ContextLimit.ToString(CultureInfo.InvariantCulture),
-                AdditionalPrompt = PhoenixApp.EngineSetting.UserCustomAIPrompt ?? string.Empty,
-                PlaceholderPattern = PhoenixApp.SelfSetting.P_Placeholders ?? string.Empty,
-                GamePath = PhoenixApp.SelfSetting.SkyrimPath ?? string.Empty,
-                ShowAssembly = PhoenixApp.SelfSetting.ShowAssembly,
-                GenerateCSharp = PhoenixApp.SelfSetting.GenCSharp,
-                AutoUpdateDatabase = PhoenixApp.SelfSetting.AutoUpdateStringsFileToDatabase,
-                EnableGlobalSearch = PhoenixApp.EngineSetting.EnableGlobalSearch,
-                UiLanguage = PhoenixApp.SelfSetting.CurrentUILanguage.ToString(),
-                Density = string.IsNullOrWhiteSpace(PhoenixApp.SelfSetting.UiDensity)
+                SourceLanguage = NIMApp.SelfSetting.SourceLanguage.ToString(),
+                TargetLanguage = NIMApp.SelfSetting.TargetLanguage.ToString(),
+                EnableLanguageDetection = NIMApp.SelfSetting.EnableLanguageDetect,
+                EnableContext = NIMApp.EngineSetting.ContextEnable,
+                ContextLimitText = NIMApp.EngineSetting.ContextLimit.ToString(CultureInfo.InvariantCulture),
+                AdditionalPrompt = NIMApp.EngineSetting.UserCustomAIPrompt ?? string.Empty,
+                PlaceholderPattern = NIMApp.SelfSetting.P_Placeholders ?? string.Empty,
+                GamePath = NIMApp.SelfSetting.SkyrimPath ?? string.Empty,
+                ShowAssembly = NIMApp.SelfSetting.ShowAssembly,
+                GenerateCSharp = NIMApp.SelfSetting.GenCSharp,
+                AutoUpdateDatabase = NIMApp.SelfSetting.AutoUpdateStringsFileToDatabase,
+                EnableGlobalSearch = NIMApp.EngineSetting.EnableGlobalSearch,
+                UiLanguage = NIMApp.SelfSetting.CurrentUILanguage.ToString(),
+                Density = string.IsNullOrWhiteSpace(NIMApp.SelfSetting.UiDensity)
                     ? "Compact"
-                    : PhoenixApp.SelfSetting.UiDensity,
-                RightToLeft = PhoenixApp.SelfSetting.TextDisplay == TextLayout.RTL,
-                ProxyUrl = PhoenixApp.EngineSetting.ProxyUrl ?? string.Empty,
-                ProxyUserName = PhoenixApp.EngineSetting.ProxyUserName ?? string.Empty,
-                HasStoredProxyPassword = !string.IsNullOrEmpty(PhoenixApp.EngineSetting.ProxyPassword),
-                MaxThreadCountText = PhoenixApp.EngineSetting.MaxThreadCount.ToString(CultureInfo.InvariantCulture),
-                ThrottleRatioText = PhoenixApp.EngineSetting.ThrottleRatio.ToString(CultureInfo.InvariantCulture),
-                ThrottleDelayText = PhoenixApp.EngineSetting.ThrottleDelayMs.ToString(CultureInfo.InvariantCulture)
+                    : NIMApp.SelfSetting.UiDensity,
+                RightToLeft = NIMApp.SelfSetting.TextDisplay == TextLayout.RTL,
+                ProxyUrl = NIMApp.EngineSetting.ProxyUrl ?? string.Empty,
+                ProxyUserName = NIMApp.EngineSetting.ProxyUserName ?? string.Empty,
+                HasStoredProxyPassword = !string.IsNullOrEmpty(NIMApp.EngineSetting.ProxyPassword),
+                MaxThreadCountText = NIMApp.EngineSetting.MaxThreadCount.ToString(CultureInfo.InvariantCulture),
+                ThrottleRatioText = NIMApp.EngineSetting.ThrottleRatio.ToString(CultureInfo.InvariantCulture),
+                ThrottleDelayText = NIMApp.EngineSetting.ThrottleDelayMs.ToString(CultureInfo.InvariantCulture)
             };
         }
 
@@ -124,43 +124,43 @@ namespace NIM.ApplicationLayer
             Languages language;
             if (Enum.TryParse(settings.SourceLanguage, out language))
             {
-                PhoenixApp.SelfSetting.SourceLanguage = language;
+                NIMApp.SelfSetting.SourceLanguage = language;
             }
 
             if (Enum.TryParse(settings.TargetLanguage, out language))
             {
-                PhoenixApp.SelfSetting.TargetLanguage = language;
+                NIMApp.SelfSetting.TargetLanguage = language;
             }
 
             if (Enum.TryParse(settings.UiLanguage, out language))
             {
-                PhoenixApp.SelfSetting.CurrentUILanguage = language;
+                NIMApp.SelfSetting.CurrentUILanguage = language;
             }
 
-            PhoenixApp.SelfSetting.EnableLanguageDetect = settings.EnableLanguageDetection;
-            PhoenixApp.SelfSetting.P_Placeholders = settings.PlaceholderPattern;
-            PhoenixApp.SelfSetting.SkyrimPath = settings.GamePath;
-            PhoenixApp.SelfSetting.ShowAssembly = settings.ShowAssembly;
-            PhoenixApp.SelfSetting.GenCSharp = settings.GenerateCSharp;
-            PhoenixApp.SelfSetting.AutoUpdateStringsFileToDatabase = settings.AutoUpdateDatabase;
-            PhoenixApp.SelfSetting.UiDensity = settings.Density;
-            PhoenixApp.SelfSetting.TextDisplay = settings.RightToLeft ? TextLayout.RTL : TextLayout.LTR;
+            NIMApp.SelfSetting.EnableLanguageDetect = settings.EnableLanguageDetection;
+            NIMApp.SelfSetting.P_Placeholders = settings.PlaceholderPattern;
+            NIMApp.SelfSetting.SkyrimPath = settings.GamePath;
+            NIMApp.SelfSetting.ShowAssembly = settings.ShowAssembly;
+            NIMApp.SelfSetting.GenCSharp = settings.GenerateCSharp;
+            NIMApp.SelfSetting.AutoUpdateStringsFileToDatabase = settings.AutoUpdateDatabase;
+            NIMApp.SelfSetting.UiDensity = settings.Density;
+            NIMApp.SelfSetting.TextDisplay = settings.RightToLeft ? TextLayout.RTL : TextLayout.LTR;
 
-            PhoenixApp.EngineSetting.ContextEnable = settings.EnableContext;
-            PhoenixApp.EngineSetting.ContextLimit = int.Parse(settings.ContextLimitText, CultureInfo.InvariantCulture);
-            PhoenixApp.EngineSetting.UserCustomAIPrompt = settings.AdditionalPrompt.Trim();
-            PhoenixApp.EngineSetting.EnableGlobalSearch = settings.EnableGlobalSearch;
-            PhoenixApp.EngineSetting.ProxyUrl = settings.ProxyUrl.Trim();
-            PhoenixApp.EngineSetting.ProxyUserName = settings.ProxyUserName.Trim();
+            NIMApp.EngineSetting.ContextEnable = settings.EnableContext;
+            NIMApp.EngineSetting.ContextLimit = int.Parse(settings.ContextLimitText, CultureInfo.InvariantCulture);
+            NIMApp.EngineSetting.UserCustomAIPrompt = settings.AdditionalPrompt.Trim();
+            NIMApp.EngineSetting.EnableGlobalSearch = settings.EnableGlobalSearch;
+            NIMApp.EngineSetting.ProxyUrl = settings.ProxyUrl.Trim();
+            NIMApp.EngineSetting.ProxyUserName = settings.ProxyUserName.Trim();
             if (!string.IsNullOrEmpty(proxyPassword))
             {
-                PhoenixApp.EngineSetting.ProxyPassword = proxyPassword;
+                NIMApp.EngineSetting.ProxyPassword = proxyPassword;
             }
 
-            PhoenixApp.EngineSetting.MaxThreadCount = int.Parse(settings.MaxThreadCountText, CultureInfo.InvariantCulture);
-            PhoenixApp.EngineSetting.ThrottleRatio = double.Parse(settings.ThrottleRatioText, CultureInfo.InvariantCulture);
-            PhoenixApp.EngineSetting.ThrottleDelayMs = int.Parse(settings.ThrottleDelayText, CultureInfo.InvariantCulture);
-            PhoenixApp.SelfSetting.SaveConfig();
+            NIMApp.EngineSetting.MaxThreadCount = int.Parse(settings.MaxThreadCountText, CultureInfo.InvariantCulture);
+            NIMApp.EngineSetting.ThrottleRatio = double.Parse(settings.ThrottleRatioText, CultureInfo.InvariantCulture);
+            NIMApp.EngineSetting.ThrottleDelayMs = int.Parse(settings.ThrottleDelayText, CultureInfo.InvariantCulture);
+            NIMApp.SelfSetting.SaveConfig();
         }
 
         /// <inheritdoc />
@@ -321,7 +321,7 @@ namespace NIM.ApplicationLayer
 
             var proxy = new WebProxy(new Uri(settings.ProxyUrl, UriKind.Absolute));
             string password = string.IsNullOrEmpty(stagedProxyPassword)
-                ? PhoenixApp.EngineSetting?.ProxyPassword ?? string.Empty
+                ? NIMApp.EngineSetting?.ProxyPassword ?? string.Empty
                 : stagedProxyPassword;
             if (!string.IsNullOrWhiteSpace(settings.ProxyUserName) || !string.IsNullOrEmpty(password))
             {
@@ -348,13 +348,13 @@ namespace NIM.ApplicationLayer
 
         private static PlatformConfig GetProvider(int key)
         {
-            if (PhoenixApp.EngineSetting?.PlatformConfigs == null)
+            if (NIMApp.EngineSetting?.PlatformConfigs == null)
             {
                 return null;
             }
 
             PlatformConfig provider;
-            return PhoenixApp.EngineSetting.PlatformConfigs.TryGetValue(key, out provider) ? provider : null;
+            return NIMApp.EngineSetting.PlatformConfigs.TryGetValue(key, out provider) ? provider : null;
         }
 
         private static string GetProviderName(int key, PlatformConfig provider)

@@ -18,7 +18,7 @@ namespace NIM.TranslateManage
         {
             HumanTranslationApi.WaitHumanInput += new AwaitHumanTranslationHandler((Send) => 
             {
-                if (PhoenixApp.WorkWin == null)
+                if (NIMApp.WorkWin == null)
                 {
                     return string.Empty;
                 }
@@ -28,7 +28,7 @@ namespace NIM.TranslateManage
                 Application.Current.Dispatcher.Invoke(new Action(() => 
                 {
                     NInteractiveView = new InteractiveView();
-                    NInteractiveView.Owner = PhoenixApp.WorkWin;
+                    NInteractiveView.Owner = NIMApp.WorkWin;
                     NInteractiveView.SetSend(Send);
                 }));
 
@@ -110,9 +110,9 @@ namespace NIM.TranslateManage
                         LogHelper.SetOutputLog(GetCall.Platform.ToString() + "->\n" + GetCall.ReceiveString);
                     }
 
-                    if (PhoenixApp.ChartDataRef != null)
+                    if (NIMApp.ChartDataRef != null)
                     {
-                        PhoenixApp.ChartDataRef.SetCurrent(Length);
+                        NIMApp.ChartDataRef.SetCurrent(Length);
                     }
                 }
             }));
@@ -130,14 +130,14 @@ namespace NIM.TranslateManage
                 UnitContext<BaseUnit> Sign = new UnitContext<BaseUnit>();
                 Sign.Data = null;
 
-                PhoenixApp.WorkWin.Dispatcher.Invoke(new Action(() => {
-                    if (PhoenixApp.WorkWin != null)
+                NIMApp.WorkWin.Dispatcher.Invoke(new Action(() => {
+                    if (NIMApp.WorkWin != null)
                     {
-                        for (int i = 0; i < PhoenixApp.WorkWin.TabViews.Children.Count; i++)
+                        for (int i = 0; i < NIMApp.WorkWin.TabViews.Children.Count; i++)
                         {
-                            if (PhoenixApp.WorkWin.TabViews.Children[i] is TranslateView)
+                            if (NIMApp.WorkWin.TabViews.Children[i] is TranslateView)
                             {
-                                var Mod = (PhoenixApp.WorkWin.TabViews.Children[i] as TranslateView).Mod;
+                                var Mod = (NIMApp.WorkWin.TabViews.Children[i] as TranslateView).Mod;
 
                                 if (Mod.Path.Equals(ID))//The reason for using the file path as the primary key ID is that a user cannot translate two pieces of content with the same path at the same time, and there are also limitations in the outer layer I implemented..
                                 {
@@ -260,11 +260,11 @@ namespace NIM.TranslateManage
 
         public static void LogCall(string Log)
         {
-            if (PhoenixApp.WorkWin != null)
+            if (NIMApp.WorkWin != null)
             {
-                PhoenixApp.WorkWin.Dispatcher.Invoke(new Action(() =>
+                NIMApp.WorkWin.Dispatcher.Invoke(new Action(() =>
                 {
-                    PhoenixApp.WorkWin.MainLog.Text = Log;
+                    NIMApp.WorkWin.MainLog.Text = Log;
                 }));
             }
         }

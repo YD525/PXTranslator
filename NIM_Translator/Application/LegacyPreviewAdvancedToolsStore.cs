@@ -21,12 +21,12 @@ namespace NIM.ApplicationLayer
         /// <inheritdoc />
         public IReadOnlyList<PreviewPipelineEntry> LoadPipeline()
         {
-            if (PhoenixApp.EngineSetting?.PlatformConfigs == null)
+            if (NIMApp.EngineSetting?.PlatformConfigs == null)
             {
                 return new List<PreviewPipelineEntry>();
             }
 
-            return PhoenixApp.EngineSetting.PlatformConfigs.Select(pair => new PreviewPipelineEntry(
+            return NIMApp.EngineSetting.PlatformConfigs.Select(pair => new PreviewPipelineEntry(
                 pair.Key,
                 GetName(pair.Key, pair.Value),
                 GetGroup(pair.Value),
@@ -38,7 +38,7 @@ namespace NIM.ApplicationLayer
         public void SavePipeline(IReadOnlyList<PreviewPipelineEntry> entries)
         {
             if (entries == null) throw new ArgumentNullException(nameof(entries));
-            Dictionary<int, PlatformConfig> current = PhoenixApp.EngineSetting.PlatformConfigs;
+            Dictionary<int, PlatformConfig> current = NIMApp.EngineSetting.PlatformConfigs;
             if (current == null || entries.Count != current.Count || entries.Any(entry => !current.ContainsKey(entry.Key)))
             {
                 throw new InvalidOperationException("The provider pipeline changed while edits were staged.");
@@ -51,7 +51,7 @@ namespace NIM.ApplicationLayer
                 config.Enable = entry.IsEnabled;
                 ordered.Add(entry.Key, config);
             }
-            PhoenixApp.EngineSetting.PlatformConfigs = ordered;
+            NIMApp.EngineSetting.PlatformConfigs = ordered;
             Phoenix.SaveConfig();
         }
 
@@ -87,8 +87,8 @@ namespace NIM.ApplicationLayer
         public void SaveCustomProvider(PreviewCustomProviderDraft draft)
         {
             if (draft == null) throw new ArgumentNullException(nameof(draft));
-            int key = PhoenixApp.EngineSetting.PlatformConfigs.Count == 0 ? 1 : PhoenixApp.EngineSetting.PlatformConfigs.Keys.Max() + 1;
-            while (PhoenixApp.EngineSetting.PlatformConfigs.ContainsKey(key)) key++;
+            int key = NIMApp.EngineSetting.PlatformConfigs.Count == 0 ? 1 : NIMApp.EngineSetting.PlatformConfigs.Keys.Max() + 1;
+            while (NIMApp.EngineSetting.PlatformConfigs.ContainsKey(key)) key++;
             var custom = new CustomPlatformInFo
             {
                 CustomID = key,
@@ -107,7 +107,7 @@ namespace NIM.ApplicationLayer
             custom.Url_Tags = CreateTags(request.GetUrlKeyValues());
             custom.Header_Tags = CreateTags(request.GetHeaderKeyValues());
             custom.PayLoad_Tags = CreateTags(request.GetPayLoadKeyValues());
-            PhoenixApp.EngineSetting.PlatformConfigs.Add(key, new PlatformConfig(PlatformType.CustomPlatform)
+            NIMApp.EngineSetting.PlatformConfigs.Add(key, new PlatformConfig(PlatformType.CustomPlatform)
             {
                 Enable = false,
                 Model = draft.Model?.Trim() ?? string.Empty,
@@ -144,23 +144,23 @@ namespace NIM.ApplicationLayer
         {
             return new[]
             {
-                Pair("ChatGPT", PhoenixApp.SelfSetting.ChatGPTTokenUsage),
-                Pair("Gemini", PhoenixApp.SelfSetting.GeminiTokenUsage),
-                Pair("Cohere", PhoenixApp.SelfSetting.CohereTokenUsage),
-                Pair("DeepSeek", PhoenixApp.SelfSetting.DeepSeekTokenUsage),
-                Pair("Local AI", PhoenixApp.SelfSetting.LocalAITokenUsage)
+                Pair("ChatGPT", NIMApp.SelfSetting.ChatGPTTokenUsage),
+                Pair("Gemini", NIMApp.SelfSetting.GeminiTokenUsage),
+                Pair("Cohere", NIMApp.SelfSetting.CohereTokenUsage),
+                Pair("DeepSeek", NIMApp.SelfSetting.DeepSeekTokenUsage),
+                Pair("Local AI", NIMApp.SelfSetting.LocalAITokenUsage)
             };
         }
 
         /// <inheritdoc />
         public void ClearTokenUsage()
         {
-            PhoenixApp.SelfSetting.ChatGPTTokenUsage = 0;
-            PhoenixApp.SelfSetting.GeminiTokenUsage = 0;
-            PhoenixApp.SelfSetting.CohereTokenUsage = 0;
-            PhoenixApp.SelfSetting.DeepSeekTokenUsage = 0;
-            PhoenixApp.SelfSetting.LocalAITokenUsage = 0;
-            PhoenixApp.SelfSetting.SaveConfig();
+            NIMApp.SelfSetting.ChatGPTTokenUsage = 0;
+            NIMApp.SelfSetting.GeminiTokenUsage = 0;
+            NIMApp.SelfSetting.CohereTokenUsage = 0;
+            NIMApp.SelfSetting.DeepSeekTokenUsage = 0;
+            NIMApp.SelfSetting.LocalAITokenUsage = 0;
+            NIMApp.SelfSetting.SaveConfig();
         }
 
         private static HttpClient CreateProviderProbeClient()

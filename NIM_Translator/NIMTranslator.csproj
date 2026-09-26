@@ -453,7 +453,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="logo.ico" />
-    <Resource Include="Assets\Fonts\PhoenixFluentIcons.ttf" />
+    <Resource Include="Assets\Fonts\NIMFluentIcons.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ThirdParty\FluentSystemIcons\LICENSE.txt" />

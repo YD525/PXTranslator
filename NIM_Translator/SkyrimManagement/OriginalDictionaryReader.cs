@@ -48,7 +48,7 @@ namespace NIM.SkyrimManage
         public bool CheckDictionary()
         {
             string ModName = CurrentModName;
-            string SetPath = PhoenixApp.GetFullPath(@"\Library\" + ModName + ".Json");
+            string SetPath = NIMApp.GetFullPath(@"\Library\" + ModName + ".Json");
             if (File.Exists(SetPath))
             {
                 return true;
@@ -81,7 +81,7 @@ namespace NIM.SkyrimManage
         public void CreateDictionary()
         {
             string ModName = CurrentModName;
-            string SetPath = PhoenixApp.GetFullPath(@"\Library\" + ModName) + ".Json";
+            string SetPath = NIMApp.GetFullPath(@"\Library\" + ModName) + ".Json";
 
             CurrentFile = new OriginalDictionary();
 
@@ -107,7 +107,7 @@ namespace NIM.SkyrimManage
             CurrentModName = ModName;
             Dictionary.Clear();
 
-            string SetPath = PhoenixApp.GetFullPath(@"\Library\" + ModName) + ".Json";
+            string SetPath = NIMApp.GetFullPath(@"\Library\" + ModName) + ".Json";
             if (File.Exists(SetPath))
             {
                 string GetData = Encoding.UTF8.GetString(DataHelper.ReadFile(SetPath));

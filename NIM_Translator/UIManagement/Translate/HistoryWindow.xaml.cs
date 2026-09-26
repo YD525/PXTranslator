@@ -25,7 +25,7 @@ namespace NIM
 
             this.FileUniqueKey = FileUniqueKey;
 
-            this.Owner = PhoenixApp.WorkWin;
+            this.Owner = NIMApp.WorkWin;
 
             if (!this.Resources.Contains("CurrentStatusConverter"))
             {
@@ -39,9 +39,9 @@ namespace NIM
         {
             double Gap = 3;
 
-            this.Left = PhoenixApp.WorkWin.Left;
-            this.Top = (PhoenixApp.WorkWin.Top - this.ActualHeight) - Gap;
-            this.Width = PhoenixApp.WorkWin.Width;
+            this.Left = NIMApp.WorkWin.Left;
+            this.Top = (NIMApp.WorkWin.Top - this.ActualHeight) - Gap;
+            this.Width = NIMApp.WorkWin.Width;
         }
 
         private void OwnerMainWindow_LocationChanged(object Sender, EventArgs E)
@@ -58,14 +58,14 @@ namespace NIM
         {
             LoadHistoryData();
 
-            PhoenixApp.WorkWin.LocationChanged += OwnerMainWindow_LocationChanged;
-            PhoenixApp.WorkWin.SizeChanged += OwnerMainWindow_SizeChanged;
+            NIMApp.WorkWin.LocationChanged += OwnerMainWindow_LocationChanged;
+            NIMApp.WorkWin.SizeChanged += OwnerMainWindow_SizeChanged;
         }
 
         private void Window_Closing(object Sender, System.ComponentModel.CancelEventArgs E)
         {
-            PhoenixApp.WorkWin.LocationChanged -= OwnerMainWindow_LocationChanged;
-            PhoenixApp.WorkWin.SizeChanged -= OwnerMainWindow_SizeChanged;
+            NIMApp.WorkWin.LocationChanged -= OwnerMainWindow_LocationChanged;
+            NIMApp.WorkWin.SizeChanged -= OwnerMainWindow_SizeChanged;
 
             if (TranslateView.CurrentHistory == this)
             {
@@ -89,7 +89,7 @@ namespace NIM
 
         public string GetOriginal(string Key)
         {
-            var Tab = PhoenixApp.WorkWin?.ActiveTab;
+            var Tab = NIMApp.WorkWin?.ActiveTab;
 
             if (Tab?.Mod.Type == SkyrimManagement.GameFileType.ESP)
             {
@@ -134,7 +134,7 @@ namespace NIM
 
                 var RawItems = HistoryDBCache.GetHistoryItems(
                     FileUniqueKey,
-                    (int)PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.To
+                    (int)NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To
                 );
 
                 var List = RawItems
@@ -340,7 +340,7 @@ namespace NIM
 
                 if (HistoryItem != null)
                 {
-                    PhoenixApp.WorkWin.ActiveTab.TransListView.Goto(HistoryItem.Key);
+                    NIMApp.WorkWin.ActiveTab.TransListView.Goto(HistoryItem.Key);
                 }
 
                 RefreshData();
@@ -356,31 +356,31 @@ namespace NIM
 
                 if (HistoryItem != null)
                 {
-                    PhoenixApp.WorkWin.ActiveTab.TransListView.Goto(HistoryItem.Key);
+                    NIMApp.WorkWin.ActiveTab.TransListView.Goto(HistoryItem.Key);
 
                     HistoryDBCache.SelectID(this.FileUniqueKey,ID);
 
-                    var Row = PhoenixApp.WorkWin.ActiveTab.TransListView.KeyToFakeGrid(HistoryItem.Key);
+                    var Row = NIMApp.WorkWin.ActiveTab.TransListView.KeyToFakeGrid(HistoryItem.Key);
                     bool IsCloud = false;
-                    Row.SyncData(PhoenixApp.WorkWin.ActiveTab.Mod, ref IsCloud);
+                    Row.SyncData(NIMApp.WorkWin.ActiveTab.Mod, ref IsCloud);
 
                     if (IsCloud)
                     {
-                        CloudDBCache.DeleteCache(HistoryItem.FileUniqueKey, HistoryItem.Key, PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.To);
+                        CloudDBCache.DeleteCache(HistoryItem.FileUniqueKey, HistoryItem.Key, NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To);
                     }
                     else
                     {
-                        LocalDBCache.DeleteCache(HistoryItem.FileUniqueKey, HistoryItem.Key, PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.To);
+                        LocalDBCache.DeleteCache(HistoryItem.FileUniqueKey, HistoryItem.Key, NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To);
                     }
 
                     string NewText = HistoryItem.CurrentText;
-                    PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.AutoSetLink(HistoryItem.Key, Row.Source, new P_String(HistoryItem.CurrentText, 0, HistoryItem.RangeID));
+                    NIMApp.WorkWin.ActiveTab.Mod.P_Translator.AutoSetLink(HistoryItem.Key, Row.Source, new P_String(HistoryItem.CurrentText, 0, HistoryItem.RangeID));
 
                     Row.Translated = NewText;
 
-                    for (int i = 0; i < PhoenixApp.WorkWin.ActiveTab.TransListView.Rows; i++)
+                    for (int i = 0; i < NIMApp.WorkWin.ActiveTab.TransListView.Rows; i++)
                     {
-                        PhoenixApp.WorkWin.ActiveTab.TransListView.RealLines[i].SyncUI(PhoenixApp.WorkWin.ActiveTab.TransListView);
+                        NIMApp.WorkWin.ActiveTab.TransListView.RealLines[i].SyncUI(NIMApp.WorkWin.ActiveTab.TransListView);
                     }
 
                     RefreshData();

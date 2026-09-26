@@ -85,7 +85,7 @@ namespace NIM.UIManagement.Preview
     public sealed class PreviewIcon : TextBlock
     {
         private static readonly FontFamily FluentFont = new FontFamily(
-            new Uri("pack://application:,,,/NIM;component/", UriKind.Absolute),
+            new Uri("pack://application:,,,/NIMTranslator;component/", UriKind.Absolute),
             "./Assets/Fonts/#FluentSystemIcons-Regular");
         private static readonly bool IsEmbeddedFontAvailable = CheckEmbeddedFont();
 
@@ -136,7 +136,7 @@ namespace NIM.UIManagement.Preview
             try
             {
                 var resource = Application.GetResourceStream(
-                    new Uri("/NIM;component/Assets/Fonts/PhoenixFluentIcons.ttf", UriKind.Relative));
+                    new Uri("/NIMTranslator;component/Assets/Fonts/NIMFluentIcons.ttf", UriKind.Relative));
                 resource?.Stream.Dispose();
                 return resource != null;
             }

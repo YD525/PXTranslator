@@ -31,7 +31,7 @@ namespace NIM.IDEManagement
 
         private void OnPreviewKeyDown(object Sender, KeyEventArgs E)
         {
-            if (!PhoenixApp.SelfSetting.WordCompletion) return;
+            if (!NIMApp.SelfSetting.WordCompletion) return;
             if (E.Key == Key.Back)
             {
                 _LastPrefix = null;
@@ -60,7 +60,7 @@ namespace NIM.IDEManagement
 
         private void OnTextEntered(object Sender, TextCompositionEventArgs E)
         {
-            if (!PhoenixApp.SelfSetting.WordCompletion) return;
+            if (!NIMApp.SelfSetting.WordCompletion) return;
             if (string.IsNullOrEmpty(E.Text)) return;
             char C = E.Text[0];
 
@@ -75,7 +75,7 @@ namespace NIM.IDEManagement
 
         private void OnTextEntering(object Sender, TextCompositionEventArgs E)
         {
-            if (!PhoenixApp.SelfSetting.WordCompletion) return;
+            if (!NIMApp.SelfSetting.WordCompletion) return;
             if (_Completion == null || E.Text.Length == 0) return;
             char C = E.Text[0];
             if (C == ' ' || C == '\t')
@@ -136,7 +136,7 @@ namespace NIM.IDEManagement
             _Completion.CloseWhenCaretAtBeginning = false;
             _Completion.PreviewKeyDown += (s, e) =>
             {
-                if (!PhoenixApp.SelfSetting.WordCompletion) return;
+                if (!NIMApp.SelfSetting.WordCompletion) return;
                 if (e.Key == Key.Space || e.Key == Key.Enter)
                 {
                     _Completion.Close();
@@ -185,7 +185,7 @@ namespace NIM.IDEManagement
             return Start < Offset ? Doc.GetText(Start, Offset - Start) : string.Empty;
         }
 
-        private WordAutoComplete GetActiveCompleter() => PhoenixApp.WordCompleter;
+        private WordAutoComplete GetActiveCompleter() => NIMApp.WordCompleter;
 
         private static void StyleCompletionWindow(CompletionWindow Win)
         {
@@ -254,12 +254,12 @@ namespace NIM.IDEManagement
         {
             if (WordAutoComplete.WordCompleters.ContainsKey(Lang))
             {
-                PhoenixApp.WordCompleter = WordAutoComplete.WordCompleters[Lang];
+                NIMApp.WordCompleter = WordAutoComplete.WordCompleters[Lang];
                 View.ShowWordCompletion();
             }
             else
             {
-                PhoenixApp.WordCompleter = null;
+                NIMApp.WordCompleter = null;
                 View.HideWordCompletion();
             }
         }

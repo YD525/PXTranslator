@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Input;
 using PhoenixEngine;
 using NIM.ApplicationLayer;
-using NIM.UIManagement.Preview;
 
 namespace NIM
 {
@@ -31,7 +30,7 @@ namespace NIM
         {
             if (!_startupSucceeded)
             {
-                PhoenixApp.CloseAny();
+                NIMApp.CloseAny();
             }
         }
 
@@ -67,7 +66,7 @@ namespace NIM
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Version.Content = PhoenixApp.CurrentVersion;
+            Version.Content = NIMApp.CurrentVersion;
             await InitializeAsync();
         }
 
@@ -85,10 +84,10 @@ namespace NIM
             _diagnostics.Record(PreviewDiagnosticSeverity.Information, "startup.initialization.started");
             try
             {
-                string applicationPath = PhoenixApp.GetFullPath(@"\");
+                string applicationPath = NIMApp.GetFullPath(@"\");
                 await Task.Run(() =>
                 {
-                    PhoenixApp.PrepareFileDirectory();
+                    NIMApp.PrepareFileDirectory();
                     Phoenix.Init(applicationPath, step => SetLogMessage(GetStartupMessageId(step)));
                 });
                 SetLogMessage("Startup_Launching");

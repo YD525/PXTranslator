@@ -74,13 +74,13 @@ namespace NIM
                 Button.Click += ClearBtn_Click;
             }
 
-            if (PhoenixApp.SelfSetting.LastSetModFolder != null)
+            if (NIMApp.SelfSetting.LastSetModFolder != null)
             {
-                if (PhoenixApp.SelfSetting.LastSetModFolder.Length > 0)
+                if (NIMApp.SelfSetting.LastSetModFolder.Length > 0)
                 {
-                    if (Directory.Exists(PhoenixApp.SelfSetting.LastSetModFolder))
+                    if (Directory.Exists(NIMApp.SelfSetting.LastSetModFolder))
                     {
-                        PathBox.Text = PhoenixApp.SelfSetting.LastSetModFolder;
+                        PathBox.Text = NIMApp.SelfSetting.LastSetModFolder;
                         ScanPath();
                     }
                 }
@@ -270,7 +270,7 @@ namespace NIM
 
         private void PathBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            PhoenixApp.SelfSetting.LastSetModFolder = PathBox.Text;
+            NIMApp.SelfSetting.LastSetModFolder = PathBox.Text;
         }
 
         private void LoadCurrent_Click(object sender, RoutedEventArgs e)
@@ -279,8 +279,8 @@ namespace NIM
             {
                 string SelectedFile = AvailableFileList.SelectedItem.ToString();
 
-                PhoenixApp.WorkWin.Dispatcher.Invoke(new Action(() => {
-                    PhoenixApp.WorkWin.LoadFile(CurrentEntry.Path + SelectedFile);
+                NIMApp.WorkWin.Dispatcher.Invoke(new Action(() => {
+                    NIMApp.WorkWin.LoadFile(CurrentEntry.Path + SelectedFile);
                 }));
 
                 this.Hide();
