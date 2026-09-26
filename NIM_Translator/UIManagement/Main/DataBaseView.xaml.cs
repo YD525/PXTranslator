@@ -680,8 +680,8 @@ namespace NIM
 
         private static readonly Dictionary<string, Func<string>> BracketDefaults = new Dictionary<string, Func<string>>
         {
-            ["From"] = () => ((int)PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.From).ToString(),
-            ["To"] = () => ((int)PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.To).ToString(),
+            ["From"] = () => ((int)NIMApp.WorkWin.ActiveTab.Mod.P_Translator.From).ToString(),
+            ["To"] = () => ((int)NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To).ToString(),
         };
 
         private string[] ResolveColumns(string TableOrAlias)

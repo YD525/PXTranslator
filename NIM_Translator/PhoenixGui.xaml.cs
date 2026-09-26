@@ -56,7 +56,7 @@ namespace NIM
         {
             try
             {
-                PhoenixApp.Init(this);
+                NIMApp.Init(this);
 
                 TranslatorInterface.Init();
 
@@ -68,28 +68,28 @@ namespace NIM
                 UIHelper.SyncNodes(Nodes);
 
                 //If you like anime, you can place a CG.png in the program's installation directory, making sure the dimensions are correct. It will display an anime character at the top of the software.
-                string CheckCGPath = PhoenixApp.GetFullPath(@"\CG.png");
+                string CheckCGPath = NIMApp.GetFullPath(@"\CG.png");
                 if (File.Exists(CheckCGPath))
                 {
-                    PhoenixApp.CG = new CGView();
-                    PhoenixApp.CG.Hide();
-                    PhoenixApp.CG.CG.Source = new BitmapImage(new Uri(CheckCGPath));
+                    NIMApp.CG = new CGView();
+                    NIMApp.CG.Hide();
+                    NIMApp.CG.CG.Source = new BitmapImage(new Uri(CheckCGPath));
 
-                    PhoenixApp.CG.Owner = this;
-                    PhoenixApp.CG.Show();
+                    NIMApp.CG.Owner = this;
+                    NIMApp.CG.Show();
                     SyncCGLocation();
                 }
 
                 YDChart.SetAction(
                   new Action<RealtimeLineChart>((Ref) =>
                   {
-                      Ref.PushValue(PhoenixApp.ChartDataRef.GetCurrent());
+                      Ref.PushValue(NIMApp.ChartDataRef.GetCurrent());
                   }),
                   new Action<RealtimeLineChart>((Ref) =>
                   {
-                      Ref.PushValue(PhoenixApp.ChartDataRef.Total);
+                      Ref.PushValue(NIMApp.ChartDataRef.Total);
                   }),
-                  PhoenixApp.ChartDataRef
+                  NIMApp.ChartDataRef
                  );
 
                 EngineEvents.SetBookTranslateCallback += BookTransCallBack;
@@ -134,7 +134,7 @@ namespace NIM
                 TranslateConfigView.SFrom.SelectedValue = Languages.English.ToString();
             }
 
-            TranslateConfigView.STo.SelectedValue = PhoenixApp.SelfSetting.TargetLanguage.ToString();
+            TranslateConfigView.STo.SelectedValue = NIMApp.SelfSetting.TargetLanguage.ToString();
         }
 
         public void BookTransCallBack(string Key, string CurrentText)
@@ -151,10 +151,10 @@ namespace NIM
 
         public void SyncCGLocation()
         {
-            if (PhoenixApp.CG != null)
+            if (NIMApp.CG != null)
             {
-                PhoenixApp.CG.Top = (this.Top - PhoenixApp.CG.ActualHeight) + 1;
-                PhoenixApp.CG.Left = this.Left + 100;
+                NIMApp.CG.Top = (this.Top - NIMApp.CG.ActualHeight) + 1;
+                NIMApp.CG.Left = this.Left + 100;
             }
         }
 
@@ -329,13 +329,13 @@ namespace NIM
         {
             if (CanExit)
             {
-                PhoenixApp.CloseAny();
+                NIMApp.CloseAny();
             }
         }
 
         private void Close_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            PhoenixApp.CloseAny();
+            NIMApp.CloseAny();
         }
 
         #endregion
@@ -396,7 +396,7 @@ namespace NIM
                             YDChart.Stop();
                             PageIndex = 0;
                             StartLexGlowLoop();
-                            PhoenixVer.Content = PhoenixApp.CurrentVersion;
+                            PhoenixVer.Content = NIMApp.CurrentVersion;
                             EngineVer.Content = Phoenix.Version;
                             PEXAnalysisVer.Content = PexHeuristicAnalysis.Version;
                             PEXReaderVer.Content = PexInterop.Version;
@@ -1118,33 +1118,33 @@ namespace NIM
             List<PlatformConfig> LocalAIs = new List<PlatformConfig>();
             List<PlatformConfig> TraditionalPlatforms = new List<PlatformConfig>();
 
-            for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+            for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
             {
-                var Key = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                var Key = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                if (PhoenixApp.EngineSetting.PlatformConfigs[Key].CustomInFo != null)
+                if (NIMApp.EngineSetting.PlatformConfigs[Key].CustomInFo != null)
                 {
-                    if (PhoenixApp.EngineSetting.PlatformConfigs[Key].CustomInFo.Type == CustomPlatformType.CloudAI)
+                    if (NIMApp.EngineSetting.PlatformConfigs[Key].CustomInFo.Type == CustomPlatformType.CloudAI)
                     {
-                        CloudAIs.Add(PhoenixApp.EngineSetting.PlatformConfigs[Key]);
+                        CloudAIs.Add(NIMApp.EngineSetting.PlatformConfigs[Key]);
                     }
                     else
-                    if (PhoenixApp.EngineSetting.PlatformConfigs[Key].CustomInFo.Type == CustomPlatformType.LocalAI)
+                    if (NIMApp.EngineSetting.PlatformConfigs[Key].CustomInFo.Type == CustomPlatformType.LocalAI)
                     {
-                        LocalAIs.Add(PhoenixApp.EngineSetting.PlatformConfigs[Key]);
+                        LocalAIs.Add(NIMApp.EngineSetting.PlatformConfigs[Key]);
                     }
                     else
-                    if (PhoenixApp.EngineSetting.PlatformConfigs[Key].CustomInFo.Type == CustomPlatformType.Traditional)
+                    if (NIMApp.EngineSetting.PlatformConfigs[Key].CustomInFo.Type == CustomPlatformType.Traditional)
                     {
-                        TraditionalPlatforms.Add(PhoenixApp.EngineSetting.PlatformConfigs[Key]);
+                        TraditionalPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[Key]);
                     }
                 }
             }
 
-            for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+            for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
             {
-                var Key = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                var GetPlatform = PhoenixApp.EngineSetting.PlatformConfigs[Key];
+                var Key = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                var GetPlatform = NIMApp.EngineSetting.PlatformConfigs[Key];
 
                 if (GetPlatform.Platform == PlatformType.ChatGpt ||
                    GetPlatform.Platform == PlatformType.Gemini ||
@@ -1163,7 +1163,7 @@ namespace NIM
                                     Models.Add("gpt-4.1-mini");
                                     Models.Add("gpt-4o-mini");
 
-                                    KeyConfigBlocks.Children.Add(PhoenixApp.PlatformConfigStyleWin.GenCloudAIConfig(0, "ChatGpt", "https://platform.openai.com/api-keys", true, GetPlatform.ApiKeys, GetPlatform.Model, CustomPlatformType.CloudAI, Models));
+                                    KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenCloudAIConfig(0, "ChatGpt", "https://platform.openai.com/api-keys", true, GetPlatform.ApiKeys, GetPlatform.Model, CustomPlatformType.CloudAI, Models));
                                 }
                                 break;
                             case PlatformType.Gemini:
@@ -1172,7 +1172,7 @@ namespace NIM
                                     Models.Add("gemini-2.5-flash");
                                     Models.Add("gemini-2.0-flash");
 
-                                    KeyConfigBlocks.Children.Add(PhoenixApp.PlatformConfigStyleWin.GenCloudAIConfig(0, "Gemini", "https://aistudio.google.com/apikey", true, GetPlatform.ApiKeys, GetPlatform.Model, CustomPlatformType.CloudAI, Models));
+                                    KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenCloudAIConfig(0, "Gemini", "https://aistudio.google.com/apikey", true, GetPlatform.ApiKeys, GetPlatform.Model, CustomPlatformType.CloudAI, Models));
                                 }
                                 break;
                             case PlatformType.DeepSeek:
@@ -1180,7 +1180,7 @@ namespace NIM
                                     List<string> Models = new List<string>();
                                     Models.Add("deepseek-v4-pro");
 
-                                    KeyConfigBlocks.Children.Add(PhoenixApp.PlatformConfigStyleWin.GenCloudAIConfig(0, "DeepSeek", "https://platform.deepseek.com/api_keys", true, GetPlatform.ApiKeys, GetPlatform.Model, CustomPlatformType.CloudAI, Models));
+                                    KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenCloudAIConfig(0, "DeepSeek", "https://platform.deepseek.com/api_keys", true, GetPlatform.ApiKeys, GetPlatform.Model, CustomPlatformType.CloudAI, Models));
                                 }
                                 break;
                         }
@@ -1190,13 +1190,13 @@ namespace NIM
 
             foreach (var CustomPlatform in CloudAIs)
             {
-                KeyConfigBlocks.Children.Add(PhoenixApp.PlatformConfigStyleWin.GenCloudAIConfig(CustomPlatform.CustomInFo.CustomID, CustomPlatform.CustomInFo.Name, string.Empty, false, CustomPlatform.ApiKeys, CustomPlatform.Model, CustomPlatformType.CloudAI, new List<string>() { CustomPlatform.Model }));
+                KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenCloudAIConfig(CustomPlatform.CustomInFo.CustomID, CustomPlatform.CustomInFo.Name, string.Empty, false, CustomPlatform.ApiKeys, CustomPlatform.Model, CustomPlatformType.CloudAI, new List<string>() { CustomPlatform.Model }));
             }
 
-            for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+            for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
             {
-                var Key = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                var GetPlatform = PhoenixApp.EngineSetting.PlatformConfigs[Key];
+                var Key = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                var GetPlatform = NIMApp.EngineSetting.PlatformConfigs[Key];
 
                 if (GetPlatform.Platform == PlatformType.LMLocalAI)
                 {
@@ -1206,7 +1206,7 @@ namespace NIM
                         {
                             case PlatformType.LMLocalAI:
                                 {
-                                    KeyConfigBlocks.Children.Add(PhoenixApp.PlatformConfigStyleWin.GenLocalAIConfig(0, "LM Studio", "https://lmstudio.ai/docs/developer", true, GetPlatform.LocalPort, LMStudio.CurrentModel, CustomPlatformType.LocalAI));
+                                    KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenLocalAIConfig(0, "LM Studio", "https://lmstudio.ai/docs/developer", true, GetPlatform.LocalPort, LMStudio.CurrentModel, CustomPlatformType.LocalAI));
                                 }
                                 break;
                         }
@@ -1216,13 +1216,13 @@ namespace NIM
 
             foreach (var CustomPlatform in LocalAIs)
             {
-                KeyConfigBlocks.Children.Add(PhoenixApp.PlatformConfigStyleWin.GenLocalAIConfig(CustomPlatform.CustomInFo.CustomID, CustomPlatform.CustomInFo.Name, string.Empty, false, CustomPlatform.LocalPort, CustomPlatform.Model, CustomPlatformType.LocalAI));
+                KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenLocalAIConfig(CustomPlatform.CustomInFo.CustomID, CustomPlatform.CustomInFo.Name, string.Empty, false, CustomPlatform.LocalPort, CustomPlatform.Model, CustomPlatformType.LocalAI));
             }
 
-            for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+            for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
             {
-                var Key = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                var GetPlatform = PhoenixApp.EngineSetting.PlatformConfigs[Key];
+                var Key = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                var GetPlatform = NIMApp.EngineSetting.PlatformConfigs[Key];
 
                 if (GetPlatform.Platform == PlatformType.DeepL)
                 {
@@ -1232,7 +1232,7 @@ namespace NIM
                         {
                             case PlatformType.DeepL:
                                 {
-                                    KeyConfigBlocks.Children.Add(PhoenixApp.PlatformConfigStyleWin.GenTraditionalConfig(0, "DeepL", "https://www.deepl.com/your-account/keys", true, GetPlatform.ApiKeys, CustomPlatformType.Traditional));
+                                    KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenTraditionalConfig(0, "DeepL", "https://www.deepl.com/your-account/keys", true, GetPlatform.ApiKeys, CustomPlatformType.Traditional));
                                 }
                                 break;
                         }
@@ -1242,7 +1242,7 @@ namespace NIM
 
             foreach (var CustomPlatform in TraditionalPlatforms)
             {
-                KeyConfigBlocks.Children.Add(PhoenixApp.PlatformConfigStyleWin.GenTraditionalConfig(CustomPlatform.CustomInFo.CustomID, CustomPlatform.CustomInFo.Name, string.Empty, false, CustomPlatform.ApiKeys, CustomPlatformType.Traditional));
+                KeyConfigBlocks.Children.Add(NIMApp.PlatformConfigStyleWin.GenTraditionalConfig(CustomPlatform.CustomInFo.CustomID, CustomPlatform.CustomInFo.Name, string.Empty, false, CustomPlatform.ApiKeys, CustomPlatformType.Traditional));
             }
         }
 
@@ -1251,18 +1251,18 @@ namespace NIM
         {
             if (Name.Equals("Request And ApiKey Configs"))
             {
-                var PhoenixConfig = PhoenixApp.EngineSetting;
+                var PhoenixConfig = NIMApp.EngineSetting;
 
-                SProxyUrl.Text = PhoenixApp.EngineSetting.ProxyUrl;
-                SProxyUserName.Text = PhoenixApp.EngineSetting.ProxyUserName;
-                SProxyPassword.Text = PhoenixApp.EngineSetting.ProxyPassword;
+                SProxyUrl.Text = NIMApp.EngineSetting.ProxyUrl;
+                SProxyUserName.Text = NIMApp.EngineSetting.ProxyUserName;
+                SProxyPassword.Text = NIMApp.EngineSetting.ProxyPassword;
 
                 SyncPlatformConfig();
             }
             else
             if (Name.Equals("AI Configs"))
             {
-                SAIKeyword.Text = PhoenixApp.EngineSetting.UserCustomAIPrompt;
+                SAIKeyword.Text = NIMApp.EngineSetting.UserCustomAIPrompt;
             }
             else
             if (Name.Equals("Game Configs"))
@@ -1270,9 +1270,9 @@ namespace NIM
                 SGame.Items.Clear();
                 SGame.Items.Add(GameNames.Skyrim.ToString());
 
-                SGame.SelectedValue = PhoenixApp.SelfSetting.GameType.ToString();
+                SGame.SelectedValue = NIMApp.SelfSetting.GameType.ToString();
 
-                if (PhoenixApp.SelfSetting.ShowAssembly)
+                if (NIMApp.SelfSetting.ShowAssembly)
                 {
                     SShowAssembly.IsChecked = true;
                 }
@@ -1286,7 +1286,7 @@ namespace NIM
                 SCodeGenStyle.Items.Add("CSharp");
                 SCodeGenStyle.Items.Add("Papyrus");
 
-                if (PhoenixApp.SelfSetting.GenCSharp)
+                if (NIMApp.SelfSetting.GenCSharp)
                 {
                     SCodeGenStyle.SelectedValue = SCodeGenStyle.Items[0];
                 }
@@ -1305,7 +1305,7 @@ namespace NIM
             else
             if (Name.Equals("UI Configs"))
             {
-                if (PhoenixApp.SelfSetting.TextDisplay == TextLayout.RTL)
+                if (NIMApp.SelfSetting.TextDisplay == TextLayout.RTL)
                 {
                     RTLEnable.IsChecked = true;
                 }
@@ -1319,7 +1319,7 @@ namespace NIM
             {
                 LoadTranslationPresetControls();
 
-                if (PhoenixApp.EngineSetting.ContextEnable)
+                if (NIMApp.EngineSetting.ContextEnable)
                 {
                     SContextEnable.IsChecked = true;
                 }
@@ -1328,13 +1328,13 @@ namespace NIM
                     SContextEnable.IsChecked = false;
                 }
 
-                SThrottlingRatio.Text = PhoenixApp.EngineSetting.ThrottleRatio.ToString();
+                SThrottlingRatio.Text = NIMApp.EngineSetting.ThrottleRatio.ToString();
 
-                SRotationDelay.Text = PhoenixApp.EngineSetting.ThrottleDelayMs.ToString();
+                SRotationDelay.Text = NIMApp.EngineSetting.ThrottleDelayMs.ToString();
 
-                SMaxThread.Text = PhoenixApp.EngineSetting.MaxThreadCount.ToString();
+                SMaxThread.Text = NIMApp.EngineSetting.MaxThreadCount.ToString();
 
-                if (PhoenixApp.SelfSetting.AutoUpdateStringsFileToDatabase)
+                if (NIMApp.SelfSetting.AutoUpdateStringsFileToDatabase)
                 {
                     AutoUpdateStringsFileToDatabase.IsChecked = true;
                 }
@@ -1343,7 +1343,7 @@ namespace NIM
                     AutoUpdateStringsFileToDatabase.IsChecked = false;
                 }
 
-                if (PhoenixApp.EngineSetting.EnableGlobalSearch)
+                if (NIMApp.EngineSetting.EnableGlobalSearch)
                 {
                     GlobalSearch.IsChecked = true;
                 }
@@ -1352,7 +1352,7 @@ namespace NIM
                     GlobalSearch.IsChecked = false;
                 }
 
-                if (PhoenixApp.SelfSetting.EnableLanguageDetect)
+                if (NIMApp.SelfSetting.EnableLanguageDetect)
                 {
                     SEnableLanguageDetect.IsChecked = true;
                 }
@@ -1361,9 +1361,9 @@ namespace NIM
                     SEnableLanguageDetect.IsChecked = false;
                 }
 
-                P_Placeholders.Text = PhoenixApp.SelfSetting.P_Placeholders;
+                P_Placeholders.Text = NIMApp.SelfSetting.P_Placeholders;
 
-                if (PhoenixApp.SelfSetting.CanTranslateBook)
+                if (NIMApp.SelfSetting.CanTranslateBook)
                 {
                     CanTranslateBook.IsChecked = true;
                 }
@@ -1372,7 +1372,7 @@ namespace NIM
                     CanTranslateBook.IsChecked = false;
                 }
 
-                if (PhoenixApp.SelfSetting.UseFullPunctuation)
+                if (NIMApp.SelfSetting.UseFullPunctuation)
                 {
                     UseFullPunctuation.IsChecked = true;
                 }
@@ -1381,7 +1381,7 @@ namespace NIM
                     UseFullPunctuation.IsChecked = false;
                 }
 
-                if (PhoenixApp.SelfSetting.UseFullPunctuationJa)
+                if (NIMApp.SelfSetting.UseFullPunctuationJa)
                 {
                     UseFullPunctuationJa.IsChecked = true;
                 }
@@ -1496,33 +1496,33 @@ namespace NIM
             string GetValue = P_Convert.ObjToStr(UILanguages.SelectedValue);
             if (GetValue.Length > 0)
             {
-                PhoenixApp.SelfSetting.CurrentUILanguage = (Languages)Enum.Parse(typeof(Languages), GetValue);
-                UILanguageHelper.ChangeLanguage(PhoenixApp.SelfSetting.CurrentUILanguage);
+                NIMApp.SelfSetting.CurrentUILanguage = (Languages)Enum.Parse(typeof(Languages), GetValue);
+                UILanguageHelper.ChangeLanguage(NIMApp.SelfSetting.CurrentUILanguage);
             }
         }
         private void AutoUpdateStringsFileToDatabase_Click(object sender, RoutedEventArgs e)
         {
             if (AutoUpdateStringsFileToDatabase.IsChecked == true)
             {
-                PhoenixApp.SelfSetting.AutoUpdateStringsFileToDatabase = true;
+                NIMApp.SelfSetting.AutoUpdateStringsFileToDatabase = true;
             }
             else
             {
-                PhoenixApp.SelfSetting.AutoUpdateStringsFileToDatabase = false;
+                NIMApp.SelfSetting.AutoUpdateStringsFileToDatabase = false;
             }
 
-            PhoenixApp.SelfSetting.SaveConfig();
+            NIMApp.SelfSetting.SaveConfig();
         }
 
         private void EnableGlobalSearch_Click(object sender, RoutedEventArgs e)
         {
             if (GlobalSearch.IsChecked == true)
             {
-                PhoenixApp.EngineSetting.EnableGlobalSearch = true;
+                NIMApp.EngineSetting.EnableGlobalSearch = true;
             }
             else
             {
-                PhoenixApp.EngineSetting.EnableGlobalSearch = false;
+                NIMApp.EngineSetting.EnableGlobalSearch = false;
             }
 
             Phoenix.SaveConfig();
@@ -1532,18 +1532,18 @@ namespace NIM
         {
             if (SEnableLanguageDetect.IsChecked == true)
             {
-                PhoenixApp.SelfSetting.EnableLanguageDetect = true;
+                NIMApp.SelfSetting.EnableLanguageDetect = true;
             }
             else
             {
-                PhoenixApp.SelfSetting.EnableLanguageDetect = false;
+                NIMApp.SelfSetting.EnableLanguageDetect = false;
             }
         }
 
         private void P_Placeholders_TextChanged(object sender, TextChangedEventArgs e)
         {
-            PhoenixApp.SelfSetting.P_Placeholders = P_Placeholders.Text;
-            PhoenixApp.SelfSetting.SaveConfig();
+            NIMApp.SelfSetting.P_Placeholders = P_Placeholders.Text;
+            NIMApp.SelfSetting.SaveConfig();
         }
         private void SCodeGenStyle_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1551,11 +1551,11 @@ namespace NIM
             if (GetValue.Length > 0)
                 if (GetValue.Equals("CSharp"))
                 {
-                    PhoenixApp.SelfSetting.GenCSharp = true;
+                    NIMApp.SelfSetting.GenCSharp = true;
                 }
                 else
                 {
-                    PhoenixApp.SelfSetting.GenCSharp = false;
+                    NIMApp.SelfSetting.GenCSharp = false;
                 }
         }
 
@@ -1563,29 +1563,29 @@ namespace NIM
         {
             if (SShowAssembly.IsChecked == true)
             {
-                PhoenixApp.SelfSetting.ShowAssembly = true;
+                NIMApp.SelfSetting.ShowAssembly = true;
             }
             else
             {
-                PhoenixApp.SelfSetting.ShowAssembly = false;
+                NIMApp.SelfSetting.ShowAssembly = false;
             }
 
-            PhoenixApp.SelfSetting.SaveConfig();
+            NIMApp.SelfSetting.SaveConfig();
         }
 
         private void SProxyUrl_TextChanged(object sender, TextChangedEventArgs e)
         {
-            PhoenixApp.EngineSetting.ProxyUrl = SProxyUrl.Text;
+            NIMApp.EngineSetting.ProxyUrl = SProxyUrl.Text;
         }
 
         private void SProxyUserName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            PhoenixApp.EngineSetting.ProxyUserName = SProxyUserName.Text;
+            NIMApp.EngineSetting.ProxyUserName = SProxyUserName.Text;
         }
 
         private void SProxyPassword_TextChanged(object sender, TextChangedEventArgs e)
         {
-            PhoenixApp.EngineSetting.ProxyPassword = SProxyPassword.Text;
+            NIMApp.EngineSetting.ProxyPassword = SProxyPassword.Text;
         }
 
         private void SContextLimit_TextChanged(object sender, TextChangedEventArgs e)
@@ -1613,18 +1613,18 @@ namespace NIM
 
         private void SAIKeyword_TextChanged(object sender, TextChangedEventArgs e)
         {
-            PhoenixApp.EngineSetting.UserCustomAIPrompt = SAIKeyword.Text.Trim();
+            NIMApp.EngineSetting.UserCustomAIPrompt = SAIKeyword.Text.Trim();
         }
 
         private void SContextEnable_Click(object sender, RoutedEventArgs e)
         {
             if (SContextEnable.IsChecked == true)
             {
-                PhoenixApp.EngineSetting.ContextEnable = true;
+                NIMApp.EngineSetting.ContextEnable = true;
             }
             else
             {
-                PhoenixApp.EngineSetting.ContextEnable = false;
+                NIMApp.EngineSetting.ContextEnable = false;
             }
         }
 
@@ -1633,18 +1633,18 @@ namespace NIM
             string GetName = P_Convert.ObjToStr(SGame.SelectedValue);
             if (GetName.Trim().Length > 0)
             {
-                PhoenixApp.SelfSetting.GameType = (GameNames)Enum.Parse(typeof(GameNames), GetName);
+                NIMApp.SelfSetting.GameType = (GameNames)Enum.Parse(typeof(GameNames), GetName);
             }
         }
         public void SaveApiKey(PlatformType Type, string KeysStr)
         {
-            for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+            for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
             {
-                int GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                int GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == Type)
+                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == Type)
                 {
-                    PhoenixApp.EngineSetting.PlatformConfigs[GetKey].ApiKeys = PhoenixApp.EngineSetting.KeysStrToArray(KeysStr);
+                    NIMApp.EngineSetting.PlatformConfigs[GetKey].ApiKeys = NIMApp.EngineSetting.KeysStrToArray(KeysStr);
                     break;
                 }
             }
@@ -1653,22 +1653,22 @@ namespace NIM
         }
         private void SThrottlingRatio_TextChanged(object sender, TextChangedEventArgs e)
         {
-            PhoenixApp.EngineSetting.ThrottleRatio = P_Convert.ObjToDouble(SThrottlingRatio.Text);
+            NIMApp.EngineSetting.ThrottleRatio = P_Convert.ObjToDouble(SThrottlingRatio.Text);
         }
         private void SRotationDelay_TextChanged(object sender, TextChangedEventArgs e)
         {
-            PhoenixApp.EngineSetting.ThrottleDelayMs = P_Convert.ObjToInt(SRotationDelay.Text);
+            NIMApp.EngineSetting.ThrottleDelayMs = P_Convert.ObjToInt(SRotationDelay.Text);
         }
 
         private void SMaxThread_TextChanged(object sender, TextChangedEventArgs e)
         {
-            PhoenixApp.EngineSetting.MaxThreadCount = P_Convert.ObjToInt(SMaxThread.Text);
+            NIMApp.EngineSetting.MaxThreadCount = P_Convert.ObjToInt(SMaxThread.Text);
 
             if (ActiveTab?.Mod?.P_Translator != null)
             {
                 if (ActiveTab.Mod.P_Translator.GetBatchCore() != null)
                 {
-                    ActiveTab.Mod.P_Translator.GetBatchCore().AutoThreadLimit = PhoenixApp.EngineSetting.MaxThreadCount;
+                    ActiveTab.Mod.P_Translator.GetBatchCore().AutoThreadLimit = NIMApp.EngineSetting.MaxThreadCount;
                 }
             }
         }
@@ -1835,11 +1835,11 @@ namespace NIM
         {
             if (RTLEnable.IsChecked == true)
             {
-                PhoenixApp.SelfSetting.TextDisplay = TextLayout.RTL;
+                NIMApp.SelfSetting.TextDisplay = TextLayout.RTL;
             }
             else
             {
-                PhoenixApp.SelfSetting.TextDisplay = TextLayout.LTR;
+                NIMApp.SelfSetting.TextDisplay = TextLayout.LTR;
             }
         }
 
@@ -1847,11 +1847,11 @@ namespace NIM
         {
             if (CanTranslateBook.IsChecked == true)
             {
-                PhoenixApp.SelfSetting.CanTranslateBook = true;
+                NIMApp.SelfSetting.CanTranslateBook = true;
             }
             else
             {
-                PhoenixApp.SelfSetting.CanTranslateBook = false;
+                NIMApp.SelfSetting.CanTranslateBook = false;
             }
         }
 
@@ -1859,11 +1859,11 @@ namespace NIM
         {
             if (UseFullPunctuation.IsChecked == true)
             {
-                PhoenixApp.SelfSetting.UseFullPunctuation = true;
+                NIMApp.SelfSetting.UseFullPunctuation = true;
             }
             else
             {
-                PhoenixApp.SelfSetting.UseFullPunctuation = false;
+                NIMApp.SelfSetting.UseFullPunctuation = false;
             }
         }
 
@@ -1871,18 +1871,18 @@ namespace NIM
         {
             if (UseFullPunctuationJa.IsChecked == true)
             {
-                PhoenixApp.SelfSetting.UseFullPunctuationJa = true;
+                NIMApp.SelfSetting.UseFullPunctuationJa = true;
             }
             else
             {
-                PhoenixApp.SelfSetting.UseFullPunctuationJa = false;
+                NIMApp.SelfSetting.UseFullPunctuationJa = false;
             }
         }
 
         private void ReSetFilter(object sender, MouseButtonEventArgs e)
         {
-            PhoenixApp.SelfSetting.CustomFilterStr = string.Empty;
-            PhoenixApp.SelfSetting.SaveConfig();
+            NIMApp.SelfSetting.CustomFilterStr = string.Empty;
+            NIMApp.SelfSetting.SaveConfig();
 
             EspReader TempEspReader = new EspReader();
             TempEspReader.Create(-6, new PhoenixEngine.Memory.P_Dict<string, PhoenixEngine.Memory.P_String>());
@@ -1907,8 +1907,8 @@ namespace NIM
                 {
                     if (FilterDict.Count > 0)
                     {
-                        PhoenixApp.SelfSetting.CustomFilterStr = EspFilterStr.Text;
-                        PhoenixApp.SelfSetting.SaveConfig();
+                        NIMApp.SelfSetting.CustomFilterStr = EspFilterStr.Text;
+                        NIMApp.SelfSetting.SaveConfig();
                     }
                 }
 
@@ -1964,10 +1964,10 @@ namespace NIM
             }
             else
             {
-                PhoenixApp.CurrentLayout = new PreviewShellWindow(_diagnostics);
-                PhoenixApp.CurrentLayout.Show();
+                NIMApp.CurrentLayout = new PreviewShellWindow(_diagnostics);
+                NIMApp.CurrentLayout.Show();
 
-                PhoenixApp.SelfSetting.Layout = PhoenixLayout.Modern;//Update the configuration file; the Modern layout will be selected on the next startup.
+                NIMApp.SelfSetting.Layout = PhoenixLayout.Modern;//Update the configuration file; the Modern layout will be selected on the next startup.
 
                 this.CanExit = false;
                 this.Close();

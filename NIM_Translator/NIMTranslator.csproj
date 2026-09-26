@@ -454,6 +454,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="logo.ico" />
+<<<<<<< HEAD
+=======
+    <Resource Include="Assets\Fonts\NIMFluentIcons.ttf" />
+>>>>>>> Remake
   </ItemGroup>
   <ItemGroup>
     <None Include="ThirdParty\FluentSystemIcons\LICENSE.txt" />

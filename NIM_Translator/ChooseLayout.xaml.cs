@@ -19,7 +19,7 @@ namespace NIM
         private readonly PreviewDiagnosticService _diagnostics;
         internal ChooseLayout(PreviewDiagnosticService diagnostics)
         {
-            PhoenixApp.SelfSetting.ReadConfig();
+            NIMApp.SelfSetting.ReadConfig();
             _diagnostics = diagnostics ?? throw new ArgumentNullException(nameof(diagnostics));
 
             InitializeComponent();
@@ -29,35 +29,35 @@ namespace NIM
 
         private void RunModern()
         {
-            PhoenixApp.CurrentLayout = new PreviewShellWindow(_diagnostics);
-            PhoenixApp.CurrentLayout.Show();
+            NIMApp.CurrentLayout = new PreviewShellWindow(_diagnostics);
+            NIMApp.CurrentLayout.Show();
 
             this.Close();
         }
 
         private void RunClassic()
         {
-            PhoenixApp.WorkWin = new PhoenixGui(_diagnostics);
-            PhoenixApp.CurrentLayout = PhoenixApp.WorkWin;
-            PhoenixApp.WorkWin.Show();
+            NIMApp.WorkWin = new PhoenixGui(_diagnostics);
+            NIMApp.CurrentLayout = NIMApp.WorkWin;
+            NIMApp.WorkWin.Show();
 
             this.Close();
         }
 
         private void Modern_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            PhoenixApp.SelfSetting.Layout = PhoenixLayout.Modern;
+            NIMApp.SelfSetting.Layout = PhoenixLayout.Modern;
             RunModern();
         }
         private void Classic_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            PhoenixApp.SelfSetting.Layout = PhoenixLayout.Classic;
+            NIMApp.SelfSetting.Layout = PhoenixLayout.Classic;
             RunClassic();
         }
 
         private void Close_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            PhoenixApp.CloseAny();
+            NIMApp.CloseAny();
         }
 
         private void Modern_MouseEnter(object sender, MouseEventArgs e)
@@ -105,14 +105,14 @@ namespace NIM
             ChangeState(ModernState, ModernIsReady);
             ChangeState(ClassicState, ClassicIsReady);
 
-            if (PhoenixApp.SelfSetting.Layout != PhoenixLayout.Null)
+            if (NIMApp.SelfSetting.Layout != PhoenixLayout.Null)
             {
-                if (PhoenixApp.SelfSetting.Layout == PhoenixLayout.Modern)
+                if (NIMApp.SelfSetting.Layout == PhoenixLayout.Modern)
                 {
                     RunModern();
                 }
                 else
-                if (PhoenixApp.SelfSetting.Layout == PhoenixLayout.Classic)
+                if (NIMApp.SelfSetting.Layout == PhoenixLayout.Classic)
                 {
                     RunClassic();
                 }

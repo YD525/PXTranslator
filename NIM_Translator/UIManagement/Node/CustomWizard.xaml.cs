@@ -150,7 +150,7 @@ namespace NIM
                 {
                     CustomPlatform = new CustomPlatformInFo();
                     TestCustomCore = new CustomReqCore();
-                    CustomPlatform.CustomID = PhoenixApp.EngineSetting.PlatformConfigs.Count + 1;
+                    CustomPlatform.CustomID = NIMApp.EngineSetting.PlatformConfigs.Count + 1;
                 }
 
                 CustomPlatform.Name = PlatformName.Text;
@@ -437,9 +437,9 @@ namespace NIM
 
             NPlatformConfig.CustomInFo = CustomPlatform;
 
-            if (!PhoenixApp.EngineSetting.PlatformConfigs.ContainsKey(TestID))
+            if (!NIMApp.EngineSetting.PlatformConfigs.ContainsKey(TestID))
             {
-                PhoenixApp.EngineSetting.PlatformConfigs.Add(TestID, NPlatformConfig);
+                NIMApp.EngineSetting.PlatformConfigs.Add(TestID, NPlatformConfig);
             }
             else
             {
@@ -447,9 +447,9 @@ namespace NIM
             }
 
             BaseUnit TestUnit = new BaseUnit(-525, "525", "", "Test Line", "", "", 100);
-            var UnitGroup = new Translator("-1", PhoenixApp.SelfSetting.SourceLanguage, PhoenixApp.SelfSetting.TargetLanguage, false).ToUnitGroup(TestUnit);
-            Languages From = PhoenixApp.SelfSetting.SourceLanguage;
-            Languages To = PhoenixApp.SelfSetting.TargetLanguage;
+            var UnitGroup = new Translator("-1", NIMApp.SelfSetting.SourceLanguage, NIMApp.SelfSetting.TargetLanguage, false).ToUnitGroup(TestUnit);
+            Languages From = NIMApp.SelfSetting.SourceLanguage;
+            Languages To = NIMApp.SelfSetting.TargetLanguage;
 
             if (From == To)
             {
@@ -465,7 +465,7 @@ namespace NIM
                         {
                             AICall GenAICall = new AICall();
                             CustomLocalAIApi NCustomLocalAIApi = new CustomLocalAIApi();
-                            NCustomLocalAIApi.Init(TestID, new AITranslationMemory(), PhoenixApp.EngineSetting);
+                            NCustomLocalAIApi.Init(TestID, new AITranslationMemory(), NIMApp.EngineSetting);
 
                             NCustomLocalAIApi.Model = Model;
 
@@ -490,7 +490,7 @@ namespace NIM
                         {
                             AICall GenAICall = new AICall();
                             CustomAIApi NCustomAIApi = new CustomAIApi();
-                            NCustomAIApi.Init(TestID, new AITranslationMemory(), PhoenixApp.EngineSetting, ProxyCenter.CurrentProxy);
+                            NCustomAIApi.Init(TestID, new AITranslationMemory(), NIMApp.EngineSetting, ProxyCenter.CurrentProxy);
 
                             NCustomAIApi.Model = Model;
 
@@ -516,7 +516,7 @@ namespace NIM
                         {
                             PlatformCall GenPlatformCall = new PlatformCall();
                             CustomApi NCustomApi = new CustomApi();
-                            NCustomApi.Init(TestID, PhoenixApp.EngineSetting, ProxyCenter.CurrentProxy);
+                            NCustomApi.Init(TestID, NIMApp.EngineSetting, ProxyCenter.CurrentProxy);
 
                             NCustomApi.QuickTrans(
                                 ApiKey,
@@ -540,9 +540,9 @@ namespace NIM
                 MessageBoxExtend.Show(this,"Msg",Ex.Message,PreviewDialogSeverity.Error);
             }
 
-            if (PhoenixApp.EngineSetting.PlatformConfigs.ContainsKey(TestID))
+            if (NIMApp.EngineSetting.PlatformConfigs.ContainsKey(TestID))
             {
-                PhoenixApp.EngineSetting.PlatformConfigs.Remove(TestID);
+                NIMApp.EngineSetting.PlatformConfigs.Remove(TestID);
             }
         }
 
@@ -617,15 +617,15 @@ namespace NIM
 
             NPlatformConfig.ApiKeys.Add(ApiKey);
 
-            while (PhoenixApp.EngineSetting.PlatformConfigs.ContainsKey(CustomPlatform.CustomID))
+            while (NIMApp.EngineSetting.PlatformConfigs.ContainsKey(CustomPlatform.CustomID))
             {
-                CustomPlatform.CustomID = PhoenixApp.EngineSetting.PlatformConfigs.Count + 1;
+                CustomPlatform.CustomID = NIMApp.EngineSetting.PlatformConfigs.Count + 1;
             }
 
             NPlatformConfig.Model = Model;
             NPlatformConfig.CustomInFo = CustomPlatform;
 
-            PhoenixApp.EngineSetting.PlatformConfigs.Add(CustomPlatform.CustomID, NPlatformConfig);
+            NIMApp.EngineSetting.PlatformConfigs.Add(CustomPlatform.CustomID, NPlatformConfig);
             Phoenix.SaveConfig();
 
             ClearValue();

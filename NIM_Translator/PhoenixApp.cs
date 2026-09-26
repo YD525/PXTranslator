@@ -36,7 +36,7 @@ namespace NIM
             return Result;
         }
     }
-    public class PhoenixApp
+    public class NIMApp
     {
         public static bool CanUpdateChart = false;
         public static int GlobalRequestTimeOut = 5000;
@@ -53,7 +53,7 @@ namespace NIM
 
         public static string BackupPath = @"\BackUpData\";
 
-        public static string CurrentVersion = typeof(PhoenixApp).Assembly.GetName().Version.ToString();
+        public static string CurrentVersion = typeof(NIMApp).Assembly.GetName().Version.ToString();
         public static LocalSetting SelfSetting = new LocalSetting();
 
         public static EngineConfigJson EngineSetting
@@ -109,7 +109,7 @@ namespace NIM
         public static void CloseAny()
         {
             Phoenix.SaveConfig();
-            PhoenixApp.SelfSetting.SaveConfig();
+            NIMApp.SelfSetting.SaveConfig();
             Environment.Exit(0);
         }
 
@@ -135,22 +135,22 @@ namespace NIM
 
         public static void PrepareFileDirectory()
         {
-            if (!Directory.Exists(PhoenixApp.GetFullPath(@"\Library")))
+            if (!Directory.Exists(NIMApp.GetFullPath(@"\Library")))
             {
-                Directory.CreateDirectory(PhoenixApp.GetFullPath(@"\Library"));
+                Directory.CreateDirectory(NIMApp.GetFullPath(@"\Library"));
             }
-            if (!Directory.Exists(PhoenixApp.GetFullPath(@"\Cache")))
+            if (!Directory.Exists(NIMApp.GetFullPath(@"\Cache")))
             {
-                Directory.CreateDirectory(PhoenixApp.GetFullPath(@"\Cache"));
+                Directory.CreateDirectory(NIMApp.GetFullPath(@"\Cache"));
             }
-            if (!File.Exists(PhoenixApp.GetFullPath(@"\setting.config")))
+            if (!File.Exists(NIMApp.GetFullPath(@"\setting.config")))
             {
                 var CreatNewLocalSetting = new LocalSetting();
                 CreatNewLocalSetting.SaveConfig();
             }
-            if (!Directory.Exists(PhoenixApp.GetFullPath(@"\CorePlugins")))
+            if (!Directory.Exists(NIMApp.GetFullPath(@"\CorePlugins")))
             {
-                Directory.CreateDirectory(PhoenixApp.GetFullPath(@"\CorePlugins"));
+                Directory.CreateDirectory(NIMApp.GetFullPath(@"\CorePlugins"));
             }
         }
 
@@ -162,14 +162,14 @@ namespace NIM
                 lock (ErrorReportLocker)
                     Application.Current.Dispatcher.Invoke(new Action(() =>
                     {
-                        if (PhoenixApp.DataBaseView != null)
+                        if (NIMApp.DataBaseView != null)
                         {
-                            MessageBoxExtend.Show(PhoenixApp.DataBaseView, "SQL", ErrorMsg, PreviewDialogSeverity.Error);
+                            MessageBoxExtend.Show(NIMApp.DataBaseView, "SQL", ErrorMsg, PreviewDialogSeverity.Error);
                         }
                         else
-                        if (PhoenixApp.WorkWin != null)
+                        if (NIMApp.WorkWin != null)
                         {
-                            MessageBoxExtend.Show(PhoenixApp.WorkWin, "SQL", ErrorMsg, PreviewDialogSeverity.Error);
+                            MessageBoxExtend.Show(NIMApp.WorkWin, "SQL", ErrorMsg, PreviewDialogSeverity.Error);
                         }
                     }));
             });
@@ -178,9 +178,9 @@ namespace NIM
         {
             if (Win != null)
             {
-                PhoenixApp.WorkWin = Win;
+                NIMApp.WorkWin = Win;
 
-                PlatformConfigStyleWin = new PlatformConfigStyleWin(PhoenixApp.WorkWin);
+                PlatformConfigStyleWin = new PlatformConfigStyleWin(NIMApp.WorkWin);
 
                 ChartDataRef = new ChartData();
 
@@ -256,9 +256,9 @@ namespace NIM
         {
             try
             {
-                if (File.Exists(PhoenixApp.GetFullPath(@"\setting.config")))
+                if (File.Exists(NIMApp.GetFullPath(@"\setting.config")))
                 {
-                    var GetStr = Encoding.UTF8.GetString(DataHelper.ReadFile(PhoenixApp.GetFullPath(@"\setting.config")));
+                    var GetStr = Encoding.UTF8.GetString(DataHelper.ReadFile(NIMApp.GetFullPath(@"\setting.config")));
                     if (GetStr.Trim().Length > 0)
                     {
                         var GetSetting = JsonConvert.DeserializeObject<LocalSetting>(GetStr);
@@ -315,7 +315,7 @@ namespace NIM
                     {
                         LocalSetting CopySetting = this;
                         var GetSettingContent = JsonConvert.SerializeObject(CopySetting);
-                        DataHelper.WriteFile(PhoenixApp.GetFullPath(@"\setting.config"), Encoding.UTF8.GetBytes(GetSettingContent));
+                        DataHelper.WriteFile(NIMApp.GetFullPath(@"\setting.config"), Encoding.UTF8.GetBytes(GetSettingContent));
                     }
                 }
             }
@@ -327,7 +327,7 @@ namespace NIM
             LocalSetting CopySetting = this;
             var GetSettingContent = JsonConvert.SerializeObject(CopySetting, Formatting.Indented);
 
-            DataHelper.WriteFile(PhoenixApp.GetFullPath(@"\setting.config"), Encoding.UTF8.GetBytes(GetSettingContent));
+            DataHelper.WriteFile(NIMApp.GetFullPath(@"\setting.config"), Encoding.UTF8.GetBytes(GetSettingContent));
 
             Phoenix.SaveConfig();
         }

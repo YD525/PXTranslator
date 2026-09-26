@@ -9,19 +9,19 @@ namespace NIM.ApplicationLayer
         /// <inheritdoc />
         public TranslationPreset Preset
         {
-            get => PhoenixApp.SelfSetting.Preset;
-            set => PhoenixApp.SelfSetting.Preset = value;
+            get => NIMApp.SelfSetting.Preset;
+            set => NIMApp.SelfSetting.Preset = value;
         }
 
         /// <inheritdoc />
         public TranslationPresetSettings ReadSettings()
         {
             return new TranslationPresetSettings(
-                PhoenixApp.EngineSetting.ContextLimit,
-                PhoenixApp.EngineSetting.BucketLengthLimit,
-                PhoenixApp.EngineSetting.PreserveConversationContext,
-                PhoenixApp.EngineSetting.ForceContextDeduplication,
-                PhoenixApp.EngineSetting.StrictLinkBucketPurity);
+                NIMApp.EngineSetting.ContextLimit,
+                NIMApp.EngineSetting.BucketLengthLimit,
+                NIMApp.EngineSetting.PreserveConversationContext,
+                NIMApp.EngineSetting.ForceContextDeduplication,
+                NIMApp.EngineSetting.StrictLinkBucketPurity);
         }
 
         /// <inheritdoc />
@@ -32,17 +32,17 @@ namespace NIM.ApplicationLayer
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            PhoenixApp.EngineSetting.ContextLimit = settings.ContextLimit;
-            PhoenixApp.EngineSetting.BucketLengthLimit = settings.BucketLengthLimit;
-            PhoenixApp.EngineSetting.PreserveConversationContext = settings.PreserveConversationContext;
-            PhoenixApp.EngineSetting.ForceContextDeduplication = settings.ForceContextDeduplication;
-            PhoenixApp.EngineSetting.StrictLinkBucketPurity = settings.StrictLinkBucketPurity;
+            NIMApp.EngineSetting.ContextLimit = settings.ContextLimit;
+            NIMApp.EngineSetting.BucketLengthLimit = settings.BucketLengthLimit;
+            NIMApp.EngineSetting.PreserveConversationContext = settings.PreserveConversationContext;
+            NIMApp.EngineSetting.ForceContextDeduplication = settings.ForceContextDeduplication;
+            NIMApp.EngineSetting.StrictLinkBucketPurity = settings.StrictLinkBucketPurity;
         }
 
         /// <inheritdoc />
         public void Save()
         {
-            PhoenixApp.SelfSetting.SaveConfig();
+            NIMApp.SelfSetting.SaveConfig();
         }
     }
 }

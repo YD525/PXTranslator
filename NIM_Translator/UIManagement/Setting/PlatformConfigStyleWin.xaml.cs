@@ -42,7 +42,7 @@ namespace NIM.UIManagement
             TittleLab.Content = PlatformName;
 
             Ellipse GetShape = GetTittlePanel.Children[1] as Ellipse;
-            GetShape.Fill = new SolidColorBrush(PhoenixApp.NodeStyleWin.GetNodeColor(CustomType));
+            GetShape.Fill = new SolidColorBrush(NIMApp.NodeStyleWin.GetNodeColor(CustomType));
 
             if (Document.Length == 0)
             {
@@ -111,7 +111,7 @@ namespace NIM.UIManagement
                 string GetUrl = P_Convert.ObjToStr((sender as Label).Content);
                 if (GetUrl.Length > 0)
                 {
-                    if (MessageBoxExtend.Show(PhoenixApp.WorkWin, "Prompt", "Do you want to open your default browser and visit\n " + GetUrl + "\n?", PreviewDialogSeverity.Information, true))
+                    if (MessageBoxExtend.Show(NIMApp.WorkWin, "Prompt", "Do you want to open your default browser and visit\n " + GetUrl + "\n?", PreviewDialogSeverity.Information, true))
                     {
                         ExplorerHelper.OpenUrl(GetUrl);
                     }
@@ -134,7 +134,7 @@ namespace NIM.UIManagement
             TittleLab.Content = PlatformName;
 
             Ellipse GetShape = GetTittlePanel.Children[1] as Ellipse;
-            GetShape.Fill = new SolidColorBrush(PhoenixApp.NodeStyleWin.GetNodeColor(CustomType));
+            GetShape.Fill = new SolidColorBrush(NIMApp.NodeStyleWin.GetNodeColor(CustomType));
 
             if (Document.Length == 0)
             {
@@ -184,7 +184,7 @@ namespace NIM.UIManagement
             TittleLab.Content = PlatformName;
 
             Ellipse GetShape = GetTittlePanel.Children[1] as Ellipse;
-            GetShape.Fill = new SolidColorBrush(PhoenixApp.NodeStyleWin.GetNodeColor(CustomType));
+            GetShape.Fill = new SolidColorBrush(NIMApp.NodeStyleWin.GetNodeColor(CustomType));
 
             if (Document.Length == 0)
             {
@@ -231,7 +231,7 @@ namespace NIM.UIManagement
                 var SetIndex = 3 + 1;
                 CheckBox IsFreeCheck = ((Body.Children[0] as Grid).Children[0] as StackPanel).Children[SetIndex] as CheckBox;
                 IsFreeCheck.Click += IsFreeCheck_Click;
-                if (PhoenixApp.EngineSetting.GetPlatformData(PlatformType.DeepL).IsFree)
+                if (NIMApp.EngineSetting.GetPlatformData(PlatformType.DeepL).IsFree)
                 {
                     IsFreeCheck.IsChecked = true;
                 }
@@ -248,11 +248,11 @@ namespace NIM.UIManagement
             int Key = (int)PlatformType.DeepL;
             if (GetCheck.IsChecked == true)
             {
-                PhoenixApp.EngineSetting.PlatformConfigs[Key].IsFree = true;
+                NIMApp.EngineSetting.PlatformConfigs[Key].IsFree = true;
             }
             else
             {
-                PhoenixApp.EngineSetting.PlatformConfigs[Key].IsFree = false;
+                NIMApp.EngineSetting.PlatformConfigs[Key].IsFree = false;
             }
 
             Phoenix.SaveConfig();
@@ -288,10 +288,10 @@ namespace NIM.UIManagement
             {
                 if (GetCustomID <= 0)
                 {
-                    for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                    for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                     {
-                        var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                        var Config = PhoenixApp.EngineSetting.PlatformConfigs[GetKey];
+                        var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                        var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
                         if (GetPlatformName == "ChatGpt" && Config.Platform == PlatformType.ChatGpt && Config.CustomInFo == null)
                         {
                             Config.Model = GetModel;
@@ -325,10 +325,10 @@ namespace NIM.UIManagement
                 }
                 else
                 {
-                    for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                    for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                     {
-                        var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                        var Config = PhoenixApp.EngineSetting.PlatformConfigs[GetKey];
+                        var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                        var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
                         if (Config.CustomInFo != null && Config.CustomInFo.CustomID.Equals(GetCustomID))
                         {
                             Config.Model = GetModel;
@@ -364,27 +364,27 @@ namespace NIM.UIManagement
             {
                 if (GetCustomID <= 0)
                 {
-                    for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                    for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                     {
-                        var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                        var Config = PhoenixApp.EngineSetting.PlatformConfigs[GetKey];
+                        var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                        var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
 
                         if (GetPlatformName == "LM Studio" && Config.Platform == PlatformType.LMLocalAI && Config.CustomInFo == null)
                         {
-                            PhoenixApp.EngineSetting.PlatformConfigs[GetKey].LocalPort = GetPort;
+                            NIMApp.EngineSetting.PlatformConfigs[GetKey].LocalPort = GetPort;
                             break;
                         }
                     }
                 }
                 else
                 {
-                    for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                    for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                     {
-                        var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                        var Config = PhoenixApp.EngineSetting.PlatformConfigs[GetKey];
+                        var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                        var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
                         if (Config.CustomInFo != null && Config.CustomInFo.CustomID.Equals(GetCustomID))
                         {
-                            PhoenixApp.EngineSetting.PlatformConfigs[GetKey].LocalPort = GetPort;
+                            NIMApp.EngineSetting.PlatformConfigs[GetKey].LocalPort = GetPort;
                             break;
                         }
                     }
@@ -417,10 +417,10 @@ namespace NIM.UIManagement
             {
                 if (GetCustomID <= 0)
                 {
-                    for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                    for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                     {
-                        var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                        var Config = PhoenixApp.EngineSetting.PlatformConfigs[GetKey];
+                        var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                        var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
                         if (GetPlatformName == "ChatGpt" && Config.Platform == PlatformType.ChatGpt && Config.CustomInFo == null)
                         {
                             if (!Config.ApiKeys.Contains(GetApiKey))
@@ -476,10 +476,10 @@ namespace NIM.UIManagement
                 }
                 else
                 {
-                    for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                    for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                     {
-                        var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                        var Config = PhoenixApp.EngineSetting.PlatformConfigs[GetKey];
+                        var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                        var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
                         if (Config.CustomInFo != null && Config.CustomInFo.CustomID.Equals(GetCustomID))
                         {
                             if (!Config.ApiKeys.Contains(GetApiKey))
@@ -520,10 +520,10 @@ namespace NIM.UIManagement
             {
                 if (GetCustomID <= 0)
                 {
-                    for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                    for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                     {
-                        var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                        var Config = PhoenixApp.EngineSetting.PlatformConfigs[GetKey];
+                        var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                        var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
                         if (GetPlatformName == "ChatGpt" && Config.Platform == PlatformType.ChatGpt && Config.CustomInFo == null)
                         {
                             if (Config.ApiKeys.Contains(GetApiKey))
@@ -579,10 +579,10 @@ namespace NIM.UIManagement
                 }
                 else
                 {
-                    for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                    for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                     {
-                        var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                        var Config = PhoenixApp.EngineSetting.PlatformConfigs[GetKey];
+                        var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                        var Config = NIMApp.EngineSetting.PlatformConfigs[GetKey];
                         if (Config.CustomInFo != null && Config.CustomInFo.CustomID.Equals(GetCustomID))
                         {
                             if (Config.ApiKeys.Contains(GetApiKey))
@@ -601,21 +601,21 @@ namespace NIM.UIManagement
 
         private void PlatformConfigStyleWin_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            bool Confirm = MessageBoxExtend.Show(PhoenixApp.WorkWin, "Delete Platform", "Are you sure you want to delete this platform? Deleting it will result in the loss of all configuration settings related to this platform.",PreviewDialogSeverity.Warning,true);
+            bool Confirm = MessageBoxExtend.Show(NIMApp.WorkWin, "Delete Platform", "Are you sure you want to delete this platform? Deleting it will result in the loss of all configuration settings related to this platform.",PreviewDialogSeverity.Warning,true);
             if (Confirm)
             {
                 int GetID = P_Convert.ObjToInt(((sender as Border).Tag as Border).Tag);
 
-                for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                 {
-                    var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                    if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo != null)
+                    var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo != null)
                     {
-                        if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.CustomID.Equals(GetID))
+                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.CustomID.Equals(GetID))
                         {
-                            PhoenixApp.EngineSetting.PlatformConfigs.Remove(GetKey);
+                            NIMApp.EngineSetting.PlatformConfigs.Remove(GetKey);
                             Phoenix.SaveConfig();
-                            PhoenixApp.WorkWin.SyncPlatformConfig();
+                            NIMApp.WorkWin.SyncPlatformConfig();
                             UIHelper.SyncNodes(_Owner.Nodes);
                             break;
                         }

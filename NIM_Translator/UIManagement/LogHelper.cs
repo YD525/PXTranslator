@@ -16,25 +16,25 @@ namespace NIM.UIManagement
 
         public static void SetInputLog(string Text)
         {
-            if (PhoenixApp.WorkWin != null)
+            if (NIMApp.WorkWin != null)
             {
-                SetLog(PhoenixApp.WorkWin.InputLog, Text);
+                SetLog(NIMApp.WorkWin.InputLog, Text);
             }
         }
 
         public static void SetOutputLog(string Text)
         {
-            if (PhoenixApp.WorkWin != null)
+            if (NIMApp.WorkWin != null)
             {
-                SetLog(PhoenixApp.WorkWin.OutputLog, Text);
+                SetLog(NIMApp.WorkWin.OutputLog, Text);
             }
         }
 
         public static void SetMainLog(string Text)
         {
-            if (PhoenixApp.WorkWin != null)
+            if (NIMApp.WorkWin != null)
             {
-                SetLog(PhoenixApp.WorkWin.MainLog, Text);
+                SetLog(NIMApp.WorkWin.MainLog, Text);
             }
         }
     }

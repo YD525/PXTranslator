@@ -391,7 +391,7 @@ namespace NIM.UIManage
 
             if (!string.IsNullOrEmpty(SourceText))
             {
-                var MaxWidth = (PhoenixApp.WorkWin.ActualWidth / 3) - 135;
+                var MaxWidth = (NIMApp.WorkWin.ActualWidth / 3) - 135;
 
                 int RoughCharLimit = (int)(MaxWidth / (SystemFonts.MessageFontSize * 0.6));
 
@@ -425,7 +425,7 @@ namespace NIM.UIManage
 
         public static Grid CreateLine(ModFile Mod,bool IsModify,double Height, string Type, string Key, string SourceText, string TransText, string Emotion, double Score)
         {
-            Grid MainGrid = PhoenixApp.RowStyleWin.CreateLine(Mod, IsModify,Height, new BaseUnit(Mod.P_Translator.GetFileUniqueKey(), Key, Type, SourceText, TransText, Emotion, Score));
+            Grid MainGrid = NIMApp.RowStyleWin.CreateLine(Mod, IsModify,Height, new BaseUnit(Mod.P_Translator.GetFileUniqueKey(), Key, Type, SourceText, TransText, Emotion, Score));
             return MainGrid;
         }
 
@@ -544,20 +544,20 @@ namespace NIM.UIManage
         {
             try
             {
-                if (!PhoenixApp.WorkWin.IsNodeExpanded)
+                if (!NIMApp.WorkWin.IsNodeExpanded)
                 {
                     return;
                 }
 
-                PhoenixApp.WorkWin.Dispatcher.Invoke(() =>
+                NIMApp.WorkWin.Dispatcher.Invoke(() =>
                 {
                     try
                     {
-                        for (int i = 0; i < PhoenixApp.WorkWin.Nodes.Children.Count; i++)
+                        for (int i = 0; i < NIMApp.WorkWin.Nodes.Children.Count; i++)
                         {
-                            if (PhoenixApp.WorkWin.Nodes.Children[i] is Grid)
+                            if (NIMApp.WorkWin.Nodes.Children[i] is Grid)
                             {
-                                Grid SetGrid = PhoenixApp.WorkWin.Nodes.Children[i] as Grid;
+                                Grid SetGrid = NIMApp.WorkWin.Nodes.Children[i] as Grid;
                                 if (SetGrid.Children[0] is Grid)
                                 {
                                     HeaderInFo GetHeader = SetGrid.Tag as HeaderInFo;
@@ -565,20 +565,20 @@ namespace NIM.UIManage
                                     {
                                         if (Sign == PlatformType.PhoenixEngine)
                                         {
-                                            ContentControl GetLight = PhoenixApp.NodeStyleWin.GetNodeLight(SetGrid);
+                                            ContentControl GetLight = NIMApp.NodeStyleWin.GetNodeLight(SetGrid);
                                             NodeLightController.Blink(SetGrid, GetLight, 1000);
                                         }
                                     }
                                     else
                                     if (GetHeader.CustomID <= 0 && GetHeader.MainType == Sign)
                                     {
-                                        ContentControl GetLight = PhoenixApp.NodeStyleWin.GetNodeLight(SetGrid);
+                                        ContentControl GetLight = NIMApp.NodeStyleWin.GetNodeLight(SetGrid);
                                         NodeLightController.Blink(SetGrid, GetLight, 1000);
                                     }
                                     else
                                     if (GetHeader.CustomID > 0 && GetHeader.CustomID == CustomID)
                                     {
-                                        ContentControl GetLight = PhoenixApp.NodeStyleWin.GetNodeLight(SetGrid);
+                                        ContentControl GetLight = NIMApp.NodeStyleWin.GetNodeLight(SetGrid);
                                         NodeLightController.Blink(SetGrid, GetLight, 1000);
                                     }
                                 }
@@ -594,7 +594,7 @@ namespace NIM.UIManage
 
         public static void SyncAvalonEditTextLayout(TranslateView View)
         {
-            if (PhoenixApp.SelfSetting.TextDisplay == TextLayout.LTR)
+            if (NIMApp.SelfSetting.TextDisplay == TextLayout.LTR)
             {
                 View.ToStr.FlowDirection = FlowDirection.LeftToRight;
             }
@@ -668,47 +668,47 @@ namespace NIM.UIManage
 
             List<PlatformConfig> InteractivePlatforms = new List<PlatformConfig>();//This is a special node.
 
-            for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+            for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
             {
-                var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
-                if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.CustomPlatform)
+                var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.CustomPlatform)
                 {
-                    CustomPlatforms.Add(PhoenixApp.EngineSetting.PlatformConfigs[GetKey]);
+                    CustomPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
                 }
                 else
-                if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.LMLocalAI)
+                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.LMLocalAI)
                 {
-                    LocalAIPlatforms.Add(PhoenixApp.EngineSetting.PlatformConfigs[GetKey]);
+                    LocalAIPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
                 }
                 else
-                if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.ChatGpt
-                    || PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.Gemini
-                    || PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.DeepSeek)
+                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.ChatGpt
+                    || NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.Gemini
+                    || NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.DeepSeek)
                 {
-                    CloudAIPlatforms.Add(PhoenixApp.EngineSetting.PlatformConfigs[GetKey]);
+                    CloudAIPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
                 }
                 else
                 {
-                    if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform != PlatformType.HumanTranslation)
+                    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform != PlatformType.HumanTranslation)
                     {
-                        TraditionalPlatforms.Add(PhoenixApp.EngineSetting.PlatformConfigs[GetKey]);
+                        TraditionalPlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
                     }
                     else
                     {
-                        InteractivePlatforms.Add(PhoenixApp.EngineSetting.PlatformConfigs[GetKey]);
+                        InteractivePlatforms.Add(NIMApp.EngineSetting.PlatformConfigs[GetKey]);
                     }
                 }
             }
 
             Nodes.Children.Clear();
 
-            Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenMainNodeTree("Engine Nodes"));
-            Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenNode(Nodes,"PreTranslate Node", PlatformType.Null, CustomPlatformType.Null, 0, PhoenixApp.EngineSetting.PreTranslateEnable));
+            Nodes.Children.Add(NIMApp.NodeStyleWin.GenMainNodeTree("Engine Nodes"));
+            Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,"PreTranslate Node", PlatformType.Null, CustomPlatformType.Null, 0, NIMApp.EngineSetting.PreTranslateEnable));
 
-            Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenNodeTree("Cloud AI Nodes"));
+            Nodes.Children.Add(NIMApp.NodeStyleWin.GenNodeTree("Cloud AI Nodes"));
             foreach (var Get in CloudAIPlatforms)
             {
-                Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenNode(Nodes,Get.Platform.ToString(), Get.Platform, CustomPlatformType.CloudAI, 0, Get.Enable));
+                Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.Platform.ToString(), Get.Platform, CustomPlatformType.CloudAI, 0, Get.Enable));
             }
 
             foreach (var Get in CustomPlatforms)
@@ -717,14 +717,14 @@ namespace NIM.UIManage
                 {
                     if (Get.CustomInFo.Type == CustomPlatformType.CloudAI)
                     {
-                        Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenNode(Nodes,Get.CustomInFo.Name, Get.Platform, Get.CustomInFo.Type, Get.CustomInFo.CustomID, Get.Enable));
+                        Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.CustomInFo.Name, Get.Platform, Get.CustomInFo.Type, Get.CustomInFo.CustomID, Get.Enable));
                     }
                 }
             }
-            Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenEmptyNode(CustomPlatformType.CloudAI));
+            Nodes.Children.Add(NIMApp.NodeStyleWin.GenEmptyNode(CustomPlatformType.CloudAI));
 
 
-            Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenNodeTree("Local AI Nodes"));
+            Nodes.Children.Add(NIMApp.NodeStyleWin.GenNodeTree("Local AI Nodes"));
             foreach (var Get in LocalAIPlatforms)
             {
                 string AutoName = Get.Platform.ToString();
@@ -732,7 +732,7 @@ namespace NIM.UIManage
                 {
                     AutoName = "LM Studio";
                 }
-                Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenNode(Nodes,AutoName, Get.Platform, CustomPlatformType.LocalAI, 0, Get.Enable));
+                Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,AutoName, Get.Platform, CustomPlatformType.LocalAI, 0, Get.Enable));
             }
 
             foreach (var Get in CustomPlatforms)
@@ -741,16 +741,16 @@ namespace NIM.UIManage
                 {
                     if (Get.CustomInFo.Type == CustomPlatformType.LocalAI)
                     {
-                        Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenNode(Nodes,Get.CustomInFo.Name, Get.Platform, Get.CustomInFo.Type, Get.CustomInFo.CustomID, Get.Enable));
+                        Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.CustomInFo.Name, Get.Platform, Get.CustomInFo.Type, Get.CustomInFo.CustomID, Get.Enable));
                     }
                 }
             }
-            Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenEmptyNode(CustomPlatformType.LocalAI));
+            Nodes.Children.Add(NIMApp.NodeStyleWin.GenEmptyNode(CustomPlatformType.LocalAI));
 
-            Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenNodeTree("Traditional Nodes"));
+            Nodes.Children.Add(NIMApp.NodeStyleWin.GenNodeTree("Traditional Nodes"));
             foreach (var Get in TraditionalPlatforms)
             {
-                Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenNode(Nodes,Get.Platform.ToString(), Get.Platform, CustomPlatformType.Traditional, 0, Get.Enable));
+                Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.Platform.ToString(), Get.Platform, CustomPlatformType.Traditional, 0, Get.Enable));
             }
 
             foreach (var Get in CustomPlatforms)
@@ -759,21 +759,21 @@ namespace NIM.UIManage
                 {
                     if (Get.CustomInFo.Type == CustomPlatformType.Traditional)
                     {
-                        Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenNode(Nodes,Get.CustomInFo.Name, Get.Platform, Get.CustomInFo.Type, Get.CustomInFo.CustomID, Get.Enable));
+                        Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.CustomInFo.Name, Get.Platform, Get.CustomInFo.Type, Get.CustomInFo.CustomID, Get.Enable));
                     }
                 }
             }
 
-            Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenEmptyNode(CustomPlatformType.Traditional));
+            Nodes.Children.Add(NIMApp.NodeStyleWin.GenEmptyNode(CustomPlatformType.Traditional));
 
-            Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenNodeTree("Interactive Nodes"));
+            Nodes.Children.Add(NIMApp.NodeStyleWin.GenNodeTree("Interactive Nodes"));
 
             foreach (var Get in InteractivePlatforms)
             {
-                Nodes.Children.Add(PhoenixApp.NodeStyleWin.GenNode(Nodes,Get.Platform.ToString(), Get.Platform, CustomPlatformType.Interactive, 0, Get.Enable));
+                Nodes.Children.Add(NIMApp.NodeStyleWin.GenNode(Nodes,Get.Platform.ToString(), Get.Platform, CustomPlatformType.Interactive, 0, Get.Enable));
             }
 
-            PhoenixApp.NodeStyleWin.SyncCount(Nodes);
+            NIMApp.NodeStyleWin.SyncCount(Nodes);
         }
 
     }
