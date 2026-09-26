@@ -7,7 +7,7 @@ $repositoryRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
 $manifestPath = Join-Path $repositoryRoot "dependencies.json"
 $dependencyRoot = Join-Path $repositoryRoot "dependencies"
 $temporaryRoot = [System.IO.Path]::GetFullPath([System.IO.Path]::GetTempPath())
-$temporaryDirectory = Join-Path $temporaryRoot ("PhoenixTranslator-dependencies-" + [System.Guid]::NewGuid().ToString("N"))
+$temporaryDirectory = Join-Path $temporaryRoot ("NIMTranslator-dependencies-" + [System.Guid]::NewGuid().ToString("N"))
 $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
 
 function Assert-DependencyMetadata {

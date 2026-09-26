@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Input;
 using PhoenixEngine;
 using NIM.ApplicationLayer;
-using NIM.UIManagement.Preview;
 
 namespace NIM
 {
