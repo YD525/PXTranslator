@@ -39,8 +39,8 @@ namespace NIM
     /// </summary>
     public partial class TranslateConfig : Window
     {
-        private PhoenixGui _Owner;
-        public TranslateConfig(PhoenixGui Owner)
+        private NIMGui _Owner;
+        public TranslateConfig(NIMGui Owner)
         {
             InitializeComponent();
             this._Owner = Owner;

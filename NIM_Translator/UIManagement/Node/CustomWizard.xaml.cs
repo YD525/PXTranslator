@@ -28,8 +28,8 @@ namespace NIM
     /// </summary>
     public partial class CustomWizard : Window
     {
-        private PhoenixGui _Owner;
-        public CustomWizard(PhoenixGui Owner)
+        private NIMGui _Owner;
+        public CustomWizard(NIMGui Owner)
         {
             InitializeComponent();
             this._Owner = Owner;

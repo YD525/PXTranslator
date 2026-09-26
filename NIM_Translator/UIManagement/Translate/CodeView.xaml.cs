@@ -19,9 +19,9 @@ namespace NIM
     /// </summary>
     public partial class CodeView : Window
     {
-        private PhoenixGui _Owner;
+        private NIMGui _Owner;
         public ModFile ModRef = null;
-        public CodeView(ModFile Mod,PhoenixGui Owner)
+        public CodeView(ModFile Mod,NIMGui Owner)
         {
             InitializeComponent();
 

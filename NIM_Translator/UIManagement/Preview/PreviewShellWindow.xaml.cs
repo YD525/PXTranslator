@@ -16,7 +16,7 @@ namespace NIM.UIManagement.Preview
     /// </summary>
     public partial class PreviewShellWindow : Window
     {
-        private PhoenixGui _legacyWorkspace;
+        private NIMGui _legacyWorkspace;
         private readonly PreviewShellViewModel _shellViewModel;
         private readonly PreviewProjectHubViewModel _projectHubViewModel;
         private readonly PreviewTranslationWorkspaceViewModel _translationWorkspaceViewModel;
@@ -339,7 +339,7 @@ namespace NIM.UIManagement.Preview
         {
             if (_legacyWorkspace == null)
             {
-                _legacyWorkspace = new PhoenixGui(_diagnostics);
+                _legacyWorkspace = new NIMGui(_diagnostics);
                 NIMApp.WorkWin = _legacyWorkspace;
                 NIMApp.SelfSetting.Layout = PhoenixLayout.Classic;//Update the configuration file; the Classic layout will be selected on the next startup.
                 _legacyWorkspace.Closed += LegacyWorkspaceClosed;
