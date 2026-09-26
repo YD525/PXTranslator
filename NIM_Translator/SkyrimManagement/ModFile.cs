@@ -947,7 +947,7 @@ namespace NIM.SkyrimManagement
 
                     if (NIMApp.EngineSetting.AutoSetThreadLimit)
                     {
-                        Phoenix.SyncTrdCount();
+                        NIM_Engine.SyncTrdCount();
                     }
 
                     if (ListView != null)

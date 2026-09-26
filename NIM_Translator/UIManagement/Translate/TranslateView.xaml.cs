@@ -802,7 +802,7 @@ namespace NIM.UIManagement
                                             return;
                                         }
 
-                                        if (!Phoenix.CheckAvailableNodes())
+                                        if (!NIM_Engine.CheckAvailableNodes())
                                         {
                                             MessageBoxExtend.Show(this._Parent, "Msg", "Please enable at least one translation platform node.",PreviewDialogSeverity.Warning);
                                             CallSuccess = false;
@@ -1461,7 +1461,7 @@ namespace NIM.UIManagement
 
                 if (NIMApp.SelfSetting.ViewMode == "Normal")
                 {
-                    if (!Phoenix.CheckAvailableNodes())
+                    if (!NIM_Engine.CheckAvailableNodes())
                     {
                         MessageBoxExtend.Show(this._Parent,"Msg", "Please enable at least one translation platform node.", PreviewDialogSeverity.Warning);
                         return;
@@ -1641,7 +1641,7 @@ namespace NIM.UIManagement
 
         private void TranslateOTButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!Phoenix.CheckAvailableNodes())
+            if (!NIM_Engine.CheckAvailableNodes())
             {
                 MessageBoxExtend.Show(this._Parent,"Msg","Please enable at least one translation platform node.", ApplicationLayer.PreviewDialogSeverity.Information);
                 return;
@@ -1996,7 +1996,7 @@ namespace NIM.UIManagement
                                                 {
                                                     GetBatchCore.TranslatedCount = 0;
                                                 }
-                                                Phoenix.Vacuum();
+                                                NIM_Engine.Vacuum();
                                                 CallFuncCount++;
                                             }
                                         }
@@ -2004,7 +2004,7 @@ namespace NIM.UIManagement
                                         {
                                             LocalDBCache.ClearLocalCache(Mod.P_Translator.GetFileUniqueKey());
                                             {
-                                                Phoenix.Vacuum();
+                                                NIM_Engine.Vacuum();
                                                 CallFuncCount++;
                                             }
 

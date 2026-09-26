@@ -332,7 +332,7 @@ namespace NIM.UIManagement
 
             GetMask.Visibility = Visibility.Visible;
 
-            Phoenix.SaveConfig();
+            NIM_Engine.SaveConfig();
             SyncCount((GetNodeGrid.Tag as HeaderInFo).Parent);
         }
 
@@ -373,7 +373,7 @@ namespace NIM.UIManagement
 
             GetMask.Visibility = Visibility.Collapsed;
 
-            Phoenix.SaveConfig();
+            NIM_Engine.SaveConfig();
             SyncCount((GetNodeGrid.Tag as HeaderInFo).Parent);
         }
 

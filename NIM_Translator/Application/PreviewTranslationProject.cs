@@ -113,7 +113,7 @@ namespace NIM.ApplicationLayer
                 throw new ArgumentNullException(nameof(entry));
             }
 
-            if (!Phoenix.CheckAvailableNodes())
+            if (!NIM_Engine.CheckAvailableNodes())
             {
                 throw new InvalidOperationException("No translation provider is enabled.");
             }
@@ -320,7 +320,7 @@ namespace NIM.ApplicationLayer
             }
 
             cancellationToken.ThrowIfCancellationRequested();
-            Phoenix.Vacuum();
+            NIM_Engine.Vacuum();
         }
 
         /// <summary>Loads the engine translation history for the active project and target language.</summary>

@@ -626,12 +626,12 @@ namespace NIM
             NPlatformConfig.CustomInFo = CustomPlatform;
 
             NIMApp.EngineSetting.PlatformConfigs.Add(CustomPlatform.CustomID, NPlatformConfig);
-            Phoenix.SaveConfig();
+            NIM_Engine.SaveConfig();
 
             ClearValue();
 
             UIHelper.SyncNodes(_Owner.Nodes);
-            Phoenix.ReSetKeyData();
+            NIM_Engine.ReSetKeyData();
 
             this.Close();
         }

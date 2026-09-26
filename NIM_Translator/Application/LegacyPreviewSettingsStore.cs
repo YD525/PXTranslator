@@ -117,7 +117,7 @@ namespace NIM.ApplicationLayer
                     !provider.ApiKeys.Contains(providerCredential))
                 {
                     provider.ApiKeys.Add(providerCredential);
-                    Phoenix.ReSetKeyData();
+                    NIM_Engine.ReSetKeyData();
                 }
             }
 
