@@ -3,9 +3,9 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using NIM.UIManagement;
-using PhoenixEngine.ADO;
-using PhoenixEngine.Language;
-using PhoenixEngine.Memory;
+using NIMEngine.ADO;
+using NIMEngine.Language;
+using NIMEngine.Memory;
 
 namespace NIM
 {

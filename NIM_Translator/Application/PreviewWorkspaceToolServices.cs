@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace NIM.ApplicationLayer
 {
     /// <summary>
-    /// Reads and writes bounded, key-addressed Phoenix translation tables.
+    /// Reads and writes bounded, key-addressed NIM translation tables.
     /// </summary>
     internal sealed class PreviewTranslationTableService
     {
@@ -166,7 +166,7 @@ namespace NIM.ApplicationLayer
         }
     }
 
-    /// <summary>Reads and writes bounded files compatible with the Phoenix RamCache exchange format.</summary>
+    /// <summary>Reads and writes bounded files compatible with the NIM RamCache exchange format.</summary>
     internal sealed class PreviewRamCacheService
     {
         private const int MaximumRows = 500000;

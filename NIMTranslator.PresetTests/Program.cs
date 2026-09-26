@@ -468,7 +468,7 @@ namespace NIM.PresetTests
 
         private static void ExportsSafePreviewDiagnostics()
         {
-            string directory = Path.Combine(Path.GetTempPath(), "PhoenixDiagnosticTests", Guid.NewGuid().ToString("N"));
+            string directory = Path.Combine(Path.GetTempPath(), "NIMDiagnosticTests", Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(directory);
             try
             {
@@ -498,7 +498,7 @@ namespace NIM.PresetTests
 
         private static void PresentsPreviewShellServiceVersions()
         {
-            string directory = Path.Combine(Path.GetTempPath(), "PhoenixShellServiceTests", Guid.NewGuid().ToString("N"));
+            string directory = Path.Combine(Path.GetTempPath(), "NIMShellServiceTests", Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(directory);
             try
             {
@@ -510,7 +510,7 @@ namespace NIM.PresetTests
 
                 AssertEqual(5, viewModel.Components.Count,
                     "About must distinguish Translator from all four supporting component boundaries.");
-                AssertEqual("Phoenix Translator", viewModel.Components[0].Component,
+                AssertEqual("NIM Translator", viewModel.Components[0].Component,
                     "About must present the product version independently from dependencies.");
                 AssertEqual(true, viewModel.Components.All(component => !string.IsNullOrWhiteSpace(component.Status)),
                     "Every dependency must expose a safe loaded, available, or unavailable state.");
@@ -531,7 +531,7 @@ namespace NIM.PresetTests
 
         private static void OpensProjectThroughHubAndPersistsRecent()
         {
-            string projectPath = Path.Combine(Path.GetTempPath(), "PhoenixProjectHubTests", Guid.NewGuid().ToString("N"), "project.xml");
+            string projectPath = Path.Combine(Path.GetTempPath(), "NIMProjectHubTests", Guid.NewGuid().ToString("N"), "project.xml");
             Directory.CreateDirectory(Path.GetDirectoryName(projectPath));
             File.WriteAllText(projectPath, "fixture");
             try
@@ -569,7 +569,7 @@ namespace NIM.PresetTests
 
         private static void ProtectsUnsavedProjectReplacement()
         {
-            string directory = Path.Combine(Path.GetTempPath(), "PhoenixProjectHubTests", Guid.NewGuid().ToString("N"));
+            string directory = Path.Combine(Path.GetTempPath(), "NIMProjectHubTests", Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(directory);
             string firstPath = Path.Combine(directory, "first.xml");
             string secondPath = Path.Combine(directory, "second.xml");
@@ -617,7 +617,7 @@ namespace NIM.PresetTests
 
         private static void PersistsBoundedRecentProjects()
         {
-            string directory = Path.Combine(Path.GetTempPath(), "PhoenixProjectHubStoreTests", Guid.NewGuid().ToString("N"));
+            string directory = Path.Combine(Path.GetTempPath(), "NIMProjectHubStoreTests", Guid.NewGuid().ToString("N"));
             string storePath = Path.Combine(directory, "recent.xml");
             Directory.CreateDirectory(directory);
             try
@@ -834,7 +834,7 @@ namespace NIM.PresetTests
 
         private static int RunPerformanceValidation()
         {
-            Console.WriteLine("Phoenix Translator preview performance validation");
+            Console.WriteLine("NIM Translator preview performance validation");
             Console.WriteLine("Runtime,{0}", Environment.Version);
             Console.WriteLine("LogicalProcessors,{0}", Environment.ProcessorCount);
             Console.WriteLine("Profile,Entries,OpenMs,FilterMs,ValidationMs,ComparisonMs,Result");
@@ -1022,7 +1022,7 @@ namespace NIM.PresetTests
                     return new PreviewEntryContext(
                         string.Empty,
                         string.Empty,
-                        new[] { new PreviewContextMetadata("Stable key", entry.Key, "Phoenix Translator") },
+                        new[] { new PreviewContextMetadata("Stable key", entry.Key, "NIM Translator") },
                         new PreviewContextRelation[0],
                         new PreviewNpcContext[0],
                         null);
@@ -1075,7 +1075,7 @@ namespace NIM.PresetTests
 
         private static void ValidatesBoundedPreviewAssets()
         {
-            string directory = Path.Combine(Path.GetTempPath(), "PhoenixAssetContextTests", Guid.NewGuid().ToString("N"));
+            string directory = Path.Combine(Path.GetTempPath(), "NIMAssetContextTests", Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(directory);
             string projectPath = Path.Combine(directory, "fixture.xml");
             File.WriteAllText(projectPath, "fixture");
@@ -1166,7 +1166,7 @@ namespace NIM.PresetTests
 
         private static void RoundTripsWorkflowRolloutAndRecoversBackup()
         {
-            string directory = Path.Combine(Path.GetTempPath(), "PhoenixRollout-" + Guid.NewGuid().ToString("N"));
+            string directory = Path.Combine(Path.GetTempPath(), "NIMRollout-" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(directory);
             try
             {
@@ -1194,7 +1194,7 @@ namespace NIM.PresetTests
 
         private static void RoutesDisabledWorkflowToLegacyFallback()
         {
-            string directory = Path.Combine(Path.GetTempPath(), "PhoenixRollout-" + Guid.NewGuid().ToString("N"));
+            string directory = Path.Combine(Path.GetTempPath(), "NIMRollout-" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(directory);
             try
             {
@@ -1219,7 +1219,7 @@ namespace NIM.PresetTests
 
         private static void RoundTripsBoundedRamCache()
         {
-            string directory = Path.Combine(Path.GetTempPath(), "PhoenixRamCache-" + Guid.NewGuid().ToString("N"));
+            string directory = Path.Combine(Path.GetTempPath(), "NIMRamCache-" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(directory);
             try
             {
@@ -1398,7 +1398,7 @@ namespace NIM.PresetTests
 
         private static void TracksReviewDecisionsAndBulkUndo()
         {
-            string stateDirectory = Path.Combine(Path.GetTempPath(), "PhoenixReviewTests", Guid.NewGuid().ToString("N"));
+            string stateDirectory = Path.Combine(Path.GetTempPath(), "NIMReviewTests", Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(stateDirectory);
             try
             {
@@ -1445,7 +1445,7 @@ namespace NIM.PresetTests
 
         private static void PersistsPrivateReviewMetadata()
         {
-            string stateDirectory = Path.Combine(Path.GetTempPath(), "PhoenixReviewTests", Guid.NewGuid().ToString("N"));
+            string stateDirectory = Path.Combine(Path.GetTempPath(), "NIMReviewTests", Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(stateDirectory);
             try
             {
@@ -1480,7 +1480,7 @@ namespace NIM.PresetTests
 
         private static void NavigatesFromFindingToTranslationEntry()
         {
-            string stateDirectory = Path.Combine(Path.GetTempPath(), "PhoenixReviewTests", Guid.NewGuid().ToString("N"));
+            string stateDirectory = Path.Combine(Path.GetTempPath(), "NIMReviewTests", Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(stateDirectory);
             try
             {
@@ -1589,7 +1589,7 @@ namespace NIM.PresetTests
 
         private static void PersistsPrivateRevisionHistory()
         {
-            string stateDirectory = Path.Combine(Path.GetTempPath(), "PhoenixHistoryTests", Guid.NewGuid().ToString("N"));
+            string stateDirectory = Path.Combine(Path.GetTempPath(), "NIMHistoryTests", Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(stateDirectory);
             try
             {
@@ -1618,7 +1618,7 @@ namespace NIM.PresetTests
 
         private static void AppliesAndUndoesExplicitRevisionReuse()
         {
-            string stateDirectory = Path.Combine(Path.GetTempPath(), "PhoenixUpdateTests", Guid.NewGuid().ToString("N"));
+            string stateDirectory = Path.Combine(Path.GetTempPath(), "NIMUpdateTests", Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(stateDirectory);
             try
             {

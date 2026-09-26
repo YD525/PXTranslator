@@ -1,4 +1,4 @@
-﻿using PhoenixEngine.Memory;
+﻿using NIMEngine.Memory;
 
 namespace NIM.ModParser
 { 
@@ -7,7 +7,7 @@ namespace NIM.ModParser
         /// <summary>
         /// Create an instance; `Create` must be executed after `new` is completed.
         /// </summary>
-        /// <param name="FileUniqueKey">The file ID. It can be obtained using a function in Phoenix.</param>
+        /// <param name="FileUniqueKey">The file ID. It can be obtained using a function in NIM.</param>
         /// <param name="Link">The first parameter of `P_Dict<string, P_String>` is the `UniqueKey`, which corresponds to the `UniqueKey` in the return value of the `Load` method; the second parameter represents the value to be modified.</param>
         void Create(int FileUniqueKey, P_Dict<string, P_String> Link);
 
@@ -31,7 +31,7 @@ namespace NIM.ModParser
         /// <summary>
         /// Create an instance; `Create` must be executed after `new` is completed.
         /// </summary>
-        /// <param name="FileUniqueKey">The file ID. It can be obtained using a function in Phoenix.</param>
+        /// <param name="FileUniqueKey">The file ID. It can be obtained using a function in NIM.</param>
         /// <param name="Link">The first parameter of `P_Dict<string, P_String>` is the `UniqueKey`, which corresponds to the `UniqueKey` in the return value of the `Load` method; the second parameter represents the value to be modified.</param>
         void Create(int FileUniqueKey, P_Dict<string, P_String> Link);
 

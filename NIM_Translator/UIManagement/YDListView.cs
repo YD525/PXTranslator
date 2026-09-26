@@ -10,12 +10,10 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using ICSharpCode.AvalonEdit;
-using PhoenixEngine.Translate;
-using PhoenixEngine.Additional;
-using PhoenixEngine.Common;
+using NIMEngine.Translate;
+using NIMEngine.Additional;
+using NIMEngine.Common;
 using NIM.SkyrimManagement;
-
-// Copyright 2026 YD525
 
 public class FakeGrid
 {

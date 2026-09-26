@@ -15,10 +15,10 @@ using System.IO;
 using System.Windows.Markup;
 using static NIM.UIManagement.NodeStyleWin;
 using System.Runtime.CompilerServices;
-using PhoenixEngine.Translate;
-using PhoenixEngine;
-using PhoenixEngine.Platform;
-using PhoenixEngine.Unit;
+using NIMEngine.Translate;
+using NIMEngine;
+using NIMEngine.Platform;
+using NIMEngine.Unit;
 using NIM.UIManagement.Preview;
 using NIM.ModParser;
 
@@ -563,7 +563,7 @@ namespace NIM.UIManage
                                     HeaderInFo GetHeader = SetGrid.Tag as HeaderInFo;
                                     if (GetHeader.CustomID <= 0 && GetHeader.MainType == PlatformType.Null)
                                     {
-                                        if (Sign == PlatformType.PhoenixEngine)
+                                        if (Sign == PlatformType.NIMEngine)
                                         {
                                             ContentControl GetLight = NIMApp.NodeStyleWin.GetNodeLight(SetGrid);
                                             NodeLightController.Blink(SetGrid, GetLight, 1000);

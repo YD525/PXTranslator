@@ -8,16 +8,16 @@ using NIM.FileManagement;
 using NIM.SkyrimManage;
 using NIM.TranslateManage;
 using NIM.UIManagement;
-using PhoenixEngine.ADO;
-using PhoenixEngine.Engine;
-using PhoenixEngine.Engine.ADO;
-using PhoenixEngine.Events;
-using PhoenixEngine.Memory;
-using PhoenixEngine.Request;
-using PhoenixEngine.Translate;
-using PhoenixEngine.Unit;
+using NIMEngine.ADO;
+using NIMEngine.Engine;
+using NIMEngine.Engine.ADO;
+using NIMEngine.Events;
+using NIMEngine.Memory;
+using NIMEngine.Request;
+using NIMEngine.Translate;
+using NIMEngine.Unit;
 using NIM.ApplicationLayer;
-using PhoenixEngine;
+using NIMEngine;
 using NIM.ModParser;
 
 namespace NIM.SkyrimManagement

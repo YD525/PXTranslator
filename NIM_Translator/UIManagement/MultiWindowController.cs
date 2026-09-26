@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using NIM.ModParser;
 using NIM.SkyrimManagement;
-using PhoenixEngine.Unit;
+using NIMEngine.Unit;
 
 namespace NIM.UIManagement
 {

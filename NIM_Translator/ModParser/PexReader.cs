@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using PexInterface;
-using PhoenixEngine.Memory;
+using NIMEngine.Memory;
 using static PexInterface.PexHeuristicAnalysis;
 
 namespace NIM.ModParser

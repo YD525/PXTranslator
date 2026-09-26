@@ -7,10 +7,10 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using NIM.FileManagement;
 using NIM.UIManage;
-using PhoenixEngine;
-using PhoenixEngine.Common;
-using PhoenixEngine.Platform;
-using PhoenixEngine.Translate;
+using NIMEngine;
+using NIMEngine.Common;
+using NIMEngine.Platform;
+using NIMEngine.Translate;
 using NIM.ApplicationLayer;
 
 namespace NIM.UIManagement

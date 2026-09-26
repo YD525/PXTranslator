@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using PhoenixEngine;
-using PhoenixEngine.ADO;
-using PhoenixEngine.Engine.ADO;
-using PhoenixEngine.Memory;
-using PhoenixEngine.Translate;
-using PhoenixEngine.Unit;
+using NIMEngine;
+using NIMEngine.ADO;
+using NIMEngine.Engine.ADO;
+using NIMEngine.Memory;
+using NIMEngine.Translate;
+using NIMEngine.Unit;
 using NIM.SkyrimManagement;
 using NIM.ModParser;
 
@@ -496,10 +496,10 @@ namespace NIM.ApplicationLayer
             PreviewTranslationEntry entry,
             ICollection<PreviewContextMetadata> metadata)
         {
-            metadata.Add(new PreviewContextMetadata("Record", entry.Record, "Phoenix Translator"));
-            metadata.Add(new PreviewContextMetadata("Type", entry.Type, "Phoenix Translator"));
-            metadata.Add(new PreviewContextMetadata("Stable key", entry.Key, "Phoenix Translator"));
-            metadata.Add(new PreviewContextMetadata("Confidence", entry.Score.ToString("0.##"), "Phoenix Translator"));
+            metadata.Add(new PreviewContextMetadata("Record", entry.Record, "NIM Translator"));
+            metadata.Add(new PreviewContextMetadata("Type", entry.Type, "NIM Translator"));
+            metadata.Add(new PreviewContextMetadata("Stable key", entry.Key, "NIM Translator"));
+            metadata.Add(new PreviewContextMetadata("Confidence", entry.Score.ToString("0.##"), "NIM Translator"));
         }
 
         private void AddExactSourceRelations(
@@ -518,7 +518,7 @@ namespace NIM.ApplicationLayer
                 if (!ReferenceEquals(entry, selectedEntry) &&
                     string.Equals(entry.SourceText, selectedEntry.SourceText, StringComparison.Ordinal))
                 {
-                    relations.Add(CreateRelation(entry, "Exact source match", "Phoenix Translator"));
+                    relations.Add(CreateRelation(entry, "Exact source match", "NIM Translator"));
                 }
             }
         }

@@ -128,10 +128,10 @@
   <data name="Common_State_Available" xml:space="preserve"><value>Available</value><comment>Positive status for a reachable provider or feature.</comment></data>
   <data name="Common_State_Modified" xml:space="preserve"><value>Modified</value><comment>State label for staged or unsaved changes.</comment></data>
   <data name="Common_State_Ready" xml:space="preserve"><value>Ready</value><comment>State label for an idle surface that can accept work.</comment></data>
-  <data name="Shell_Product_Name" xml:space="preserve"><value>Phoenix Translator</value><comment>Product name in the preview shell title area.</comment></data>
+  <data name="Shell_Product_Name" xml:space="preserve"><value>NIM Translator</value><comment>Product name in the preview shell title area.</comment></data>
   <data name="Shell_Project_None" xml:space="preserve"><value>No project open</value><comment>Shell project-identity text when no project is loaded.</comment></data>
   <data name="Shell_ProjectOpen_Title" xml:space="preserve"><value>Open a localization project</value><comment>Heading for the empty project picker.</comment></data>
-  <data name="Shell_ProjectOpen_SupportedFormats" xml:space="preserve"><value>ESP, ESM, PEX, MCM, XML, or an existing Phoenix project</value><comment>Supported-format hint below the project picker heading.</comment></data>
+  <data name="Shell_ProjectOpen_SupportedFormats" xml:space="preserve"><value>ESP, ESM, PEX, MCM, XML, or an existing NIM project</value><comment>Supported-format hint below the project picker heading.</comment></data>
   <data name="Shell_ProjectOpen_DropPrompt" xml:space="preserve"><value>Drop files here to start</value><comment>Drop-zone instruction in the empty project picker.</comment></data>
   <data name="Shell_ProjectOpen_BrowseAction" xml:space="preserve"><value>Browse projects</value><comment>Primary action in the empty project picker.</comment></data>
   <data name="Shell_ProjectOpen_OpeningProgress" xml:space="preserve"><value>Opening project: {0}%</value><comment>Project-loading progress. Placeholders: {0}=integer percentage from 0 through 100.</comment></data>
@@ -150,7 +150,7 @@
   <data name="Shell_Unsaved_ClosePrompt_Title" xml:space="preserve"><value>Save changes before closing?</value><comment>Heading for the modified-project close confirmation.</comment></data>
   <data name="Shell_Unsaved_ClosePrompt_Body" xml:space="preserve"><value>Your project contains changes that have not been saved.</value><comment>Body for the modified-project close confirmation.</comment></data>
   <data name="Shell_Preview_Badge" xml:space="preserve"><value>Preview</value><comment>Badge that distinguishes the incremental preview shell from the legacy workspace.</comment></data>
-  <data name="Shell_Legacy_Open_Action" xml:space="preserve"><value>Open _legacy workspace</value><comment>Global fallback action with an access key that opens the complete legacy PhoenixGui window.</comment></data>
+  <data name="Shell_Legacy_Open_Action" xml:space="preserve"><value>Open _legacy workspace</value><comment>Global fallback action with an access key that opens the complete legacy NIMGui window.</comment></data>
   <data name="Shell_Legacy_Shortcut_Hint" xml:space="preserve"><value>Ctrl+L opens the legacy workspace.</value><comment>Keyboard hint below the workflow fallback action.</comment></data>
   <data name="Shell_Navigation_Shortcuts_Hint" xml:space="preserve"><value>Ctrl+1–8 navigate</value><comment>Compact shell footer hint for direct workflow navigation.</comment></data>
   <data name="Shell_Status_WarningCount" xml:space="preserve"><value>{0} warnings</value><comment>Persistent shell warning summary. Placeholders: {0}=non-negative integer warning count.</comment></data>
@@ -180,7 +180,7 @@
   <data name="Workspace_TranslateEntry_Action" xml:space="preserve"><value>Translate entry</value><comment>Translates the selected entry through the configured provider pipeline.</comment></data>
   <data name="Workspace_Cancel_Action" xml:space="preserve"><value>Cancel</value><comment>Requests cooperative cancellation of the active workspace operation.</comment></data>
   <data name="Workspace_Empty_Title" xml:space="preserve"><value>Open a project to start translating</value><comment>Preview workspace empty-state heading.</comment></data>
-  <data name="Workspace_Empty_Hint" xml:space="preserve"><value>ESP, ESM, ESL, PEX, MCM TXT, XML, and Phoenix RamCache JSON projects are supported.</value><comment>Preview workspace empty-state format summary.</comment></data>
+  <data name="Workspace_Empty_Hint" xml:space="preserve"><value>ESP, ESM, ESL, PEX, MCM TXT, XML, and NIM RamCache JSON projects are supported.</value><comment>Preview workspace empty-state format summary.</comment></data>
   <data name="Workspace_Filter_State_Name" xml:space="preserve"><value>Entry state filter</value><comment>Accessible name for the workspace state filter.</comment></data>
   <data name="Workspace_Filter_Type_Name" xml:space="preserve"><value>Record type filter</value><comment>Accessible name for the workspace record-type filter.</comment></data>
   <data name="Workspace_State_Draft" xml:space="preserve"><value>Draft</value><comment>Entry state for an empty target translation.</comment></data>
@@ -265,13 +265,13 @@
   <data name="Workspace_Tools_TerminologyApplied" xml:space="preserve"><value>Applied terminology to {0} entries.</value><comment>Terminology completion. Placeholder: {0}=entry count.</comment></data>
   <data name="Workspace_Tools_Source_Label" xml:space="preserve"><value>Source</value><comment>Terminology source column label.</comment></data>
   <data name="Workspace_Tools_Target_Label" xml:space="preserve"><value>Target</value><comment>Terminology target column label.</comment></data>
-  <data name="Workspace_Tools_ImportTable_Action" xml:space="preserve"><value>Import table</value><comment>Imports a bounded Phoenix translation TSV table.</comment></data>
-  <data name="Workspace_Tools_ExportTable_Action" xml:space="preserve"><value>Export table</value><comment>Exports a Phoenix translation TSV table.</comment></data>
+  <data name="Workspace_Tools_ImportTable_Action" xml:space="preserve"><value>Import table</value><comment>Imports a bounded NIM translation TSV table.</comment></data>
+  <data name="Workspace_Tools_ExportTable_Action" xml:space="preserve"><value>Export table</value><comment>Exports a NIM translation TSV table.</comment></data>
   <data name="Workspace_Tools_ExportProject_Action" xml:space="preserve"><value>Export project</value><comment>Writes staged translations to a new validated project file.</comment></data>
   <data name="Workspace_Tools_ImportTable_Title" xml:space="preserve"><value>Import translation table</value><comment>Translation-table import dialog title.</comment></data>
   <data name="Workspace_Tools_ExportTable_Title" xml:space="preserve"><value>Export translation table</value><comment>Translation-table export dialog title.</comment></data>
   <data name="Workspace_Tools_ExportProject_Title" xml:space="preserve"><value>Export translated project</value><comment>Translated-project export dialog title.</comment></data>
-  <data name="Workspace_Tools_Table_Filter" xml:space="preserve"><value>Phoenix translation table|*.tsv</value><comment>Translation-table file picker filter.</comment></data>
+  <data name="Workspace_Tools_Table_Filter" xml:space="preserve"><value>NIM translation table|*.tsv</value><comment>Translation-table file picker filter.</comment></data>
   <data name="Workspace_Tools_TableImported" xml:space="preserve"><value>Imported targets for {0} entries.</value><comment>Table import completion. Placeholder: {0}=entry count.</comment></data>
   <data name="Workspace_Tools_TableExported" xml:space="preserve"><value>The translation table was exported.</value><comment>Table export completion.</comment></data>
   <data name="Workspace_Tools_Exporting" xml:space="preserve"><value>Validating and exporting the project…</value><comment>Status during safe project export.</comment></data>
@@ -552,10 +552,10 @@
   <data name="ShellServices_Diagnostics_ExportSuccess" xml:space="preserve"><value>The bounded redacted diagnostic report was exported.</value><comment>Message after a successful diagnostic export.</comment></data>
   <data name="ShellServices_Diagnostics_ExportFailedTitle" xml:space="preserve"><value>Diagnostic export failed</value><comment>Title after a failed diagnostic export.</comment></data>
   <data name="ShellServices_Diagnostics_ExportFailed" xml:space="preserve"><value>The diagnostic report could not be exported. No project content was changed.</value><comment>User-safe diagnostic export failure message.</comment></data>
-  <data name="ShellServices_Credits_Content" xml:space="preserve"><value>Phoenix Translator and its supporting Phoenix Engine, PexInterface, PexReader, and EspReader projects are maintained by their respective YD525 contributors. Third-party acknowledgements remain governed by the licenses distributed with each dependency.</value><comment>Project credits without network-dependent identities.</comment></data>
-  <data name="ShellServices_Licenses_Content" xml:space="preserve"><value>License terms are distributed with Phoenix Translator and each bundled dependency. Use the component assembly names shown in About to match deployed binaries with their accompanying license files and release metadata.</value><comment>License routing guidance for deployed components.</comment></data>
+  <data name="ShellServices_Credits_Content" xml:space="preserve"><value>NIM Translator and its supporting NIM Engine, PexInterface, PexReader, and EspReader projects are maintained by their respective YD525 contributors. Third-party acknowledgements remain governed by the licenses distributed with each dependency.</value><comment>Project credits without network-dependent identities.</comment></data>
+  <data name="ShellServices_Licenses_Content" xml:space="preserve"><value>License terms are distributed with NIM Translator and each bundled dependency. Use the component assembly names shown in About to match deployed binaries with their accompanying license files and release metadata.</value><comment>License routing guidance for deployed components.</comment></data>
   <data name="Startup_Initializing" xml:space="preserve"><value>Initializing…</value><comment>Initial startup progress state.</comment></data>
-  <data name="Startup_Failed_Title" xml:space="preserve"><value>Phoenix Translator could not start</value><comment>Recoverable startup failure title.</comment></data>
+  <data name="Startup_Failed_Title" xml:space="preserve"><value>NIM Translator could not start</value><comment>Recoverable startup failure title.</comment></data>
   <data name="Startup_Failed_Message" xml:space="preserve"><value>Initialization failed before the workspace opened. Retry after checking the deployed dependencies, or exit safely.</value><comment>User-safe startup failure guidance.</comment></data>
   <data name="Startup_Failed_Detail" xml:space="preserve"><value>Failure type: {0}</value><comment>Safe startup failure detail. Placeholder: {0}=exception type name.</comment></data>
   <data name="Startup_Retry_Action" xml:space="preserve"><value>Retry</value><comment>Retries complete startup initialization.</comment></data>
@@ -620,7 +620,7 @@
   <data name="Advanced_Custom_ResponseField_Label" xml:space="preserve"><value>JSON response field</value><comment>Custom provider response mapping field label.</comment></data>
   <data name="Advanced_Custom_Headers_Label" xml:space="preserve"><value>Request headers</value><comment>Custom provider request headers field label.</comment></data>
   <data name="Advanced_Custom_Payload_Label" xml:space="preserve"><value>Request payload</value><comment>Custom provider request payload field label.</comment></data>
-  <data name="Advanced_Custom_Placeholders_Hint" xml:space="preserve"><value>Use existing Phoenix placeholders as values: {API_KEY}, {AI_Prompt}, {AI_Model}, {SourceStr}, {P_From}, and {P_To}.</value><comment>Custom provider request mapping guidance.</comment></data>
+  <data name="Advanced_Custom_Placeholders_Hint" xml:space="preserve"><value>Use existing NIM placeholders as values: {API_KEY}, {AI_Prompt}, {AI_Model}, {SourceStr}, {P_From}, and {P_To}.</value><comment>Custom provider request mapping guidance.</comment></data>
   <data name="Advanced_Custom_UsePost_Label" xml:space="preserve"><value>Use POST for provider requests</value><comment>Custom provider request method option.</comment></data>
   <data name="Advanced_Custom_Privacy" xml:space="preserve"><value>The connectivity test sends no credential, prompt, translation text, payload, or response body to diagnostics.</value><comment>Custom provider test privacy explanation.</comment></data>
   <data name="Advanced_Custom_Test_Action" xml:space="preserve"><value>_Test connectivity</value><comment>Starts a bounded custom provider connectivity test.</comment></data>
@@ -670,11 +670,11 @@
   <data name="Rollout_Workflow_AdvancedTools" xml:space="preserve"><value>Advanced Tools</value><comment>Rollout label for advanced tools.</comment></data>
   <data name="Workspace_Tools_ImportRamCache_Action" xml:space="preserve"><value>Import _RamCache…</value><comment>Imports draft targets from a compatible RamCache JSON file.</comment></data>
   <data name="Workspace_Tools_ExportRamCache_Action" xml:space="preserve"><value>Export R_amCache…</value><comment>Exports the project as a compatible RamCache JSON file.</comment></data>
-  <data name="Workspace_Tools_ImportRamCache_Title" xml:space="preserve"><value>Import Phoenix RamCache</value><comment>Title for selecting a RamCache JSON file.</comment></data>
-  <data name="Workspace_Tools_ExportRamCache_Title" xml:space="preserve"><value>Export Phoenix RamCache</value><comment>Title for selecting a RamCache JSON destination.</comment></data>
-  <data name="Workspace_Tools_RamCache_Filter" xml:space="preserve"><value>Phoenix RamCache (*.json)|*.json</value><comment>File filter for RamCache transfer.</comment></data>
+  <data name="Workspace_Tools_ImportRamCache_Title" xml:space="preserve"><value>Import NIM RamCache</value><comment>Title for selecting a RamCache JSON file.</comment></data>
+  <data name="Workspace_Tools_ExportRamCache_Title" xml:space="preserve"><value>Export NIM RamCache</value><comment>Title for selecting a RamCache JSON destination.</comment></data>
+  <data name="Workspace_Tools_RamCache_Filter" xml:space="preserve"><value>NIM RamCache (*.json)|*.json</value><comment>File filter for RamCache transfer.</comment></data>
   <data name="Workspace_Tools_RamCacheImported" xml:space="preserve"><value>Imported RamCache targets into {0} draft entries.</value><comment>RamCache import completion count.</comment></data>
-  <data name="Workspace_Tools_RamCacheExported" xml:space="preserve"><value>The Phoenix RamCache file was exported.</value><comment>RamCache export completion.</comment></data>
+  <data name="Workspace_Tools_RamCacheExported" xml:space="preserve"><value>The NIM RamCache file was exported.</value><comment>RamCache export completion.</comment></data>
   <data name="Workspace_Tools_Cache_Title" xml:space="preserve"><value>Project translation caches</value><comment>Title for active-project cache maintenance.</comment></data>
   <data name="Workspace_Tools_Cache_Provider" xml:space="preserve"><value>Provider translation cache</value><comment>Selects provider-produced cached targets.</comment></data>
   <data name="Workspace_Tools_Cache_User" xml:space="preserve"><value>User-input translation cache</value><comment>Selects user-entered cached targets.</comment></data>

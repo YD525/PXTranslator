@@ -1,13 +1,9 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
-using NIM.SkyrimManage;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using PhoenixEngine.Language;
-using NIM.TranslateManage;
+using NIMEngine.Language;
 
 namespace NIM.UIManage
 {

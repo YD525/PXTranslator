@@ -2,7 +2,7 @@
 using System.Linq;
 using Newtonsoft.Json;
 using NIM.ModParser;
-using PhoenixEngine.Translate;
+using NIMEngine.Translate;
 
 namespace NIM.SkyrimManagement
 {

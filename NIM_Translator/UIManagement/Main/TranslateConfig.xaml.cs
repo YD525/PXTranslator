@@ -11,12 +11,12 @@ using NIM.SkyrimManagement;
 using NIM.SkyrimModManager;
 using NIM.TranslateManage;
 using NIM.UIManage;
-using PhoenixEngine.ADO;
-using PhoenixEngine.Unit;
-using PhoenixEngine.Language;
-using PhoenixEngine;
-using PhoenixEngine.P_Delegate;
-using PhoenixEngine.Common;
+using NIMEngine.ADO;
+using NIMEngine.Unit;
+using NIMEngine.Language;
+using NIMEngine;
+using NIMEngine.P_Delegate;
+using NIMEngine.Common;
 using NIM.ApplicationLayer;
 using NIM.ModParser;
 

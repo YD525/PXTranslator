@@ -4,10 +4,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using NIM.UIManage;
-using PhoenixEngine;
-using PhoenixEngine.Common;
-using PhoenixEngine.Platform;
-using PhoenixEngine.Translate;
+using NIMEngine;
+using NIMEngine.Common;
+using NIMEngine.Platform;
+using NIMEngine.Translate;
 
 namespace NIM.UIManagement
 {

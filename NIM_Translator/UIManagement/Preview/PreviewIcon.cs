@@ -96,7 +96,7 @@ namespace NIM.UIManagement.Preview
             typeof(PreviewIcon),
             new FrameworkPropertyMetadata(PreviewIconName.Information, OnIconChanged));
 
-        /// <summary>Creates an icon that inherits size and color from its surrounding Phoenix control.</summary>
+        /// <summary>Creates an icon that inherits size and color from its surrounding NIM control.</summary>
         public PreviewIcon()
         {
             Focusable = false;

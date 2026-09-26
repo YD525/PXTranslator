@@ -7,7 +7,7 @@ using NIM.ApplicationLayer;
 namespace NIM.UIManagement.Preview
 {
     /// <summary>
-    /// Renders one owner-aware Phoenix modal interaction with explicit semantic severity.
+    /// Renders one owner-aware NIM modal interaction with explicit semantic severity.
     /// </summary>
     public partial class PreviewDialogWindow : Window
     {

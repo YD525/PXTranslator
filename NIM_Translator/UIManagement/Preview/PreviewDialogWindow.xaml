@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:preview="clr-namespace:NIM.UIManagement.Preview"
-        Title="Phoenix Translator" Width="500" SizeToContent="Height" MaxHeight="620"
+        Title="NIM Translator" Width="500" SizeToContent="Height" MaxHeight="620"
         WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False"
         WindowStartupLocation="CenterOwner" Background="Transparent" AllowsTransparency="True"
         Loaded="Window_Loaded">

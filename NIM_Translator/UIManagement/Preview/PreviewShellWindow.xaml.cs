@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Microsoft.Win32;
-using PhoenixEngine.Language;
+using NIMEngine.Language;
 using NIM.ApplicationLayer;
 
 namespace NIM.UIManagement.Preview
@@ -216,7 +216,7 @@ namespace NIM.UIManagement.Preview
             return ShowSaveDialog(
                 PreviewMessageCatalog.Get("ShellServices_Diagnostics_ExportTitle"),
                 PreviewMessageCatalog.Get("ShellServices_Diagnostics_Filter"),
-                "phoenix-diagnostics.txt");
+                "nim-diagnostics.txt");
         }
 
         private string ShowOpenDialog(string title, string filter)
@@ -341,7 +341,7 @@ namespace NIM.UIManagement.Preview
             {
                 _legacyWorkspace = new NIMGui(_diagnostics);
                 NIMApp.WorkWin = _legacyWorkspace;
-                NIMApp.SelfSetting.Layout = PhoenixLayout.Classic;//Update the configuration file; the Classic layout will be selected on the next startup.
+                NIMApp.SelfSetting.Layout = NIMLayout.Classic;//Update the configuration file; the Classic layout will be selected on the next startup.
                 _legacyWorkspace.Closed += LegacyWorkspaceClosed;
                 _legacyWorkspace.Show();
             }

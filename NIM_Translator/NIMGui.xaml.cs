@@ -18,13 +18,13 @@ using NIM.UIManage;
 using NIM.UIManagement;
 using NIM.YDControls;
 using PexInterface;
-using PhoenixEngine;
-using PhoenixEngine.Common;
-using PhoenixEngine.Events;
-using PhoenixEngine.Language;
-using PhoenixEngine.Platform.LocalAI;
-using PhoenixEngine.Platform;
-using PhoenixEngine.Translate;
+using NIMEngine;
+using NIMEngine.Common;
+using NIMEngine.Events;
+using NIMEngine.Language;
+using NIMEngine.Platform.LocalAI;
+using NIMEngine.Platform;
+using NIMEngine.Translate;
 using System.Windows.Threading;
 using NIM.UIManagement.Preview;
 using NIM.ModParser;
@@ -396,7 +396,7 @@ namespace NIM
                             YDChart.Stop();
                             PageIndex = 0;
                             StartLexGlowLoop();
-                            PhoenixVer.Content = NIMApp.CurrentVersion;
+                            NIMVer.Content = NIMApp.CurrentVersion;
                             EngineVer.Content = Phoenix.Version;
                             PEXAnalysisVer.Content = PexHeuristicAnalysis.Version;
                             PEXReaderVer.Content = PexInterop.Version;
@@ -565,13 +565,13 @@ namespace NIM
         private Border _BtnScrollLeft;
         private Border _BtnScrollRight;
         private ScrollViewer _TabScrollViewer;
-        private void PhoenixTabs_Loaded(object sender, RoutedEventArgs e)
+        private void NIMTabs_Loaded(object sender, RoutedEventArgs e)
         {
-            PhoenixTabs.ApplyTemplate();
+            NIMTabs.ApplyTemplate();
 
-            _BtnScrollLeft = PhoenixTabs.Template?.FindName("BtnScrollLeft", PhoenixTabs) as Border;
-            _BtnScrollRight = PhoenixTabs.Template?.FindName("BtnScrollRight", PhoenixTabs) as Border;
-            _TabScrollViewer = PhoenixTabs.Template?.FindName("TabScrollViewer", PhoenixTabs) as ScrollViewer;
+            _BtnScrollLeft = NIMTabs.Template?.FindName("BtnScrollLeft", NIMTabs) as Border;
+            _BtnScrollRight = NIMTabs.Template?.FindName("BtnScrollRight", NIMTabs) as Border;
+            _TabScrollViewer = NIMTabs.Template?.FindName("TabScrollViewer", NIMTabs) as ScrollViewer;
 
             if (_BtnScrollLeft != null)
                 _BtnScrollLeft.PreviewMouseDown += ScrollTabsLeft_PreviewMouseDown;
@@ -606,7 +606,7 @@ namespace NIM
 
         private void UpdateTabShowState()
         {
-            bool IsEmpty = PhoenixTabs.Items.Count == 0;
+            bool IsEmpty = NIMTabs.Items.Count == 0;
 
             EmptyTabView.Visibility = IsEmpty ? Visibility.Visible : Visibility.Collapsed;
             Tab.Visibility = IsEmpty ? Visibility.Collapsed : Visibility.Visible;
@@ -624,7 +624,7 @@ namespace NIM
         private AdornerLayer _AdornerLayer;
         private DragAdorner _DragAdorner;
 
-        private void PhoenixTabs_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void NIMTabs_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             _DragStartPoint = e.GetPosition(null);
             _DraggedTab = FindAncestor<TabItem>(e.OriginalSource as DependencyObject);
@@ -636,7 +636,7 @@ namespace NIM
             }
         }
 
-        private void PhoenixTabs_PreviewMouseMove(object sender, MouseEventArgs e)
+        private void NIMTabs_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             if (_DraggedTab == null || e.LeftButton != MouseButtonState.Pressed)
                 return;
@@ -652,41 +652,41 @@ namespace NIM
                 AnimateOpacity(_DraggedTab, 0.35, 120);
                 _DraggedTab.Cursor = Cursors.SizeWE;
 
-                _AdornerLayer = AdornerLayer.GetAdornerLayer(PhoenixTabs);
-                _DragAdorner = new DragAdorner(PhoenixTabs, _DraggedTab, e.GetPosition(PhoenixTabs));
+                _AdornerLayer = AdornerLayer.GetAdornerLayer(NIMTabs);
+                _DragAdorner = new DragAdorner(NIMTabs, _DraggedTab, e.GetPosition(NIMTabs));
                 _AdornerLayer.Add(_DragAdorner);
 
-                Mouse.Capture(PhoenixTabs, CaptureMode.SubTree);
+                Mouse.Capture(NIMTabs, CaptureMode.SubTree);
             }
 
-            _DragAdorner.UpdatePosition(e.GetPosition(PhoenixTabs));
+            _DragAdorner.UpdatePosition(e.GetPosition(NIMTabs));
 
-            TabItem TargetTab = HitTestTabItem(e.GetPosition(PhoenixTabs));
+            TabItem TargetTab = HitTestTabItem(e.GetPosition(NIMTabs));
             if (TargetTab == null || TargetTab == _DraggedTab)
                 return;
 
-            int DraggedIndex = PhoenixTabs.Items.IndexOf(_DraggedTab);
-            int TargetIndex = PhoenixTabs.Items.IndexOf(TargetTab);
+            int DraggedIndex = NIMTabs.Items.IndexOf(_DraggedTab);
+            int TargetIndex = NIMTabs.Items.IndexOf(TargetTab);
             if (DraggedIndex < 0 || TargetIndex < 0)
                 return;
 
-            PhoenixTabs.Items.RemoveAt(DraggedIndex);
-            PhoenixTabs.Items.Insert(TargetIndex, _DraggedTab);
-            PhoenixTabs.SelectedItem = _DraggedTab;
+            NIMTabs.Items.RemoveAt(DraggedIndex);
+            NIMTabs.Items.Insert(TargetIndex, _DraggedTab);
+            NIMTabs.SelectedItem = _DraggedTab;
 
             FlashSwap(TargetTab);
         }
 
         private TabItem HitTestTabItem(Point PosInTabs)
         {
-            HitTestResult Result = VisualTreeHelper.HitTest(PhoenixTabs, PosInTabs);
+            HitTestResult Result = VisualTreeHelper.HitTest(NIMTabs, PosInTabs);
             if (Result == null)
                 return null;
 
             return FindAncestor<TabItem>(Result.VisualHit);
         }
 
-        private void PhoenixTabs_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void NIMTabs_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             if (_DraggedTab != null)
             {
@@ -694,7 +694,7 @@ namespace NIM
                 _DraggedTab.ClearValue(FrameworkElement.CursorProperty);
             }
 
-            if (Mouse.Captured == PhoenixTabs)
+            if (Mouse.Captured == NIMTabs)
                 Mouse.Capture(null);
 
             if (_AdornerLayer != null && _DragAdorner != null)
@@ -746,9 +746,9 @@ namespace NIM
         }
 
         public TranslateView ActiveTab = null;
-        private void PhoenixTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void NIMTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var Tab = PhoenixTabs.SelectedItem as TabItem;
+            var Tab = NIMTabs.SelectedItem as TabItem;
             if (Tab == null)
                 return;
 
@@ -788,7 +788,7 @@ namespace NIM
             ScrollToSelectedTab();
         }
 
-        private void PhoenixTabs_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void NIMTabs_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var Dep = e.OriginalSource as DependencyObject;
 
@@ -797,7 +797,7 @@ namespace NIM
 
             var AnyBtn = FindAncestor<Border>(Dep);
 
-            if (AnyBtn != null && AnyBtn.Tag?.ToString() == "PhoenixTabClose")
+            if (AnyBtn != null && AnyBtn.Tag?.ToString() == "NIMTabClose")
             {
                 var TabItem = FindAncestor<TabItem>(Dep);
 
@@ -811,7 +811,7 @@ namespace NIM
                 }
             }
 
-            if (AnyBtn != null && AnyBtn.Tag?.ToString() == "PhoenixTabAdd")
+            if (AnyBtn != null && AnyBtn.Tag?.ToString() == "NIMTabAdd")
             {
                 e.Handled = true;
 
@@ -824,12 +824,12 @@ namespace NIM
         {
             UI(() =>
             {
-                foreach (TabItem Item in PhoenixTabs.Items)
+                foreach (TabItem Item in NIMTabs.Items)
                 {
                     if (Item.Tag is FileTabContext CTX && CTX.Path == Path)
                     {
                         if (Select)
-                            PhoenixTabs.SelectedItem = Item;
+                            NIMTabs.SelectedItem = Item;
 
                         return;
                     }
@@ -851,12 +851,12 @@ namespace NIM
                     Tag = CTXNew
                 };
 
-                PhoenixTabs.Items.Add(Tab);
+                NIMTabs.Items.Add(Tab);
 
                 TabViews.Children.Add(View);
 
                 if (Select)
-                    PhoenixTabs.SelectedItem = Tab;
+                    NIMTabs.SelectedItem = Tab;
 
                 UpdateTabShowState();
 
@@ -870,7 +870,7 @@ namespace NIM
                 TabItem Target = null;
                 FileTabContext CTX = null;
 
-                foreach (TabItem Item in PhoenixTabs.Items)
+                foreach (TabItem Item in NIMTabs.Items)
                 {
                     if (Item.Tag is FileTabContext c && c.Path == Path)
                     {
@@ -894,7 +894,7 @@ namespace NIM
                     ActiveTab = null;
                 }
 
-                PhoenixTabs.Items.Remove(Target);
+                NIMTabs.Items.Remove(Target);
 
                 UpdateTabShowState();
 
@@ -959,7 +959,7 @@ namespace NIM
         private void ScrollToSelectedTab()
         {
             var SV = GetTabScrollViewer();
-            var Selected = PhoenixTabs.SelectedItem as TabItem;
+            var Selected = NIMTabs.SelectedItem as TabItem;
             if (SV == null || Selected == null) return;
 
             Selected.BringIntoView();
@@ -1251,7 +1251,7 @@ namespace NIM
         {
             if (Name.Equals("Request And ApiKey Configs"))
             {
-                var PhoenixConfig = NIMApp.EngineSetting;
+                var NIMConfig = NIMApp.EngineSetting;
 
                 SProxyUrl.Text = NIMApp.EngineSetting.ProxyUrl;
                 SProxyUserName.Text = NIMApp.EngineSetting.ProxyUserName;
@@ -1296,7 +1296,7 @@ namespace NIM
                 }
 
                 EspReader TempEspReader = new EspReader();
-                TempEspReader.Create(-5,new PhoenixEngine.Memory.P_Dict<string, PhoenixEngine.Memory.P_String>());
+                TempEspReader.Create(-5,new NIMEngine.Memory.P_Dict<string, NIMEngine.Memory.P_String>());
 
                 EspFilterStr.Text = TempEspReader.GetFilterByStr(); 
 
@@ -1885,7 +1885,7 @@ namespace NIM
             NIMApp.SelfSetting.SaveConfig();
 
             EspReader TempEspReader = new EspReader();
-            TempEspReader.Create(-6, new PhoenixEngine.Memory.P_Dict<string, PhoenixEngine.Memory.P_String>());
+            TempEspReader.Create(-6, new NIMEngine.Memory.P_Dict<string, NIMEngine.Memory.P_String>());
 
             EspFilterStr.Text = TempEspReader.GetFilterByStr();
 
@@ -1897,7 +1897,7 @@ namespace NIM
             try
             {
                 EspReader TempEspReader = new EspReader();
-                TempEspReader.Create(-6,new PhoenixEngine.Memory.P_Dict<string, PhoenixEngine.Memory.P_String>());
+                TempEspReader.Create(-6,new NIMEngine.Memory.P_Dict<string, NIMEngine.Memory.P_String>());
 
                 var FilterDict = TempEspReader.ParseFilterString(EspFilterStr.Text);
 
@@ -1958,7 +1958,7 @@ namespace NIM
 
         private void ChangeToModern(object sender, MouseButtonEventArgs e)
         {
-            if (PhoenixTabs.Items.Count > 0)
+            if (NIMTabs.Items.Count > 0)
             {
                 MessageBoxExtend.Show(this,"Msg","There are files in the workspace. Please clear the workspace before switching layouts.",PreviewDialogSeverity.Warning);
             }
@@ -1967,7 +1967,7 @@ namespace NIM
                 NIMApp.CurrentLayout = new PreviewShellWindow(_diagnostics);
                 NIMApp.CurrentLayout.Show();
 
-                NIMApp.SelfSetting.Layout = PhoenixLayout.Modern;//Update the configuration file; the Modern layout will be selected on the next startup.
+                NIMApp.SelfSetting.Layout = NIMLayout.Modern;//Update the configuration file; the Modern layout will be selected on the next startup.
 
                 this.CanExit = false;
                 this.Close();
