@@ -271,9 +271,9 @@ namespace NIM
                 var DetectLang = P_Language.DetectLanguageByLine(SourceStr.Text);
                 if (DetectLang == Languages.SimplifiedChinese || DetectLang == Languages.TraditionalChinese)
                 {
-                    if (PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.From == Languages.SimplifiedChinese || PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.From == Languages.TraditionalChinese)
+                    if (NIMApp.WorkWin.ActiveTab.Mod.P_Translator.From == Languages.SimplifiedChinese || NIMApp.WorkWin.ActiveTab.Mod.P_Translator.From == Languages.TraditionalChinese)
                     {
-                        DetectLang = PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.From;
+                        DetectLang = NIMApp.WorkWin.ActiveTab.Mod.P_Translator.From;
                     }
                 }
 
@@ -288,9 +288,9 @@ namespace NIM
                 var DetectLang = P_Language.DetectLanguageByLine(TargetStr.Text);
                 if (DetectLang == Languages.SimplifiedChinese || DetectLang == Languages.TraditionalChinese)
                 {
-                    if (PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.To == Languages.SimplifiedChinese || PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.To == Languages.TraditionalChinese)
+                    if (NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To == Languages.SimplifiedChinese || NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To == Languages.TraditionalChinese)
                     {
-                        DetectLang = PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.To;
+                        DetectLang = NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To;
                     }
                 }
                 To.SelectedValue = DetectLang.ToString();
@@ -365,17 +365,17 @@ namespace NIM
                 FilterFrom = (Languages)Enum.Parse(typeof(Languages), GetLang.Trim());
             }
 
-            if (PhoenixApp.WorkWin.ActiveTab != null)
+            if (NIMApp.WorkWin.ActiveTab != null)
             {
-                PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.From = FilterFrom;
+                NIMApp.WorkWin.ActiveTab.Mod.P_Translator.From = FilterFrom;
             }
 
             if (_Owner != null)
             {
                 if (_Owner.ActiveTab != null)
                 {
-                    PhoenixApp.SelfSetting.SourceLanguage = FilterFrom;
-                    PhoenixApp.SelfSetting.SaveConfig();
+                    NIMApp.SelfSetting.SourceLanguage = FilterFrom;
+                    NIMApp.SelfSetting.SaveConfig();
                 }
             }    
 
@@ -396,17 +396,17 @@ namespace NIM
                 FilterTo = (Languages)Enum.Parse(typeof(Languages), GetLang.Trim());
             }
 
-            if (PhoenixApp.WorkWin.ActiveTab != null)
+            if (NIMApp.WorkWin.ActiveTab != null)
             {
-                PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.To = FilterTo;
+                NIMApp.WorkWin.ActiveTab.Mod.P_Translator.To = FilterTo;
             }
 
             if (_Owner != null)
             {
                 if (_Owner.ActiveTab != null)
                 {
-                    PhoenixApp.SelfSetting.TargetLanguage = FilterTo;
-                    PhoenixApp.SelfSetting.SaveConfig();
+                    NIMApp.SelfSetting.TargetLanguage = FilterTo;
+                    NIMApp.SelfSetting.SaveConfig();
                 }
             }
 
@@ -545,7 +545,7 @@ namespace NIM
             if (GetBtnContent.Equals("Execute"))
             {
                 AutoID++;
-                PhoenixApp.WorkWin.ActiveTab.Mod.MakeReady();
+                NIMApp.WorkWin.ActiveTab.Mod.MakeReady();
 
                 if (FilterFrom != Languages.Null && FilterTo != Languages.Null)
                 {
@@ -565,7 +565,7 @@ namespace NIM
                         }));
                         bool CanSleep = false;
 
-                        var GetResult = PhoenixApp.WorkWin.ActiveTab.Mod.P_Translator.Translate(NewUnit,default,false);
+                        var GetResult = NIMApp.WorkWin.ActiveTab.Mod.P_Translator.Translate(NewUnit,default,false);
 
                         this.Dispatcher.Invoke(new Action(() =>
                         {
@@ -651,7 +651,7 @@ namespace NIM
                     ProcessWin.Visibility = Visibility.Visible;
                 }));
 
-                string SetOutPutPath = PhoenixApp.GetFullPath(@"\Cache\Output.json");
+                string SetOutPutPath = NIMApp.GetFullPath(@"\Cache\Output.json");
 
                 if (File.Exists(SetOutPutPath))
                     File.Delete(SetOutPutPath);
@@ -908,7 +908,7 @@ namespace NIM
 
         private void OpenDataBase(object sender, MouseButtonEventArgs e)
         {
-            PhoenixApp.CloseDataBaseView();
+            NIMApp.CloseDataBaseView();
 
             //Results are capped at 100,000 rows via LIMIT to prevent memory exhaustion, as databases may scale to GB/TB levels. This tool is intended for SQL-proficient users to manually execute conditional queries for specific records or perform bulk modifications across multiple entries using custom SQL logic.
             //Select * From AdvancedDictionary Where Source Like '%[pagebreak]%' or  Source Like '%<font' (I just threw this together to match the content of all the books.) - > Compared to using regular expressions for pattern matching, utilizing the `LIKE` and `GLOB` commands in SQL operates directly at the database engine level, enabling millisecond-level query performance.
@@ -916,7 +916,7 @@ namespace NIM
             int? sourceLanguage = translator == null ? (int?)null : (int)translator.From;
             int? targetLanguage = translator == null ? (int?)null : (int)translator.To;
 
-            PhoenixApp.OpenDataBaseView(
+            NIMApp.OpenDataBaseView(
                 this,
                 AdvancedDictionaryQueryBuilder.Build(sourceLanguage, targetLanguage));
         }

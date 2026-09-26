@@ -71,11 +71,11 @@ namespace NIM.UIManagement
                 {
                     var SourceFilterStr = Mod.EspReader.GetFilterByStr();
 
-                    if (PhoenixApp.SelfSetting.CustomFilterStr.Trim().Length > 0)
+                    if (NIMApp.SelfSetting.CustomFilterStr.Trim().Length > 0)
                     {
-                        if (SourceFilterStr.ToUpper() != PhoenixApp.SelfSetting.CustomFilterStr.ToUpper())
+                        if (SourceFilterStr.ToUpper() != NIMApp.SelfSetting.CustomFilterStr.ToUpper())
                         {
-                            var FilterDict = Mod.EspReader.ParseFilterString(PhoenixApp.SelfSetting.CustomFilterStr);
+                            var FilterDict = Mod.EspReader.ParseFilterString(NIMApp.SelfSetting.CustomFilterStr);
                             Mod.EspReader.SetFilter(FilterDict);
                         }
                     }
@@ -98,8 +98,8 @@ namespace NIM.UIManagement
 
                 Mod.SetListView(TransListView);
 
-                this.Mod.P_Translator.From = PhoenixApp.SelfSetting.SourceLanguage;
-                this.Mod.P_Translator.To = PhoenixApp.SelfSetting.TargetLanguage;
+                this.Mod.P_Translator.From = NIMApp.SelfSetting.SourceLanguage;
+                this.Mod.P_Translator.To = NIMApp.SelfSetting.TargetLanguage;
 
                 this.ReloadStringsFile();
 
@@ -192,11 +192,11 @@ namespace NIM.UIManagement
                 {
                     _SyncTimer.Stop();
 
-                    if (PhoenixApp.WorkWin != null)
-                        if (DefWindowWidth != PhoenixApp.WorkWin.ActualWidth)
+                    if (NIMApp.WorkWin != null)
+                        if (DefWindowWidth != NIMApp.WorkWin.ActualWidth)
                         {
                             TransListView.HotReload();
-                            DefWindowWidth = PhoenixApp.WorkWin.ActualWidth;
+                            DefWindowWidth = NIMApp.WorkWin.ActualWidth;
                         }
                 };
             }
@@ -274,7 +274,7 @@ namespace NIM.UIManagement
         {
             InitIDE();
 
-            if (PhoenixApp.SelfSetting.ViewMode == "Normal")
+            if (NIMApp.SelfSetting.ViewMode == "Normal")
             {
                 EnableNormalModel();
 
@@ -285,7 +285,7 @@ namespace NIM.UIManagement
                 EmptyFromAndToText();
             }
 
-            if (PhoenixApp.SelfSetting.CanClearCloudTranslationCache)
+            if (NIMApp.SelfSetting.CanClearCloudTranslationCache)
             {
                 CloudTranslationCache.IsChecked = true;
             }
@@ -294,7 +294,7 @@ namespace NIM.UIManagement
                 CloudTranslationCache.IsChecked = false;
             }
 
-            if (PhoenixApp.SelfSetting.CanClearUserInputTranslationCache)
+            if (NIMApp.SelfSetting.CanClearUserInputTranslationCache)
             {
                 UserTranslationCache.IsChecked = true;
             }
@@ -303,7 +303,7 @@ namespace NIM.UIManagement
                 UserTranslationCache.IsChecked = false;
             }
 
-            if (PhoenixApp.SelfSetting.AutoSpeak)
+            if (NIMApp.SelfSetting.AutoSpeak)
             {
                 AutoSpeak.IsChecked = true;
             }
@@ -312,14 +312,14 @@ namespace NIM.UIManagement
                 AutoSpeak.IsChecked = false;
             }
 
-            if (PhoenixApp.SelfSetting.TableAuto)
+            if (NIMApp.SelfSetting.TableAuto)
             {
                 SetHotKeyDot(true);
                 NextAutoEnable = 1;
                 _AutoLoop = true;
             }
 
-            if (PhoenixApp.SelfSetting.WordCompletion)
+            if (NIMApp.SelfSetting.WordCompletion)
             {
                 AutoWordCompletion.IsChecked = true;
             }
@@ -328,7 +328,7 @@ namespace NIM.UIManagement
                 AutoWordCompletion.IsChecked = false;
             }
 
-            if (PhoenixApp.WordCompleter == null)
+            if (NIMApp.WordCompleter == null)
             {
                 HideWordCompletion();
             }
@@ -472,7 +472,7 @@ namespace NIM.UIManagement
                             UIHelper.ShowButton(CancelOTButton, true);
                         }
 
-                        if (PhoenixApp.SelfSetting.AutoSpeak)
+                        if (NIMApp.SelfSetting.AutoSpeak)
                         {
                             SpeechHelper.TryPlaySound(this.Mod.P_Translator.From,FromStr.Text, true);
                         }
@@ -530,9 +530,9 @@ namespace NIM.UIManagement
         public void AutoShowTraditional()
         {
             bool IsVisible = false;
-            if (PhoenixApp.SelfSetting.SourceLanguage == Languages.SimplifiedChinese || PhoenixApp.SelfSetting.SourceLanguage == Languages.TraditionalChinese)
+            if (NIMApp.SelfSetting.SourceLanguage == Languages.SimplifiedChinese || NIMApp.SelfSetting.SourceLanguage == Languages.TraditionalChinese)
             {
-                if (PhoenixApp.SelfSetting.SourceLanguage == Languages.TraditionalChinese || PhoenixApp.SelfSetting.SourceLanguage == Languages.SimplifiedChinese)
+                if (NIMApp.SelfSetting.SourceLanguage == Languages.TraditionalChinese || NIMApp.SelfSetting.SourceLanguage == Languages.SimplifiedChinese)
                 {
                     Traditional.Visibility = Visibility.Visible;
                     IsVisible = true;
@@ -818,7 +818,7 @@ namespace NIM.UIManagement
                                             return;
                                         }
 
-                                        if (PhoenixApp.EngineSetting.GetPlatformData(LMStudio.Type).Enable)
+                                        if (NIMApp.EngineSetting.GetPlatformData(LMStudio.Type).Enable)
                                         {
                                             LMStudio.CurrentModel = string.Empty;
                                         }
@@ -881,11 +881,11 @@ namespace NIM.UIManagement
         {
             if (AutoSpeak.IsChecked == true)
             {
-                PhoenixApp.SelfSetting.AutoSpeak = true;
+                NIMApp.SelfSetting.AutoSpeak = true;
             }
             else
             {
-                PhoenixApp.SelfSetting.AutoSpeak = false;
+                NIMApp.SelfSetting.AutoSpeak = false;
             }
         }
 
@@ -907,16 +907,16 @@ namespace NIM.UIManagement
                 SetHotKeyDot(true);
                 NextAutoEnable = 1;
 
-                PhoenixApp.SelfSetting.TableAuto = true;
-                PhoenixApp.SelfSetting.SaveConfig();
+                NIMApp.SelfSetting.TableAuto = true;
+                NIMApp.SelfSetting.SaveConfig();
             }
             else
             {
                 SetHotKeyDot(false);
                 NextAutoEnable = 0;
 
-                PhoenixApp.SelfSetting.TableAuto = false;
-                PhoenixApp.SelfSetting.SaveConfig();
+                NIMApp.SelfSetting.TableAuto = false;
+                NIMApp.SelfSetting.SaveConfig();
             }
 
             e.Handled = true;
@@ -1013,21 +1013,21 @@ namespace NIM.UIManagement
 
         private void GridSplitter_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
-            PhoenixApp.SelfSetting.WritingAreaHeight = WritingArea.Height.Value;
+            NIMApp.SelfSetting.WritingAreaHeight = WritingArea.Height.Value;
         }
 
         private void AutoWordCompletion_Click(object sender, RoutedEventArgs e)
         {
             if (AutoWordCompletion.IsChecked == true)
             {
-                PhoenixApp.SelfSetting.WordCompletion = true;
+                NIMApp.SelfSetting.WordCompletion = true;
             }
             else
             {
-                PhoenixApp.SelfSetting.WordCompletion = false;
+                NIMApp.SelfSetting.WordCompletion = false;
             }
 
-            PhoenixApp.SelfSetting.SaveConfig();
+            NIMApp.SelfSetting.SaveConfig();
         }
 
         private void ImportRamCache_Click(object sender, RoutedEventArgs e)
@@ -1113,7 +1113,7 @@ namespace NIM.UIManagement
                 {
                     int CallFuncCount = 0;
 
-                    string SetPath = PhoenixApp.GetFullPath(@"\Library\" + Mod.P_Translator.LastLoadFileName + ".Json");
+                    string SetPath = NIMApp.GetFullPath(@"\Library\" + Mod.P_Translator.LastLoadFileName + ".Json");
 
                     if (File.Exists(SetPath))
                     {
@@ -1448,7 +1448,7 @@ namespace NIM.UIManagement
             {
                 e.Handled = true;
 
-                if (PhoenixApp.SelfSetting.ViewMode == "Normal")
+                if (NIMApp.SelfSetting.ViewMode == "Normal")
                 {
                     ApplyTranslatedText();
                     ReSetHistoryPointer();
@@ -1461,7 +1461,7 @@ namespace NIM.UIManagement
             {
                 e.Handled = true;
 
-                if (PhoenixApp.SelfSetting.ViewMode == "Normal")
+                if (NIMApp.SelfSetting.ViewMode == "Normal")
                 {
                     if (!Phoenix.CheckAvailableNodes())
                     {
@@ -1859,7 +1859,7 @@ namespace NIM.UIManagement
 
         public void EnableNormalModel()
         {
-            PhoenixApp.SelfSetting.ViewMode = "Normal";
+            NIMApp.SelfSetting.ViewMode = "Normal";
             NormalModel.Style = (Style)this.FindResource("ModelSelected");
             QuickModel.Style = (Style)this.FindResource("ModelUnSelected");
 
@@ -1868,7 +1868,7 @@ namespace NIM.UIManagement
 
             ReloadData(true, true);
 
-            double AutoHeight = PhoenixApp.SelfSetting.WritingAreaHeight;
+            double AutoHeight = NIMApp.SelfSetting.WritingAreaHeight;
 
             if (AutoHeight < 100)
             {
@@ -1880,7 +1880,7 @@ namespace NIM.UIManagement
 
         public void EnableQuickModel()
         {
-            PhoenixApp.SelfSetting.ViewMode = "Quick";
+            NIMApp.SelfSetting.ViewMode = "Quick";
             NormalModel.Style = (Style)this.FindResource("ModelUnSelected");
             QuickModel.Style = (Style)this.FindResource("ModelSelected");
 
@@ -2050,11 +2050,11 @@ namespace NIM.UIManagement
         {
             if (UserTranslationCache.IsChecked == true)
             {
-                PhoenixApp.SelfSetting.CanClearUserInputTranslationCache = true;
+                NIMApp.SelfSetting.CanClearUserInputTranslationCache = true;
             }
             else
             {
-                PhoenixApp.SelfSetting.CanClearUserInputTranslationCache = false;
+                NIMApp.SelfSetting.CanClearUserInputTranslationCache = false;
             }
 
             CheckCanClearCache(out bool Check);
@@ -2064,11 +2064,11 @@ namespace NIM.UIManagement
         {
             if (CloudTranslationCache.IsChecked == true)
             {
-                PhoenixApp.SelfSetting.CanClearCloudTranslationCache = true;
+                NIMApp.SelfSetting.CanClearCloudTranslationCache = true;
             }
             else
             {
-                PhoenixApp.SelfSetting.CanClearCloudTranslationCache = false;
+                NIMApp.SelfSetting.CanClearCloudTranslationCache = false;
             }
 
             CheckCanClearCache(out bool Check);
@@ -2169,24 +2169,24 @@ namespace NIM.UIManagement
 
                                 if (SingleTrans)
                                 {
-                                    ThreadInFo.Content = string.Format("Thread(Current:{0},Max:{1})", Current + 1, PhoenixApp.EngineSetting.MaxThreadCount + 1);
+                                    ThreadInFo.Content = string.Format("Thread(Current:{0},Max:{1})", Current + 1, NIMApp.EngineSetting.MaxThreadCount + 1);
                                 }
                                 else
                                 {
-                                    ThreadInFo.Content = string.Format("Thread(Current:{0},Max:{1})", Current, PhoenixApp.EngineSetting.MaxThreadCount);
+                                    ThreadInFo.Content = string.Format("Thread(Current:{0},Max:{1})", Current, NIMApp.EngineSetting.MaxThreadCount);
                                 }
                             }
                             else
                             if (BatchCore.IsWorking && BatchCore.IsStopped)
                             {
-                                ThreadInFo.Content = string.Format("Thread(Current:0,Max:{0})", PhoenixApp.EngineSetting.MaxThreadCount);
+                                ThreadInFo.Content = string.Format("Thread(Current:0,Max:{0})", NIMApp.EngineSetting.MaxThreadCount);
                             }
                         }
                         else
                         {
                             if (SingleTrans)
                             {
-                                ThreadInFo.Content = string.Format("Thread(Current:{0},Max:{1})", 1, PhoenixApp.EngineSetting.MaxThreadCount + 1);
+                                ThreadInFo.Content = string.Format("Thread(Current:{0},Max:{1})", 1, NIMApp.EngineSetting.MaxThreadCount + 1);
                             }
                         }
 

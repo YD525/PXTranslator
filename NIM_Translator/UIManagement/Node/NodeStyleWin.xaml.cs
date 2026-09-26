@@ -158,7 +158,7 @@ namespace NIM.UIManagement
                         {
                             case "Engine Nodes":
                                 {
-                                    if (PhoenixApp.EngineSetting.PreTranslateEnable)
+                                    if (NIMApp.EngineSetting.PreTranslateEnable)
                                     {
                                         SetHeaderTagEnableInFo(SetGrid, string.Format("{0} / {1} Enabled", 1, 1));
                                     }
@@ -172,28 +172,28 @@ namespace NIM.UIManagement
                                 {
                                     int TotalCount = 0;
                                     int EnableCount = 0;
-                                    for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                                    for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                                     {
-                                        var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                                        var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                                        if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null)
                                         {
-                                            if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.Gemini ||
-                                                PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.ChatGpt ||
-                                                PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.DeepSeek)
+                                            if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.Gemini ||
+                                                NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.ChatGpt ||
+                                                NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.DeepSeek)
                                             {
                                                 TotalCount++;
-                                                if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Enable)
+                                                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
                                                 {
                                                     EnableCount++;
                                                 }
                                             }
                                         }
                                         else
-                                        if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.Type == CustomPlatformType.CloudAI)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.Type == CustomPlatformType.CloudAI)
                                         {
                                             TotalCount++;
-                                            if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Enable)
+                                            if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
                                             {
                                                 EnableCount++;
                                             }
@@ -206,26 +206,26 @@ namespace NIM.UIManagement
                                 {
                                     int TotalCount = 0;
                                     int EnableCount = 0;
-                                    for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                                    for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                                     {
-                                        var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                                        var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                                        if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null)
                                         {
-                                            if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.LMLocalAI)
+                                            if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.LMLocalAI)
                                             {
                                                 TotalCount++;
-                                                if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Enable)
+                                                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
                                                 {
                                                     EnableCount++;
                                                 }
                                             }
                                         }
                                         else
-                                        if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.Type == CustomPlatformType.LocalAI)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.Type == CustomPlatformType.LocalAI)
                                         {
                                             TotalCount++;
-                                            if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Enable)
+                                            if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
                                             {
                                                 EnableCount++;
                                             }
@@ -238,26 +238,26 @@ namespace NIM.UIManagement
                                 {
                                     int TotalCount = 0;
                                     int EnableCount = 0;
-                                    for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                                    for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                                     {
-                                        var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                                        var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                                        if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null)
                                         {
-                                            if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.DeepL)
+                                            if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.DeepL)
                                             {
                                                 TotalCount++;
-                                                if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Enable)
+                                                if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
                                                 {
                                                     EnableCount++;
                                                 }
                                             }
                                         }
                                         else
-                                        if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.Type == CustomPlatformType.Traditional)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.Type == CustomPlatformType.Traditional)
                                         {
                                             TotalCount++;
-                                            if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Enable)
+                                            if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
                                             {
                                                 EnableCount++;
                                             }
@@ -271,13 +271,13 @@ namespace NIM.UIManagement
                                     int TotalCount = 0;
                                     int EnableCount = 0;
 
-                                    for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                                    for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                                     {
-                                        var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                                        var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                                        if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.HumanTranslation)
+                                        if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == PlatformType.HumanTranslation)
                                         {
-                                            if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Enable)
+                                            if (NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable)
                                             {
                                                 EnableCount++;
                                             }
@@ -304,27 +304,27 @@ namespace NIM.UIManagement
 
             if (GetInFo.MainType == PlatformType.Null && GetInFo.Type == CustomPlatformType.Null && GetInFo.CustomID == 0)
             {
-                PhoenixApp.EngineSetting.PreTranslateEnable = false;
+                NIMApp.EngineSetting.PreTranslateEnable = false;
             }
             else
             {
-                for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                 {
-                    var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                    var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                    if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null
+                    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null
                         &&
-                        PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == GetInFo.MainType)
+                        NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == GetInFo.MainType)
                     {
-                        PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Enable = false;
+                        NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable = false;
                         break;
                     }
                     else
-                    if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo != null
+                    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo != null
                         &&
-                       PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.CustomID == GetInFo.CustomID)
+                        NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.CustomID == GetInFo.CustomID)
                     {
-                        PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Enable = false;
+                        NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable = false;
                         break;
                     }
                 }
@@ -345,27 +345,27 @@ namespace NIM.UIManagement
 
             if (GetInFo.MainType == PlatformType.Null && GetInFo.Type == CustomPlatformType.Null && GetInFo.CustomID == 0)
             {
-                PhoenixApp.EngineSetting.PreTranslateEnable = true;
+                NIMApp.EngineSetting.PreTranslateEnable = true;
             }
             else
             {
-                for (int i = 0; i < PhoenixApp.EngineSetting.PlatformConfigs.Count; i++)
+                for (int i = 0; i < NIMApp.EngineSetting.PlatformConfigs.Count; i++)
                 {
-                    var GetKey = PhoenixApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
+                    var GetKey = NIMApp.EngineSetting.PlatformConfigs.ElementAt(i).Key;
 
-                    if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null
+                    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo == null
                         &&
-                        PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Platform == GetInFo.MainType)
+                        NIMApp.EngineSetting.PlatformConfigs[GetKey].Platform == GetInFo.MainType)
                     {
-                        PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Enable = true;
+                        NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable = true;
                         break;
                     }
                     else
-                    if (PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo != null
+                    if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo != null
                         &&
-                        PhoenixApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.CustomID == GetInFo.CustomID)
+                        NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.CustomID == GetInFo.CustomID)
                     {
-                        PhoenixApp.EngineSetting.PlatformConfigs[GetKey].Enable = true;
+                        NIMApp.EngineSetting.PlatformConfigs[GetKey].Enable = true;
                         break;
                     }
                 }
@@ -396,8 +396,8 @@ namespace NIM.UIManagement
                Border GetBtnHandle = (Border)sender;
                CustomPlatformType GetType = (CustomPlatformType)GetBtnHandle.Tag;
 
-                CustomWizard NCustomWizard = new CustomWizard(PhoenixApp.WorkWin);
-                NCustomWizard.Owner = PhoenixApp.WorkWin;
+                CustomWizard NCustomWizard = new CustomWizard(NIMApp.WorkWin);
+                NCustomWizard.Owner = NIMApp.WorkWin;
                 NCustomWizard.Show();
                 NCustomWizard.SelectPlatformType(GetType);
             }
