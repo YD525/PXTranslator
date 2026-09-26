@@ -454,10 +454,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="logo.ico" />
-<<<<<<< HEAD
-=======
-    <Resource Include="Assets\Fonts\NIMFluentIcons.ttf" />
->>>>>>> Remake
   </ItemGroup>
   <ItemGroup>
     <None Include="ThirdParty\FluentSystemIcons\LICENSE.txt" />
@@ -467,7 +463,7 @@
   <ItemGroup>
     <None Include="Interface\Translations\Lex_English.txt" />
   </ItemGroup>
-  <ItemGroup>
+    <ItemGroup>
     <Content Include="$(DependencyRoot)\EspReader.dll" Condition="Exists('$(DependencyRoot)\EspReader.dll')">
       <Link>EspReader.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -476,28 +472,21 @@
       <Link>PEX.Interop.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="C:\Users\52508\source\repos\NIM_Translator\NIM_Translator\..\dependencies\PhoenixEngine\Newtonsoft.Json.dll">
-      <Link>Newtonsoft.Json.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="C:\Users\52508\source\repos\NIM_Translator\NIM_Translator\..\dependencies\PhoenixEngine\System.Data.SQLite.dll">
-      <Link>System.Data.SQLite.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="C:\Users\52508\source\repos\NIM_Translator\NIM_Translator\..\dependencies\PhoenixEngine\x64\SQLite.Interop.dll">
-      <Link>x64\SQLite.Interop.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="C:\Users\52508\source\repos\NIM_Translator\NIM_Translator\..\dependencies\PhoenixEngine\x86\SQLite.Interop.dll">
-      <Link>x86\SQLite.Interop.dll</Link>
+    <Content Include="$(DependencyRoot)\PhoenixEngine\**\*.*"
+             Exclude="$(DependencyRoot)\PhoenixEngine\PhoenixEngine.dll">
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Target Name="EnsureReleaseDependencies" BeforeTargets="PrepareForBuild">
-    <Error Condition="!Exists('$(DependencyRoot)\EspReader.dll')" Text="EspReader.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
-    <Error Condition="!Exists('$(DependencyRoot)\PEX.Interop.dll')" Text="PEX.Interop.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
-    <Error Condition="!Exists('$(DependencyRoot)\PexInterface.dll')" Text="PexInterface.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
-    <Error Condition="!Exists('$(DependencyRoot)\PhoenixEngine\PhoenixEngine.dll')" Text="PhoenixEngine.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
+    <Error Condition="!Exists('$(DependencyRoot)\EspReader.dll')"
+           Text="EspReader.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
+    <Error Condition="!Exists('$(DependencyRoot)\PEX.Interop.dll')"
+           Text="PEX.Interop.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
+    <Error Condition="!Exists('$(DependencyRoot)\PexInterface.dll')"
+           Text="PexInterface.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
+    <Error Condition="!Exists('$(DependencyRoot)\PhoenixEngine\PhoenixEngine.dll')"
+           Text="PhoenixEngine.dll is missing. Run scripts\Restore-Dependencies.ps1 before building." />
   </Target>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
