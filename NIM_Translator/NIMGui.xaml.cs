@@ -1964,13 +1964,17 @@ namespace NIM
             }
             else
             {
-                NIMApp.CurrentLayout = new PreviewShellWindow(_diagnostics);
-                NIMApp.CurrentLayout.Show();
+                if (MessageBoxExtend.Show(this, "Use this layout?", "Wuerfelhusten is still working on this interface, so the core functionality is currently incomplete; it is recommended to use the classic version for now~", PreviewDialogSeverity.Information, true))
+                {
+                    NIMApp.CurrentLayout = new PreviewShellWindow(_diagnostics);
+                    NIMApp.CurrentLayout.Show();
 
-                NIMApp.SelfSetting.Layout = NIMLayout.Modern;//Update the configuration file; the Modern layout will be selected on the next startup.
+                    NIMApp.SelfSetting.Layout = NIMLayout.Modern;//Update the configuration file; the Modern layout will be selected on the next startup.
+                    NIMApp.SelfSetting.SaveConfig();
 
-                this.CanExit = false;
-                this.Close();
+                    this.CanExit = false;
+                    this.Close();
+                }
             }
         }
     }

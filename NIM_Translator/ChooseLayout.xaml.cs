@@ -46,8 +46,11 @@ namespace NIM
 
         private void Modern_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            NIMApp.SelfSetting.Layout = NIMLayout.Modern;
-            RunModern();
+            if (MessageBoxExtend.Show(this, "Use this layout?", "Wuerfelhusten is still working on this interface, so the core functionality is currently incomplete; it is recommended to use the classic version for now~", PreviewDialogSeverity.Information, true))
+            {
+                NIMApp.SelfSetting.Layout = NIMLayout.Modern;
+                RunModern();
+            }
         }
         private void Classic_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {

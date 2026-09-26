@@ -342,8 +342,11 @@ namespace NIM.UIManagement.Preview
                 _legacyWorkspace = new NIMGui(_diagnostics);
                 NIMApp.WorkWin = _legacyWorkspace;
                 NIMApp.SelfSetting.Layout = NIMLayout.Classic;//Update the configuration file; the Classic layout will be selected on the next startup.
+                NIMApp.SelfSetting.SaveConfig();
                 _legacyWorkspace.Closed += LegacyWorkspaceClosed;
                 _legacyWorkspace.Show();
+
+                this.Hide();//I didn't see where Wuerfelhusten bound the implementation of the `Closed` event¡ªit likely calls `CloseAny`, causing the main program to exit completely. For now, I'm just using `Hide` as a quick fix; if you see this, perhaps you could help me handle it properly.
             }
 
             if (_legacyWorkspace.WindowState == WindowState.Minimized)
