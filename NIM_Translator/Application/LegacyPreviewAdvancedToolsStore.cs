@@ -52,7 +52,7 @@ namespace NIM.ApplicationLayer
                 ordered.Add(entry.Key, config);
             }
             NIMApp.EngineSetting.PlatformConfigs = ordered;
-            Phoenix.SaveConfig();
+            NIM_Engine.SaveConfig();
         }
 
         /// <inheritdoc />
@@ -113,7 +113,7 @@ namespace NIM.ApplicationLayer
                 Model = draft.Model?.Trim() ?? string.Empty,
                 CustomInFo = custom
             });
-            Phoenix.SaveConfig();
+            NIM_Engine.SaveConfig();
         }
 
         /// <inheritdoc />
@@ -134,7 +134,7 @@ namespace NIM.ApplicationLayer
             string query = PreviewDatabaseStatementGuard.IsReadOnly(statement)
                 ? "SELECT * FROM (" + statement + ") AS PreviewResult LIMIT 1000"
                 : statement;
-            List<Dictionary<string, object>> rows = Phoenix.LocalDB.P_ExecuteQuery(
+            List<Dictionary<string, object>> rows = NIM_Engine.LocalDB.P_ExecuteQuery(
                 SQLSafeCodec.EncodeSQLValues(query)) ?? new List<Dictionary<string, object>>();
             return rows.Take(1000).Select(FormatDatabaseRow).ToList();
         }

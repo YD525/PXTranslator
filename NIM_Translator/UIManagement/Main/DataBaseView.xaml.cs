@@ -119,7 +119,7 @@ namespace NIM
                 string RewrittenSql = InjectRowid(UserSql);
                 string SafeSQL = SQLSafeCodec.EncodeSQLValues(RewrittenSql);
                 List<Dictionary<string, object>> Rows =
-                    Phoenix.LocalDB.P_ExecuteQuery(SafeSQL);
+                    NIM_Engine.LocalDB.P_ExecuteQuery(SafeSQL);
 
                 DataTable Table = ToDataTable(Rows);
 
@@ -260,7 +260,7 @@ namespace NIM
 
             try
             {
-                Phoenix.LocalDB.P_ExecuteQuery(UpdateSql);
+                NIM_Engine.LocalDB.P_ExecuteQuery(UpdateSql);
                 SetStatus($"Updated [{EditedColumn}] = \"{NewValue}\"  (rowid={Rowid})", true);
             }
             catch (Exception Ex)
@@ -504,7 +504,7 @@ namespace NIM
             {
                 if (MessageBoxExtend.Show(this, "Msg", "The currently selected row will be deleted. Are you sure you want to continue?", PreviewDialogSeverity.Information, true))
                 {
-                    Phoenix.LocalDB.P_ExecuteQuery($"Delete From {_TableName} Where Rowid = {CurrentRowid}");
+                    NIM_Engine.LocalDB.P_ExecuteQuery($"Delete From {_TableName} Where Rowid = {CurrentRowid}");
                     RunQuery();
                 }
             }

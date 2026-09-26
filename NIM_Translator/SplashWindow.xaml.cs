@@ -88,7 +88,7 @@ namespace NIM
                 await Task.Run(() =>
                 {
                     NIMApp.PrepareFileDirectory();
-                    Phoenix.Init(applicationPath, step => SetLogMessage(GetStartupMessageId(step)));
+                    NIM_Engine.Init(applicationPath, step => SetLogMessage(GetStartupMessageId(step)));
                 });
                 SetLogMessage("Startup_Launching");
                 _diagnostics.Record(PreviewDiagnosticSeverity.Information, "startup.initialization.succeeded");

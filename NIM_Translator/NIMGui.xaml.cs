@@ -397,7 +397,7 @@ namespace NIM
                             PageIndex = 0;
                             StartLexGlowLoop();
                             NIMVer.Content = NIMApp.CurrentVersion;
-                            EngineVer.Content = Phoenix.Version;
+                            EngineVer.Content = NIM_Engine.Version;
                             PEXAnalysisVer.Content = PexHeuristicAnalysis.Version;
                             PEXReaderVer.Content = PexInterop.Version;
                             ESPReaderVer.Content = EspReader.Version;
@@ -1525,7 +1525,7 @@ namespace NIM
                 NIMApp.EngineSetting.EnableGlobalSearch = false;
             }
 
-            Phoenix.SaveConfig();
+            NIM_Engine.SaveConfig();
         }
 
         private void SEnableLanguageDetect_Click(object sender, RoutedEventArgs e)
@@ -1649,7 +1649,7 @@ namespace NIM
                 }
             }
 
-            Phoenix.SaveConfig();
+            NIM_Engine.SaveConfig();
         }
         private void SThrottlingRatio_TextChanged(object sender, TextChangedEventArgs e)
         {

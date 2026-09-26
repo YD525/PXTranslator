@@ -255,7 +255,7 @@ namespace NIM.UIManagement
                 NIMApp.EngineSetting.PlatformConfigs[Key].IsFree = false;
             }
 
-            Phoenix.SaveConfig();
+            NIM_Engine.SaveConfig();
         }
 
         private void GetModelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -339,7 +339,7 @@ namespace NIM.UIManagement
                 }
             }
 
-            Phoenix.SaveConfig();
+            NIM_Engine.SaveConfig();
         }
 
         private void GetPortTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -391,7 +391,7 @@ namespace NIM.UIManagement
                 }
             }
 
-            Phoenix.SaveConfig();
+            NIM_Engine.SaveConfig();
         }
 
         private void GetAddBtn_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -472,7 +472,7 @@ namespace NIM.UIManagement
                         }
                     }
 
-                    Phoenix.ReSetKeyData();
+                    NIM_Engine.ReSetKeyData();
                 }
                 else
                 {
@@ -492,7 +492,7 @@ namespace NIM.UIManagement
 
                     }
 
-                    Phoenix.ReSetKeyData();
+                    NIM_Engine.ReSetKeyData();
                 }
             }
         }
@@ -575,7 +575,7 @@ namespace NIM.UIManagement
                         }
                     }
 
-                    Phoenix.ReSetKeyData();
+                    NIM_Engine.ReSetKeyData();
                 }
                 else
                 {
@@ -594,7 +594,7 @@ namespace NIM.UIManagement
                         }
                     }
 
-                    Phoenix.ReSetKeyData();
+                    NIM_Engine.ReSetKeyData();
                 }
             }
         }
@@ -614,7 +614,7 @@ namespace NIM.UIManagement
                         if (NIMApp.EngineSetting.PlatformConfigs[GetKey].CustomInFo.CustomID.Equals(GetID))
                         {
                             NIMApp.EngineSetting.PlatformConfigs.Remove(GetKey);
-                            Phoenix.SaveConfig();
+                            NIM_Engine.SaveConfig();
                             NIMApp.WorkWin.SyncPlatformConfig();
                             UIHelper.SyncNodes(_Owner.Nodes);
                             break;

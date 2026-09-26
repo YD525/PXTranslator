@@ -60,11 +60,11 @@ namespace NIM
         {
             get 
             {
-                return Phoenix.Config;
+                return NIM_Engine.Config;
             }
             set
-            { 
-               Phoenix.Config = value;
+            {
+                NIM_Engine.Config = value;
             }
         }
 
@@ -108,7 +108,7 @@ namespace NIM
 
         public static void CloseAny()
         {
-            Phoenix.SaveConfig();
+            NIM_Engine.SaveConfig();
             NIMApp.SelfSetting.SaveConfig();
             Environment.Exit(0);
         }
@@ -329,7 +329,7 @@ namespace NIM
 
             DataHelper.WriteFile(NIMApp.GetFullPath(@"\setting.config"), Encoding.UTF8.GetBytes(GetSettingContent));
 
-            Phoenix.SaveConfig();
+            NIM_Engine.SaveConfig();
         }
     }
 }
