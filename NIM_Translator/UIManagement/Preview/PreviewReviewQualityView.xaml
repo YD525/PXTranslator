@@ -1,0 +1,316 @@
+<UserControl x:Class="NIM.UIManagement.Preview.PreviewReviewQualityView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:localization="clr-namespace:NIM.UIManagement.Localization"
+             AutomationProperties.Name="{localization:PreviewMessage ReviewQuality_Title}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/PreviewControlStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+            <Style x:Key="ReviewListItem" TargetType="ListBoxItem">
+                <Setter Property="Padding" Value="10,7" />
+                <Setter Property="Margin" Value="3,2" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Foreground" Value="{StaticResource PreviewBrushTextSecondary}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="FocusVisualStyle" Value="{StaticResource PreviewFocusVisual}" />
+                <Setter Property="AutomationProperties.Name" Value="{Binding Record}" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource PreviewBrushSurfaceInteractive}" />
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{StaticResource PreviewBrushSurfaceInteractive}" />
+                        <Setter Property="Foreground" Value="{StaticResource PreviewBrushTextPrimary}" />
+                        <Setter Property="BorderBrush" Value="{StaticResource PreviewBrushAccentGold}" />
+                        <Setter Property="BorderThickness" Value="3,0,0,0" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="FindingListItem" TargetType="ListBoxItem" BasedOn="{StaticResource ReviewListItem}">
+                <Setter Property="AutomationProperties.Name" Value="{Binding Message}" />
+            </Style>
+            <Style x:Key="PanelBorder" TargetType="Border">
+                <Setter Property="Background" Value="{StaticResource PreviewBrushSurfacePrimary}" />
+                <Setter Property="BorderBrush" Value="{StaticResource PreviewBrushBorder}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <UserControl.InputBindings>
+        <KeyBinding Modifiers="Control" Key="O" Command="{Binding OpenProjectCommand}" />
+        <KeyBinding Modifiers="Control" Key="Enter" Command="{Binding ApproveCommand}" />
+        <KeyBinding Modifiers="Control+Shift" Key="Enter" Command="{Binding ApproveScopeCommand}" />
+        <KeyBinding Key="F8" Command="{Binding GoToEntryCommand}" />
+        <KeyBinding Modifiers="Control" Key="Z" Command="{Binding UndoBulkCommand}" />
+    </UserControl.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="12" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Padding="10" Style="{StaticResource PanelBorder}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="170" />
+                    <ColumnDefinition Width="8" />
+                    <ColumnDefinition Width="170" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="SearchBox" Grid.Column="0" Style="{StaticResource PreviewTextBox}"
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                         ToolTip="{localization:PreviewMessage Review_Search_Placeholder}"
+                         AutomationProperties.Name="{localization:PreviewMessage Review_Search_Placeholder}" />
+                <ComboBox Grid.Column="2" Style="{StaticResource PreviewComboBox}"
+                          ItemsSource="{Binding ReviewFilters}" SelectedItem="{Binding SelectedReviewFilter}"
+                          Visibility="{Binding IsReviewMode, Converter={StaticResource BooleanToVisibility}}"
+                          AutomationProperties.Name="{localization:PreviewMessage Review_Filter_State_Name}" />
+                <ComboBox Grid.Column="2" Style="{StaticResource PreviewComboBox}"
+                          ItemsSource="{Binding SeverityFilters}" SelectedItem="{Binding SelectedSeverityFilter}"
+                          Visibility="{Binding IsQualityMode, Converter={StaticResource BooleanToVisibility}}"
+                          AutomationProperties.Name="{localization:PreviewMessage Quality_Filter_Severity_Name}" />
+                <ComboBox Grid.Column="4" Style="{StaticResource PreviewComboBox}"
+                          ItemsSource="{Binding FindingTypeFilters}" SelectedItem="{Binding SelectedFindingTypeFilter}"
+                          Visibility="{Binding IsQualityMode, Converter={StaticResource BooleanToVisibility}}"
+                          AutomationProperties.Name="{localization:PreviewMessage Quality_Filter_Type_Name}" />
+                <StackPanel Grid.Column="6" Orientation="Horizontal">
+                    <TextBlock Margin="0,0,10,0" VerticalAlignment="Center"
+                               Foreground="{StaticResource PreviewBrushTextMuted}"
+                               Text="{localization:PreviewMessage Quality_Validation_Progress}"
+                               Visibility="{Binding IsValidating, Converter={StaticResource BooleanToVisibility}}" />
+                    <Button Margin="0,0,8,0" Style="{StaticResource PreviewButtonSecondary}"
+                            Command="{Binding OpenProjectCommand}"
+                            Content="{localization:PreviewMessage Workspace_Open_Action}" />
+                    <Button Style="{StaticResource PreviewButtonSecondary}" Command="{Binding RevalidateCommand}"
+                            Content="{localization:PreviewMessage Quality_Revalidate_Action}"
+                            Visibility="{Binding IsQualityMode, Converter={StaticResource BooleanToVisibility}}" />
+                    <Button Margin="8,0,0,0" Style="{StaticResource PreviewButtonSecondary}"
+                            Command="{Binding CancelValidationCommand}"
+                            Content="{localization:PreviewMessage Common_Action_Cancel}"
+                            Visibility="{Binding IsValidating, Converter={StaticResource BooleanToVisibility}}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="2" Visibility="{Binding HasProject, Converter={StaticResource BooleanToVisibility}}">
+            <Grid Visibility="{Binding IsReviewMode, Converter={StaticResource BooleanToVisibility}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="230" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Style="{StaticResource PanelBorder}">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Top" Margin="12,10" FontWeight="SemiBold"
+                                   Foreground="{StaticResource PreviewBrushTextPrimary}" Text="{Binding ReviewCountText}" />
+                        <ListBox ItemsSource="{Binding ReviewEntries}" SelectedItem="{Binding SelectedEntry}"
+                                 ItemContainerStyle="{StaticResource ReviewListItem}"
+                                 Background="Transparent" BorderThickness="0"
+                                 ScrollViewer.CanContentScroll="True" VirtualizingPanel.IsVirtualizing="True"
+                                 VirtualizingPanel.VirtualizationMode="Recycling"
+                                 AutomationProperties.Name="{localization:PreviewMessage Accessibility_Review_Queue_Name}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <DockPanel>
+                                            <TextBlock DockPanel.Dock="Right" Margin="8,0,0,0" FontSize="11"
+                                                       Foreground="{StaticResource PreviewBrushAccentGold}" Text="{Binding ReviewStateText}" />
+                                            <TextBlock FontWeight="SemiBold" Text="{Binding Record}" TextTrimming="CharacterEllipsis" />
+                                        </DockPanel>
+                                        <TextBlock Margin="0,4,0,0" FontSize="11" Text="{Binding SourceText}"
+                                                   TextTrimming="CharacterEllipsis" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </Border>
+                <Border Grid.Column="2" Padding="16" Style="{StaticResource PanelBorder}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="12" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="16" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock FontWeight="SemiBold" Foreground="{StaticResource PreviewBrushTextMuted}"
+                                   Text="{localization:PreviewMessage Workspace_Entry_SourceText_Label}" />
+                        <TextBox Grid.Row="1" Margin="0,6,0,0" Style="{StaticResource PreviewTextBox}"
+                                 IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"
+                                 Text="{Binding SelectedEntry.SourceText, Mode=OneWay}" />
+                        <TextBlock Grid.Row="3" FontWeight="SemiBold" Foreground="{StaticResource PreviewBrushTextMuted}"
+                                   Text="{localization:PreviewMessage Workspace_Entry_TargetText_Label}" />
+                        <TextBox Grid.Row="4" Margin="0,6,0,0" Style="{StaticResource PreviewTextBox}"
+                                 AcceptsReturn="True" TextWrapping="Wrap"
+                                 Text="{Binding SelectedEntry.TargetText, UpdateSourceTrigger=PropertyChanged}" />
+                        <WrapPanel Grid.Row="6">
+                            <Button Margin="0,0,8,8" Style="{StaticResource PreviewButtonSecondary}"
+                                    Command="{Binding MarkReviewedCommand}"
+                                    Content="{localization:PreviewMessage Review_MarkReviewed_Action}" />
+                            <Button Margin="0,0,8,8" Style="{StaticResource PreviewButtonPrimary}"
+                                    Command="{Binding ApproveCommand}"
+                                    Content="{localization:PreviewMessage Review_Approve_Action}" />
+                            <Button Margin="0,0,8,8" Style="{StaticResource PreviewButtonDanger}"
+                                    Command="{Binding RejectCommand}"
+                                    Content="{localization:PreviewMessage Review_Reject_Action}" />
+                        </WrapPanel>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="4" Padding="14" Style="{StaticResource PanelBorder}">
+                    <StackPanel>
+                        <TextBlock FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource PreviewBrushTextPrimary}"
+                                   Text="{localization:PreviewMessage Review_Context_Title}" />
+                        <TextBlock Margin="0,16,0,3" Foreground="{StaticResource PreviewBrushTextMuted}"
+                                   Text="{localization:PreviewMessage Review_State_Label}" />
+                        <TextBlock Foreground="{StaticResource PreviewBrushAccentGold}" Text="{Binding SelectedEntry.ReviewStateText}" />
+                        <TextBlock Margin="0,14,0,3" Foreground="{StaticResource PreviewBrushTextMuted}"
+                                   Text="{localization:PreviewMessage Review_Provenance_Label}" />
+                        <TextBlock Foreground="{StaticResource PreviewBrushTextPrimary}" Text="{Binding SelectedEntry.Provenance}" />
+                        <TextBlock Margin="0,14,0,3" Foreground="{StaticResource PreviewBrushTextMuted}"
+                                   Text="{localization:PreviewMessage Workspace_Context_Type_Label}" />
+                        <TextBlock Foreground="{StaticResource PreviewBrushTextPrimary}" Text="{Binding SelectedEntry.Type}" />
+                        <Separator Margin="0,18" Background="{StaticResource PreviewBrushBorder}" />
+                        <Button Margin="0,0,0,8" Style="{StaticResource PreviewButtonPrimary}"
+                                Command="{Binding ApproveScopeCommand}"
+                                Content="{localization:PreviewMessage Review_ApproveScope_Action}" />
+                        <Button Style="{StaticResource PreviewButtonSecondary}" Command="{Binding UndoBulkCommand}"
+                                Content="{localization:PreviewMessage Review_UndoBulk_Action}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Grid Visibility="{Binding IsQualityMode, Converter={StaticResource BooleanToVisibility}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="230" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Style="{StaticResource PanelBorder}">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Top" Margin="12,10" FontWeight="SemiBold"
+                                   Foreground="{StaticResource PreviewBrushTextPrimary}" Text="{Binding FindingCountText}" />
+                        <ListBox ItemsSource="{Binding Findings}" SelectedItem="{Binding SelectedFinding}"
+                                 ItemContainerStyle="{StaticResource FindingListItem}"
+                                 Background="Transparent" BorderThickness="0"
+                                 ScrollViewer.CanContentScroll="True" VirtualizingPanel.IsVirtualizing="True"
+                                 VirtualizingPanel.VirtualizationMode="Recycling"
+                                 AutomationProperties.Name="{localization:PreviewMessage Accessibility_Quality_Findings_Name}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="72" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                        <TextBlock FontWeight="SemiBold" Text="{Binding SeverityText}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Foreground" Value="{StaticResource PreviewBrushInformation}" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Severity}" Value="Warning">
+                                                            <Setter Property="Foreground" Value="{StaticResource PreviewBrushWarning}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Severity}" Value="Error">
+                                                            <Setter Property="Foreground" Value="{StaticResource PreviewBrushError}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock FontWeight="SemiBold" Text="{Binding Title}" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Margin="0,3,0,0" FontSize="11" Foreground="{StaticResource PreviewBrushTextMuted}"
+                                                       Text="{Binding Entry.Record}" TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </Border>
+                <Border Grid.Column="2" Padding="18" Style="{StaticResource PanelBorder}">
+                    <StackPanel>
+                        <TextBlock FontSize="18" FontWeight="SemiBold" Foreground="{StaticResource PreviewBrushTextPrimary}"
+                                   Text="{Binding SelectedFinding.Title}" TextWrapping="Wrap" />
+                        <TextBlock Margin="0,10,0,0" Foreground="{StaticResource PreviewBrushTextSecondary}"
+                                   Text="{Binding SelectedFinding.Guidance}" TextWrapping="Wrap" />
+                        <Separator Margin="0,18" Background="{StaticResource PreviewBrushBorder}" />
+                        <TextBlock Foreground="{StaticResource PreviewBrushTextMuted}"
+                                   Text="{localization:PreviewMessage Quality_AffectedSource_Label}" />
+                        <TextBlock Margin="0,4,0,0" Foreground="{StaticResource PreviewBrushTextPrimary}"
+                                   Text="{Binding SelectedFinding.Entry.SourceText}" TextWrapping="Wrap" />
+                        <TextBlock Margin="0,16,0,0" Foreground="{StaticResource PreviewBrushTextMuted}"
+                                   Text="{localization:PreviewMessage Quality_AffectedTarget_Label}" />
+                        <TextBlock Margin="0,4,0,0" Foreground="{StaticResource PreviewBrushTextPrimary}"
+                                   Text="{Binding SelectedFinding.Entry.TargetText}" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="4" Padding="14" Style="{StaticResource PanelBorder}">
+                    <StackPanel>
+                        <TextBlock FontSize="15" FontWeight="SemiBold" Foreground="{StaticResource PreviewBrushTextPrimary}"
+                                   Text="{localization:PreviewMessage Quality_FindingDetails_Title}" />
+                        <TextBlock Margin="0,16,0,3" Foreground="{StaticResource PreviewBrushTextMuted}"
+                                   Text="{localization:PreviewMessage Quality_Source_Label}" />
+                        <TextBlock Foreground="{StaticResource PreviewBrushTextPrimary}" Text="{Binding SelectedFinding.Source}" />
+                        <TextBlock Margin="0,14,0,3" Foreground="{StaticResource PreviewBrushTextMuted}"
+                                   Text="{localization:PreviewMessage Quality_Resolution_Label}" />
+                        <TextBlock Foreground="{StaticResource PreviewBrushAccentGold}" Text="{Binding SelectedFinding.ResolutionText}" />
+                        <Separator Margin="0,18" Background="{StaticResource PreviewBrushBorder}" />
+                        <Button Margin="0,0,0,8" Style="{StaticResource PreviewButtonPrimary}"
+                                Command="{Binding GoToEntryCommand}"
+                                Content="{localization:PreviewMessage Quality_GoToEntry_Action}" />
+                        <Button Style="{StaticResource PreviewButtonSecondary}"
+                                Command="{Binding AcknowledgeFindingCommand}"
+                                Content="{localization:PreviewMessage Quality_Acknowledge_Action}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers><DataTrigger Binding="{Binding HasProject}" Value="True"><Setter Property="Visibility" Value="Collapsed" /></DataTrigger></Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Border Style="{StaticResource PanelBorder}">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="520">
+                    <TextBlock HorizontalAlignment="Center" FontSize="18" FontWeight="SemiBold"
+                               Foreground="{StaticResource PreviewBrushTextPrimary}"
+                               Text="{localization:PreviewMessage Review_Empty_Title}" />
+                    <TextBlock Margin="0,10,0,20" TextAlignment="Center" TextWrapping="Wrap"
+                               Foreground="{StaticResource PreviewBrushTextMuted}"
+                               Text="{localization:PreviewMessage Review_Empty_Hint}" />
+                    <Button HorizontalAlignment="Center" Style="{StaticResource PreviewButtonPrimary}"
+                            Command="{Binding OpenProjectCommand}" Content="{localization:PreviewMessage Workspace_Open_Action}" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="3" Margin="0,12,0,0" Padding="12,7" Style="{StaticResource PanelBorder}">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Right" Margin="16,0,0,0" Foreground="{StaticResource PreviewBrushTextMuted}"
+                           Text="{localization:PreviewMessage ReviewQuality_Shortcuts_Hint}" />
+                <TextBlock FontWeight="SemiBold" Foreground="{StaticResource PreviewBrushAccentGold}"
+                           AutomationProperties.LiveSetting="Polite"
+                           Text="{Binding ExportReadinessText}" />
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

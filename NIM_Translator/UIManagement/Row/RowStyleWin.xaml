@@ -1,0 +1,102 @@
+﻿<Window x:Class="NIM.UIManagement.RowStyleWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:local="clr-namespace:NIM.UIManagement"
+        mc:Ignorable="d"
+        Title="RowStyleWin" Height="450" Width="800" Background="{x:Null}">
+
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="0 20 0 20">
+            <StackPanel.Resources>
+                <Style TargetType="ScrollBar" BasedOn="{StaticResource for_scrollbar}" />
+            </StackPanel.Resources>
+            <!--45 DefLineHeight-->
+            <Grid Style="{DynamicResource LineStyle}" Name="LineGrid">
+                <Border Style="{DynamicResource LineBorderStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="55"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0" Margin="5 0 5 0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Ellipse Style="{DynamicResource NormalState}">
+                                </Ellipse>
+                                
+                                <TextBox Visibility="Collapsed" Style ="{DynamicResource LineKeyFont}" Margin="5 0 0 0" Opacity="0.9">
+
+                                </TextBox>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Grid.Column="1" Margin="5 0 5 0">
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                                <TextBox Style = "{DynamicResource LineKeyFont}"  Opacity="0.9">
+
+                                </TextBox>
+
+                                <Grid Width="15" Margin="3 0 0 0" VerticalAlignment="Center" Height="15" Visibility="Hidden" ToolTip="Leader">
+                                    <Path Data="M 10,2 L 18,10 L 10,18 C 10,18 8,16 8,10 C 8,4 10,2 10,2 Z" 
+                                            Fill="#FF848484"
+                                            Stretch="Uniform"
+                                            Margin="2">
+                                    </Path>
+                                </Grid>
+                            </StackPanel>
+
+                        </Grid>
+
+                        <Grid Grid.Column="2" Margin="5 0 5 0">
+                            <TextBox Style="{DynamicResource LineOriginalFont}">
+                               
+                            </TextBox>
+                        </Grid>
+
+                        <Grid Grid.Column="3" Margin="5 0 5 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="0"/>
+                            </Grid.ColumnDefinitions>
+                      
+                            <Border Style="{DynamicResource LineTranslatedBorder}" Grid.Column="0">
+                                <avalonEdit:TextEditor Style="{DynamicResource LineTranslatedFont}" Margin="5" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" IsReadOnly="True"  FontFamily="Consolas" FontSize="16" ShowLineNumbers="True" WordWrap="True" TextOptions.TextFormattingMode="Display">
+
+                                </avalonEdit:TextEditor>
+                            </Border>
+
+                            <Grid  Margin="0 2 0 2" Grid.Column="1" Height="35" Opacity="0.8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <Border Grid.Row="0" Height="11" Width="11" Style="{DynamicResource ColorA}">
+                                </Border>
+
+                                <Border Grid.Row="1"  Height="11" Width="11" Style="{DynamicResource ColorB}">
+                                </Border>
+
+                                <Border Grid.Row="2" Height="11" Width="11" Style="{DynamicResource ColorC}">
+                                </Border>
+                            </Grid>
+
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+
+           
+            
+       
+
+        </StackPanel>
+    </Grid>
+</Window>
