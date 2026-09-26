@@ -1,0 +1,487 @@
+﻿<UserControl x:Class="NIM.UIManagement.TranslateView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:preview="clr-namespace:NIM.UIManagement.Preview"
+             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:local="clr-namespace:NIM.UIManagement"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="ListViewItemStyle" TargetType="{x:Type ListViewItem}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter  Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="Foreground"  Value="Black"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid Name="Mask" Background="Black" Opacity="0.7" Panel.ZIndex="98" Visibility="Collapsed" MouseDown="Mask_MouseDown">
+        </Grid>
+        <Grid Name="ClearCacheView" Panel.ZIndex="99" Visibility="Collapsed">
+            <Border BorderThickness="1" BorderBrush="Black" Width="200" Height="150" VerticalAlignment="Center" Panel.ZIndex="2">
+                <Grid Style="{DynamicResource ChildFrameStyle}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Style="{DynamicResource ChildBlockButton}" Cursor="Hand" PreviewMouseDown="ClearCacheViewClose_PreviewMouseDown" HorizontalAlignment="Right" Margin="0 0 5 0">
+                        <ContentControl Style="{DynamicResource CloseIconStyle}"/>
+                    </Border>
+
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.RowSpan="2">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Style="{DynamicResource CaptionText}" Name="UICloudTranslationCache" Grid.Column="0">
+                                Cloud Translation Cache
+                            </TextBox>
+
+                            <CheckBox Grid.Column="1" Margin="5 0 0 0" Name="CloudTranslationCache" VerticalAlignment="Center" Foreground="White" Style="{DynamicResource ToggleCircleCheckBox}" Click="CloudTranslationCache_Click"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                            <TextBox Grid.Column="2"  Style="{DynamicResource CaptionText}" Name="UIUserInputTranslationCache">
+                                User Input Translation Cache
+                            </TextBox>
+
+                            <CheckBox Grid.Column="3" Name="UserTranslationCache" VerticalAlignment="Center" Foreground="White" Style="{DynamicResource ToggleCircleCheckBox}" Click="UserTranslationCache_Click"/>
+                        </StackPanel>
+
+                        <Border Opacity="0.7" Margin="0 10 0 0" Name="ShowDataBaseR" Style="{DynamicResource ButtonStyle}" Height="25" PreviewMouseDown="ShowDataBaseR_PreviewMouseDown">
+                            <Label Style="{DynamicResource ButtonFont}" Name="ShowDataBaseRButton">
+                                Browse Database
+                            </Label>
+                        </Border>
+
+                        <Border Opacity="0.7" Margin="0 10 0 0" Name="ClearCacheR" Style="{DynamicResource ButtonStyle}" Height="25" PreviewMouseDown="ClearCacheR_PreviewMouseDown">
+                            <Label Style="{DynamicResource ButtonFont}" Name="ClearCacheRButton">
+                                Clear Cache
+                            </Label>
+                        </Border>
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="1*" Name="ListViewArea"/>
+                <RowDefinition Height="5" Name="SplictLine"/>
+                <RowDefinition Height="260" Name="WritingArea"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1" Margin="10 0 10 0">
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120" Name="ModeCol"/>
+                        <ColumnDefinition Width="1*" Name="BarCol"/>
+                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Style="{DynamicResource ModelSelectStyle}" Grid.Column="0" Name="ViewModel">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Name="NormalModel" Style="{DynamicResource ModelUnSelected}" CornerRadius="5 0 0 5" Grid.Column="0" PreviewMouseDown="NormalModel_PreviewMouseDown" >
+                                <Grid>
+                                    <Label Style="{DynamicResource ModelFont}" Name="UINormal" Foreground="AliceBlue">
+                                        Normal
+                                    </Label>
+                                    <Grid Name="NormalModelBlock" Visibility="Collapsed" Style="{DynamicResource ModelSelectedBlock}">
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+                            <Border Name="QuickModel" Style="{DynamicResource ModelSelected}"  CornerRadius="0 5 5 0" Grid.Column="1" PreviewMouseDown="QuickModel_PreviewMouseDown">
+                                <Grid>
+                                    <Label Style="{DynamicResource ModelFont}" Name="UIQuick">
+                                        Quick
+                                    </Label>
+                                    <Grid Name="QuickModelBlock" Visibility="Visible" Style="{DynamicResource ModelSelectedBlock}">
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+
+                    <Border Style="{DynamicResource ProcessBarBackgroundStyle}" Grid.Column="1" Name="ProcessBarControl">
+                        <Grid>
+                            <Grid Panel.ZIndex="999">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Style="{DynamicResource ProcessBarTittleFont}" Name="TransProcess">
+                                    STRINGS(0/0)
+                                </Label>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Grid.Column="1" Margin="0 0 5 0">
+                                    <Border Style="{DynamicResource TransStateBlock}" PreviewMouseDown="ChangeTransState" Visibility="Visible"  Name="TRun">
+                                        <ContentControl Style="{DynamicResource PlayIconStyle}"/>
+                                    </Border>
+                                    <Border Style="{DynamicResource TransStateBlock}" PreviewMouseDown="ChangeTransState" Visibility="Collapsed" Name="TStop">
+                                        <ContentControl Style="{DynamicResource PauseIconStyle}"/>
+                                    </Border>
+                                    <Border Style="{DynamicResource TransStateBlock}" PreviewMouseDown="ChangeTransState" Visibility="Collapsed" Name="TCancel">
+                                        <ContentControl Style="{DynamicResource CancelPlayIconStyleL}"/>
+                                    </Border>
+                                </StackPanel>
+
+                            </Grid>
+                            <Border Name="ProcessBar" Style="{DynamicResource ProcessBarStyle}" SizeChanged="ProcessBar_SizeChanged">
+                                <Grid ClipToBounds="True">
+                                    <!-- ScanLine -->
+                                    <Rectangle Width="0" HorizontalAlignment="Left" RadiusX="5" RadiusY="5" Opacity="0.75" Name="BarEffect">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                                <GradientStop Color="#00E8E8EC" Offset="0"/>
+                                                <GradientStop Color="#66D4D6DC" Offset="0.25"/>
+                                                <GradientStop Color="#F0F5F5F8" Offset="0.5"/>
+                                                <GradientStop Color="#66D4D6DC" Offset="0.75"/>
+                                                <GradientStop Color="#00E8E8EC" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                        <Rectangle.RenderTransform>
+                                            <TranslateTransform x:Name="ScanTransform"/>
+                                        </Rectangle.RenderTransform>
+                                    </Rectangle>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <TextBox Margin="5 0 0 0" x:Name="SearchBox"  Style="{StaticResource SearchTextBox}"  KeyDown="SearchBox_KeyDown" ToolTip="Press Enter to retrieve the next target." Grid.Column="2">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Escape" Command="{Binding ClearSearchCommand}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+
+                    <Grid Grid.Column="5">
+                        <StackPanel Orientation="Horizontal">
+
+                            <Button Style="{StaticResource ActionButtonBase}" Margin="5" ToolTip="Save File" Name="SaveFileBtn" PreviewMouseDown="SaveFile_PreviewMouseDown">
+                                <Viewbox Width="25" Height="25" Stretch="Uniform">
+                                    <Canvas Width="1024" Height="1024">
+                                        <Path Data="M180,140 L180,884 L844,884 L844,300 L680,140 Z" Fill="White" IsHitTestVisible="False"/>
+                                        <Path Data="M680,140 L844,300 L844,300 L680,300 Z" Fill="White" IsHitTestVisible="False" Opacity="0.4"/>
+                                        <Path Data="M280,420 L744,420 L744,680 L280,680 Z" Fill="#FF1A1A1A" IsHitTestVisible="False"/>
+                                        <Path Data="M380,780 L644,780 L644,840 L380,840 Z" Fill="#FF1A1A1A" IsHitTestVisible="False"/>
+                                        <Path Data="M512,460 L612,600 L562,600 L562,740 L462,740 L462,600 L412,600 Z" Fill="#FF1A1A1A" IsHitTestVisible="False"/>
+                                        <Path Data="M512,440 L632,600 L572,600 L572,760 L452,760 L452,600 L392,600 Z" Stroke="White"  StrokeThickness="30"  Fill="Transparent" StrokeStartLineCap="Round"  StrokeEndLineCap="Round"  IsHitTestVisible="False"/>
+                                        <Path Data="M380,820 L644,820" Stroke="White" StrokeThickness="24" StrokeStartLineCap="Round" StrokeEndLineCap="Round" IsHitTestVisible="False"/>
+                                    </Canvas>
+                                </Viewbox>
+                            </Button>
+
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+
+
+            <Grid Style="{DynamicResource ListViewHeader}" Grid.Row="3" PreviewMouseUp="SyncColumnWidth" Name="TransViewHeader">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="55"/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Style="{DynamicResource CaptionTextA}" Name="UIKey">
+                    Status
+                </Label>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label  Style="{DynamicResource CaptionTextA}" Name="UIType">
+                        Type
+                    </Label>
+                    <ComboBox IsTabStop="True" Name="TypeSelector" Grid.Column="1" VerticalAlignment="Center" Cursor="Hand" Width="20" HorizontalAlignment="Stretch" Style="{StaticResource CustomComboBoxStyleL}" Margin="0 0 8 0" SelectionChanged="TransTargetType_SelectionChanged">
+                    </ComboBox>
+                </StackPanel>
+
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label Style="{DynamicResource CaptionTextA}" Name="UIOriginal">
+                        Original
+                    </Label>
+                    <Border CornerRadius="3" Background="Orange" Height="25" Name="FromStringsFile" Visibility="Collapsed">
+                        <Label VerticalAlignment="Center" Foreground="White">
+                            From StringsFile
+                        </Label>
+                    </Border>
+                    <Border Name="RefreshDictionary" Style="{DynamicResource ButtonStyle}" Height="22" VerticalAlignment="Center" PreviewMouseDown="RefreshDictionary_PreviewMouseDown">
+                        <preview:PreviewIcon Icon="Refresh" FontSize="15" Foreground="White" Padding="5"/>
+                    </Border>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="3" HorizontalAlignment="Center">
+                    <Label Style="{DynamicResource CaptionTextA}" Name="UITranslated">
+                        Translated
+                    </Label>
+
+                    <Border Name="ManageCache" Style="{DynamicResource ButtonStyle}" Height="22" VerticalAlignment="Center" PreviewMouseDown="ManageCache_PreviewMouseDown">
+                        <Label Style="{DynamicResource ButtonFont}" VerticalAlignment="Center" Padding="8 0 8 0">
+                            Cache
+                        </Label>
+                    </Border>
+
+                    <Border Name="TestAll" Style="{DynamicResource ButtonStyle}" Height="25" PreviewMouseDown="TestAll_PreviewMouseDown" Visibility="Collapsed">
+                        <Label Style="{DynamicResource ButtonFont}" Name="TestAllButton">
+                            TestAll
+                        </Label>
+                    </Border>
+                </StackPanel>
+
+                <GridSplitter Style="{StaticResource ColSplitterStyle}" HorizontalAlignment="Right" VerticalAlignment="Stretch" ResizeDirection="Columns" Grid.Column="0"/>
+                <GridSplitter Style="{StaticResource ColSplitterStyle}" HorizontalAlignment="Right" VerticalAlignment="Stretch" ResizeDirection="Columns" Grid.Column="1"/>
+                <GridSplitter Style="{StaticResource ColSplitterStyle}" HorizontalAlignment="Right" VerticalAlignment="Stretch" ResizeDirection="Columns" Grid.Column="2"/>
+            </Grid>
+            <Grid Name="TransView" Style="{DynamicResource FrameStyle}" Grid.Row="4" Panel.ZIndex="990" Margin="10 0 10 0" Visibility="Visible">
+
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Export">
+                            <MenuItem Header="To DSD (Dynamic String Distributor)" Click="ExportToDsd_Click"/>
+                            <MenuItem Header="To RamCache (NIM)" Click="ExportToRamCache_Click"/>
+                        </MenuItem>
+                        <MenuItem Header="Import">
+                            <MenuItem Header="Import RamCache File" Click="ImportRamCache_Click"/>
+                        </MenuItem>
+                    </ContextMenu>
+                </Grid.ContextMenu>
+            </Grid>
+
+            <GridSplitter   Style="{StaticResource SplitterStyle}"  DragCompleted="GridSplitter_DragCompleted"  Height="5" Grid.Row="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#FF7B7B7B" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" ShowsPreview="True" />
+
+            <Grid Grid.Row="6" Style="{DynamicResource ExtendBoxStyle}">
+                <Grid.Resources>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource for_scrollbar}" />
+                </Grid.Resources>
+                <Grid Grid.Row="3" Name="ExtendBox">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="45"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="37"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Margin="5 5 0 5">
+
+                                <Border Style="{DynamicResource LiteButton}" PreviewMouseDown="SpeakFromStr">
+                                    <Viewbox Width="19" Height="17" Stretch="Uniform">
+                                        <Canvas Width="1024" Height="1024">
+                                            <Path Data="M872.802928 755.99406 872.864326 755.99406 872.864326 755.624646Z" 
+                  Fill="White"/>
+                                            <Path Data="M744.055658 192.799074c-4.814656-2.889817-9.601682-5.251607-15.442714-5.251607-14.262842 0-25.758664 11.559267-25.758664 25.805736 0 10.285251 6.088672 18.519796 14.6957 23.195282 94.679359 55.247278 158.344355 157.787676 158.344355 275.30416 0 117.424386-63.605643 219.931015-158.159136 275.18034-8.29492 4.538363-15.442714 13.050224-15.442714 23.583115 0 14.261818 11.559267 25.820062 25.791409 25.820062 5.716188 0 10.252505-2.202155 15.22475-5.063319 109.871363-64.133669 183.764304-183.143157 183.764304-319.520197C927.074995 375.785665 853.495186 257.010515 744.055658 192.799074z" 
+                  Fill="White"/>
+                                            <Path Data="M773.946432 511.867994c0-79.96524-43.344181-149.739373-107.821681-187.289594-2.920516-1.52268-9.785877-4.520967-14.603603-4.520967-14.325263 0-25.914206 11.589966-25.914206 25.89988 0 9.616008 5.096065 18.176988 12.865006 22.666232 49.839105 28.307719 83.45983 81.829703 83.45983 143.244448 0 62.472843-34.801621 116.817566-86.070284 144.750755-7.457856 4.538363-12.397355 12.803607-12.397355 22.188348 0 14.325263 11.588943 25.943882 25.882484 25.943882 6.090718 0.031722 13.33061-3.542686 13.33061-3.542686C729.048873 664.171772 773.946432 593.294514 773.946432 511.867994z" 
+                  Fill="White"/>
+                                            <Path Data="M541.3694 124.672464c-10.846022-5.219885-23.740704-3.790326-33.215496 3.712555-0.435928 0.358157-46.423309 36.914748-97.195669 74.296123-88.308255 65.081251-114.036219 75.925227-119.257128 77.649498l-110.6194 0c-0.63752 0-1.243317 0.062422-1.879813 0.093121l-56.504922 0c-14.231119 0-25.775037 11.543917-25.775037 25.775037l0 411.697573c0 14.261818 11.512195 25.761734 25.775037 25.761734l189.511191 0.027629c5.096065 1.865487 29.395494 13.0799 107.761306 76.999698 45.613874 37.162388 86.505189 73.485665 86.940095 73.829496 5.841032 5.218862 13.298887 7.92039 20.820188 7.92039 4.349051 0 8.729825-0.930185 12.862959-2.764973 11.277858-5.064342 18.517749-16.252149 18.517749-28.619828 0 0 0.031722-97.257068 0.031722-132.212184 0.808412-2.484587 1.213641-5.127787 1.213641-7.863085 0-2.792603-1.245364-578.026786-1.245364-578.026786C559.110459 140.892891 552.214399 129.924071 541.3694 124.672464zM508.308423 726.470653c0 1.494027-0.467651 94.617961-0.467651 94.617961-13.889335-11.745509-29.332049-24.64019-45.240367-37.507242-104.59008-84.702124-130.505309-91.816149-148.030451-91.816149-0.372483 0-0.683569 0.091074-1.025353 0.091074s-0.652869-0.091074-1.025353-0.091074L170.394297 691.765223c-18.037818 0-22.248723-5.128811-22.248723-23.246447L148.145573 352.559685c0-12.32163 1.461281-20.057825 16.298198-20.057825l128.065747 0c17.090237 0 43.315528-6.991228 157.787676-90.839915 20.383236-14.914688 40.330544-29.938869 57.544601-43.113937 0 0 0.373507 445.207781 0.467651 521.368368C507.779374 722.028481 508.308423 724.234729 508.308423 726.470653z" 
+                  Fill="White"/>
+                                        </Canvas>
+                                    </Viewbox>
+                                </Border>
+
+                                <Border Name="CloneFromStrButton" Style="{DynamicResource LiteButton}" PreviewMouseDown="CloneFromStr">
+                                    <Label Style="{DynamicResource LiteButtonFont}" Foreground="White" Name="UIClone">
+                                        Clone
+                                    </Label>
+                                </Border>
+
+                                <Border Name="UPSelecter" Style="{DynamicResource LiteButton}" PreviewMouseDown="UPSelecter_PreviewMouseDown">
+                                    <Label Foreground="White">
+                                        ⬆
+                                    </Label>
+                                </Border>
+
+                                <Border Name="DownSelecter" Style="{DynamicResource LiteButton}" PreviewMouseDown="DownSelecter_PreviewMouseDown" ToolTip="HotKey Press Tab">
+                                    <Label Foreground="White">
+                                        ⬇
+                                    </Label>
+                                </Border>
+
+                                <Border Style="{DynamicResource SplitToggleButton}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Name="HotKeyArea" Background="#505050" Padding="8 0" CornerRadius="5 0 0 5" PreviewMouseDown="EnableHotKey_MouseDown" ToolTip="Auto Next: OFF — Click to enable. When enabled, pressing Tab will automatically jump to the next untranslated entry.">
+                                            <Ellipse Name="HotKeyDot" Width="7" Height="7" Fill="#55FFFFFF" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <Border Name="NextAutoBtn" Background="#7B7B7B" Padding="6 0" CornerRadius="0 5 5 0" PreviewMouseDown="NextAuto_PreviewMouseDown">
+                                            <TextBlock Text="⬇ Auto" Foreground="White" FontSize="12" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Border>
+
+                                <Label Foreground="#FFB8B4B4" Name="ThreadInFo" VerticalAlignment="Center" Margin="5 0 0 0">
+                                    
+                                </Label>
+
+                            </StackPanel>
+
+                            <Border Style="{DynamicResource IDEBorder}" Grid.Row="1">
+
+                                <Grid>
+                                    <StackPanel Name="NpcView" Orientation="Horizontal" Panel.ZIndex="2" VerticalAlignment="Bottom" Height="30" Visibility="Collapsed">
+
+                                        <Label VerticalAlignment="Center" Foreground="White">
+                                            Gender:
+                                        </Label>
+
+                                        <Label VerticalAlignment="Center" Name="NpcSex" Foreground="White">
+                                        </Label>
+
+                                        <Label VerticalAlignment="Center" Foreground="White" Margin="5 0 0 0">
+                                            Name:
+                                        </Label>
+
+                                        <TextBox VerticalAlignment="Center" Name="NpcName" Focusable="False" IsReadOnly="True" BorderBrush="{x:Null}" Background="{x:Null}" BorderThickness="0" Foreground="White" VerticalContentAlignment="Center">
+
+                                        </TextBox>
+                                    </StackPanel>
+                                    <avalonEdit:TextEditor Panel.ZIndex="1" Style="{DynamicResource IDEStyle}" Margin="5" Name="FromStr" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" IsReadOnly="True"  FontFamily="Consolas" FontSize="16" ShowLineNumbers="True" WordWrap="True" TextOptions.TextFormattingMode="Display">
+
+                                    </avalonEdit:TextEditor>
+                                </Grid>
+                            </Border>
+
+                        </Grid>
+
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="37"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Margin="5 5 0 5">
+
+                                <Border  Style="{DynamicResource LiteButton}" PreviewMouseDown="SpeakToStr">
+                                    <Viewbox Width="19" Height="17" Stretch="Uniform">
+                                        <Canvas Width="1024" Height="1024">
+                                            <Path Data="M872.802928 755.99406 872.864326 755.99406 872.864326 755.624646Z" 
+Fill="White"/>
+                                            <Path Data="M744.055658 192.799074c-4.814656-2.889817-9.601682-5.251607-15.442714-5.251607-14.262842 0-25.758664 11.559267-25.758664 25.805736 0 10.285251 6.088672 18.519796 14.6957 23.195282 94.679359 55.247278 158.344355 157.787676 158.344355 275.30416 0 117.424386-63.605643 219.931015-158.159136 275.18034-8.29492 4.538363-15.442714 13.050224-15.442714 23.583115 0 14.261818 11.559267 25.820062 25.791409 25.820062 5.716188 0 10.252505-2.202155 15.22475-5.063319 109.871363-64.133669 183.764304-183.143157 183.764304-319.520197C927.074995 375.785665 853.495186 257.010515 744.055658 192.799074z" 
+Fill="White"/>
+                                            <Path Data="M773.946432 511.867994c0-79.96524-43.344181-149.739373-107.821681-187.289594-2.920516-1.52268-9.785877-4.520967-14.603603-4.520967-14.325263 0-25.914206 11.589966-25.914206 25.89988 0 9.616008 5.096065 18.176988 12.865006 22.666232 49.839105 28.307719 83.45983 81.829703 83.45983 143.244448 0 62.472843-34.801621 116.817566-86.070284 144.750755-7.457856 4.538363-12.397355 12.803607-12.397355 22.188348 0 14.325263 11.588943 25.943882 25.882484 25.943882 6.090718 0.031722 13.33061-3.542686 13.33061-3.542686C729.048873 664.171772 773.946432 593.294514 773.946432 511.867994z" 
+Fill="White"/>
+                                            <Path Data="M541.3694 124.672464c-10.846022-5.219885-23.740704-3.790326-33.215496 3.712555-0.435928 0.358157-46.423309 36.914748-97.195669 74.296123-88.308255 65.081251-114.036219 75.925227-119.257128 77.649498l-110.6194 0c-0.63752 0-1.243317 0.062422-1.879813 0.093121l-56.504922 0c-14.231119 0-25.775037 11.543917-25.775037 25.775037l0 411.697573c0 14.261818 11.512195 25.761734 25.775037 25.761734l189.511191 0.027629c5.096065 1.865487 29.395494 13.0799 107.761306 76.999698 45.613874 37.162388 86.505189 73.485665 86.940095 73.829496 5.841032 5.218862 13.298887 7.92039 20.820188 7.92039 4.349051 0 8.729825-0.930185 12.862959-2.764973 11.277858-5.064342 18.517749-16.252149 18.517749-28.619828 0 0 0.031722-97.257068 0.031722-132.212184 0.808412-2.484587 1.213641-5.127787 1.213641-7.863085 0-2.792603-1.245364-578.026786-1.245364-578.026786C559.110459 140.892891 552.214399 129.924071 541.3694 124.672464zM508.308423 726.470653c0 1.494027-0.467651 94.617961-0.467651 94.617961-13.889335-11.745509-29.332049-24.64019-45.240367-37.507242-104.59008-84.702124-130.505309-91.816149-148.030451-91.816149-0.372483 0-0.683569 0.091074-1.025353 0.091074s-0.652869-0.091074-1.025353-0.091074L170.394297 691.765223c-18.037818 0-22.248723-5.128811-22.248723-23.246447L148.145573 352.559685c0-12.32163 1.461281-20.057825 16.298198-20.057825l128.065747 0c17.090237 0 43.315528-6.991228 157.787676-90.839915 20.383236-14.914688 40.330544-29.938869 57.544601-43.113937 0 0 0.373507 445.207781 0.467651 521.368368C507.779374 722.028481 508.308423 724.234729 508.308423 726.470653z" 
+Fill="White"/>
+                                        </Canvas>
+                                    </Viewbox>
+                                </Border>
+
+                                <Border Name="ClearToStrButton" Style="{DynamicResource LiteButton}" PreviewMouseDown="ClearToStr">
+                                    <Label Style="{DynamicResource LiteButtonFont}" Foreground="White" Name="UIClear">
+                                        Clear
+                                    </Label>
+                                </Border>
+
+                                <Border Name="FindNpc" Style="{DynamicResource LiteButton}" PreviewMouseDown="FindNpc_PreviewMouseDown">
+                                    <Label Style="{DynamicResource LiteButtonFont}" Foreground="White" Name="UIFindNpc">
+                                        NPC Locator
+                                    </Label>
+                                </Border>
+
+                                <Border Name="ReplaceStrButton" Style="{DynamicResource LiteButton}" PreviewMouseDown="ReplaceStr">
+                                    <Label Style="{DynamicResource LiteButtonFont}" Foreground="White" Name="UIReplace">
+                                        Replace
+                                    </Label>
+                                </Border>
+
+                                <Border Name="Traditional" Style="{DynamicResource LiteButton}" PreviewMouseDown="Traditional_PreviewMouseDown" Visibility="Collapsed">
+                                    <Label Style="{DynamicResource LiteButtonFont}" Foreground="White" Name="UITraditional">
+                                        ZH Convert
+                                    </Label>
+                                </Border>
+
+                                <Border Name="ShowHistoryButton" Style="{DynamicResource LiteButton}" PreviewMouseDown="ShowHistory" ToolTip="Undo last operation (Ctrl+↑),Redo last operation (Ctrl+↓)">
+                                    <Label Name="HistoryButtonFont" Style="{DynamicResource LiteButtonFont}" Foreground="White">
+                                        History
+                                    </Label>
+                                </Border>
+
+                            </StackPanel>
+
+                            <Border Style="{DynamicResource IDEBorder}" Grid.Row="1">
+                                <avalonEdit:TextEditor Style="{DynamicResource IDEStyle}" Margin="5" Name="ToStr" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" FontFamily="Consolas" FontSize="16" ShowLineNumbers="True" WordWrap="True" TextOptions.TextFormattingMode="Display" TextChanged="ToStr_TextChanged">
+
+                                </avalonEdit:TextEditor>
+                            </Border>
+
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="1">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Horizontal" Grid.Column="0" Name="CurrentKeyBox">
+                                <TextBox Name="CurrentLog" IsTabStop="True" Style="{DynamicResource LogText}" Margin="5 0 0 0">
+
+                                </TextBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Margin="0 5 5 5">
+
+                                <Label Style="{DynamicResource CaptionTextA}" Margin="5 0 0 0" Name="UIAutoWordCompletion">
+                                    Word Completion
+                                </Label>
+
+                                <CheckBox Margin="5 0 5 0" Name="AutoWordCompletion" VerticalAlignment="Center" Grid.Column="6" Foreground="White"  Click="AutoWordCompletion_Click"/>
+
+                                <Label Style="{DynamicResource CaptionTextA}" Margin="5 0 0 0" Name="UIAutoSpeak">
+                                    AutoSpeak
+                                </Label>
+
+                                <CheckBox Margin="5 0 5 0" Name="AutoSpeak" VerticalAlignment="Center" Grid.Column="6" Foreground="White"  Click="AutoSpeak_Click"/>
+
+
+                                <Border Name="CancelOTButton" Style="{DynamicResource LiteButton}" PreviewMouseDown="CancelTranslatedText">
+                                    <Label  Style="{DynamicResource LiteButtonFont}" Foreground="White" Name="UICancel">
+                                        Cancel
+                                    </Label>
+                                </Border>
+                                <Border Name="TranslateOTButton" ToolTip="HotKey Press F1" Style="{DynamicResource LiteButton}" PreviewMouseDown="TranslateOTButton_PreviewMouseDown">
+                                    <Label  Style="{DynamicResource LiteButtonFont}" Foreground="White" Name="TranslateOTButtonFont">
+                                        Translate
+                                    </Label>
+                                </Border>
+
+                                <Border Name="ApplyOTButton" ToolTip="HotKey Press F2" Style="{DynamicResource LiteButton}" PreviewMouseDown="ApplyTranslatedText">
+                                    <Label   Style="{DynamicResource LiteButtonFont}" Foreground="White" Name="UIApply">
+                                        Apply
+                                    </Label>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+
+   
+</UserControl>

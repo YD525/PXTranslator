@@ -1,0 +1,340 @@
+﻿<Window x:Class="NIM.TranslateConfig"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NIM"
+        mc:Ignorable="d"
+        Title="LocalConfig" Height="665" MinWidth="770" Width="975"  Style="{DynamicResource DefWin}" Loaded="Window_Loaded" Closing="Window_Closing" WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+
+        <Style x:Key="ListViewItemStyle" TargetType="{x:Type ListViewItem}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter  Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="13.5"/>
+
+            <Setter Property="Foreground"  Value="Black"/>
+        </Style>
+
+    </Window.Resources>
+    <Border MouseLeftButtonDown="WinHead_MouseLeftButtonDown"  Style="{DynamicResource DefWinBackground}" Background="#FF3B3B3B" Name="MainBackGround">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="7"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Name="Header" Margin="10 0 10 0">
+                <StackPanel Orientation="Horizontal">
+                    <Label HorizontalAlignment="Left" Name="MainCaption" Foreground="White" VerticalAlignment="Center">
+                        Engine Settings
+                    </Label>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Name="NodePanel">
+
+                    <Border Tag="Min" PreviewMouseDown="AnyHeaderButtonClick" CornerRadius="5"  Grid.Column="1" Height="25" Width="25"   Background="#FF3B3B3B"  MouseEnter="RMouserEffectByEnter" MouseLeave="RMouserEffectByLeave" Cursor="Hand">
+                        <ContentControl Style="{DynamicResource MinimizeIconStyle}"/>
+                    </Border>
+
+
+                    <Border Tag="MaxWin"  PreviewMouseDown="AnyHeaderButtonClick" CornerRadius="5"  Grid.Column="3" Height="25" Width="25"  Background="#FF3B3B3B"  MouseEnter="RMouserEffectByEnter" MouseLeave="RMouserEffectByLeave" Cursor="Hand">
+                        <ContentControl Style="{DynamicResource MaximizeIconStyle}"/>
+                    </Border>
+
+
+                    <Border Tag="Close" PreviewMouseDown="AnyHeaderButtonClick" CornerRadius="5"  Grid.Column="5" Height="25" Width="25"  Background="#FF3B3B3B"  MouseEnter="RMouserEffectByEnter" MouseLeave="RMouserEffectByLeave" Cursor="Hand">
+                        <ContentControl Style="{DynamicResource CloseIconStyle}" Grid.Column="3"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1" Background="#FF323232" Panel.ZIndex="99" Name="ProcessWin" Visibility="Hidden">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <Label Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Name="Log">
+                        Exporting dictionary... ()()
+                    </Label>
+
+                    <Border  CornerRadius="5" Background="#FF0B74D1" Grid.Row="1" Margin="0 10 0 5" Cursor="Hand" Width="300" PreviewMouseDown="CancelProcess">
+                        <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            Cancel
+                        </Label>
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1" Margin="5" Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="0.5*"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="0.5*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label FontWeight="Bold" FontSize="15" Grid.Row="0" VerticalAlignment="Center">
+                            Input Source Text
+                        </Label>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            <TextBox TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Name="FromStr" TextChanged="FromStr_TextChanged">
+                            </TextBox>
+
+                            <Border  CornerRadius="5" Background="#FF7B7B7B" Grid.Row="1" Margin="0 5 0 5" Cursor="Hand" PreviewMouseDown="Execute_PreviewMouseDown">
+                                <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Name="ExecuteBtn">
+                                    Execute
+                                </Label>
+                            </Border>
+                        </Grid>
+
+
+                        <Label FontWeight="Bold" FontSize="15"  Grid.Row="2">
+                            Preprocessed Output
+                        </Label>
+                        <TextBox IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Name="Output" Grid.Row="3">
+                        </TextBox>
+
+
+                        <Label FontWeight="Bold" FontSize="15" Grid.Row="4">
+                            Matched Keywords
+                        </Label>
+                        <Grid Grid.Row="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            <ListBox Grid.Row="0" Name="MatchedKeywords">
+                            </ListBox>
+                            <Border  CornerRadius="5" Background="#FF7B7B7B" Grid.Row="1" Margin="0 5 0 5" Cursor="Hand" PreviewMouseDown="DeleteSelectItem">
+                                <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    Delete Selected Keyword
+                                </Label>
+                            </Border>
+                        </Grid>
+
+
+                        <Label FontWeight="Bold" FontSize="15" Grid.Row="6">
+                            Final Translation Result
+                        </Label>
+
+                        <TextBox TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Name="FinalText" Grid.Row="7">
+                        </TextBox>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Column="1" Background="Black">
+                </Grid>
+
+                <Grid Grid.Column="2" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="0.5*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="0">
+                        <Label FontWeight="Bold" FontSize="15" Grid.Row="0" >
+                            Tab:
+                        </Label>
+
+                        <Label Grid.Row="0" Name="FileName" VerticalAlignment="Center">
+                        </Label>
+                        
+                        <Label Grid.Column="0" VerticalAlignment="Center">
+                            Translate from:
+                        </Label>
+                        <ComboBox Name="SFrom" Grid.Column="1" VerticalContentAlignment="Center" Margin="5" Width="130" SelectionChanged="SFrom_SelectionChanged">
+                        </ComboBox>
+
+                        <Border  CornerRadius="5" Background="#FF7B7B7B" Grid.Row="1" Cursor="Hand" Margin="5 5 0 5" PreviewMouseDown="DetectFrom">
+                            <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                Detect
+                            </Label>
+                        </Border>
+                        
+                        <Label Grid.Column="2" VerticalAlignment="Center">
+                            to
+                        </Label>
+                        <ComboBox Name="STo" Grid.Column="3" VerticalContentAlignment="Center" Margin="5" Width="130" SelectionChanged="STo_SelectionChanged">
+                        </ComboBox>
+
+                       
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1">
+                        <Label FontWeight="Bold" FontSize="15" Grid.Row="0">
+                            Keywords List
+                        </Label>
+
+
+                        <Border  CornerRadius="5" Background="#FF7B7B7B" Grid.Row="1" Cursor="Hand" Margin="0 5 0 5" PreviewMouseDown="ExportAll">
+                            <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                Export Table
+                            </Label>
+                        </Border>
+
+                        <Border  CornerRadius="5" Background="#FF7B7B7B" Grid.Row="1" Cursor="Hand" Margin="5 5 0 5" PreviewMouseDown="ImportTable">
+                            <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                Import Table
+                            </Label>
+                        </Border>
+
+                        <Border  CornerRadius="5" Background="#FF7B7B7B" Grid.Row="1" Cursor="Hand" Margin="5 5 0 5" PreviewMouseDown="OpenDataBase">
+                            <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                Browse Database
+                            </Label>
+                        </Border>
+
+                    </StackPanel>
+                  
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+
+
+                        <ListView Name="KeywordList" Grid.Row="0" Margin="0,5,0,5" ItemContainerStyle="{StaticResource ListViewItemStyle}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="ModName" Width="80"   DisplayMemberBinding="{Binding TargetFileName}"/>
+                                    <GridViewColumn Header="Type" Width="85"   DisplayMemberBinding="{Binding Type}"/>
+                                    <GridViewColumn Header="Source" Width="150"   DisplayMemberBinding="{Binding Source}"/>
+                                    <GridViewColumn Header="Result" Width="150"   DisplayMemberBinding="{Binding Result}"/>
+                                    <GridViewColumn Header="ExactMatch" Width="80" DisplayMemberBinding="{Binding ExactMatch}"/>
+                                    <GridViewColumn Header="IgnoreCase" Width="80" DisplayMemberBinding="{Binding IgnoreCase}"/>
+                                    <GridViewColumn Header="Rowid" Width="1" DisplayMemberBinding="{Binding Rowid}"/>
+                                </GridView>
+                            </ListView.View>
+                            <ListView.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Delete" Click="Delete_Click"></MenuItem>
+                                    <MenuItem Header="Select"/>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+                        </ListView>
+
+                        <Grid Grid.Row="1" Margin="0,5,5,5">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                <Label Cursor="Hand" Foreground="#FF0B74D1" Content="Previous" VerticalAlignment="Center" Margin="0 0 5 0" MouseDown="Previous_MouseDown"/>
+                                <Label VerticalAlignment="Center" Content="0/0" Name="PageInFo"/>
+                                <Label Cursor="Hand" Foreground="#FF0B74D1" Content="Next" VerticalAlignment="Center" Margin="5 0 0 0" MouseDown="Next_MouseDown"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="3">
+                        <Label FontWeight="Bold" FontSize="15" >
+                            Add New Keyword
+                        </Label>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Vertical" Grid.Row="4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="35"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0">
+                                ModName
+                            </Label>
+                            <TextBox Name="TargetModName" Grid.Column="1" VerticalContentAlignment="Center">
+                            </TextBox>
+                            <Label Grid.Column="2">
+                                Type
+                            </Label>
+                            <ComboBox Grid.Column="3" VerticalContentAlignment="Center" Name="TypeSelector">
+                            </ComboBox>
+                        </Grid>
+
+                        <Grid Margin="0 5 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0">
+                                Source *
+                            </Label>
+                            <TextBox Grid.Column="1" VerticalContentAlignment="Center" Name="SourceStr" TextChanged="SourceStr_TextChanged">
+                            </TextBox>
+                            <Label Grid.Column="2">
+                                Result *
+                            </Label>
+                            <TextBox Grid.Column="3" VerticalContentAlignment="Center" Name="TargetStr" TextChanged="TargetStr_TextChanged">
+                            </TextBox>
+                        </Grid>
+
+                        <Grid Margin="0 5 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Name="ExactMatch" Grid.Column="0" Margin="3 0 0 0">
+                                ExactMatch
+                            </CheckBox>
+                            <CheckBox Name="IgnoreCase" Grid.Column="1" Margin="3 0 0 0">
+                                IgnoreCase
+                            </CheckBox>
+                        </Grid>
+
+                        <Grid Margin="0 5 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="45"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="85"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0">
+                                From *
+                            </Label>
+                            <ComboBox Name="From" Grid.Column="1" VerticalContentAlignment="Center">
+                            </ComboBox>
+                         
+                            <Label Grid.Column="2">
+                                To *
+                            </Label>
+                            <ComboBox Name="To" Grid.Column="3" VerticalContentAlignment="Center">
+                            </ComboBox>
+
+                            <CheckBox Grid.Column="5" Margin="3 0 0 0" VerticalAlignment="Center" VerticalContentAlignment="Center" Name="AutoDetect">
+                                Auto Detect
+                            </CheckBox>
+                        </Grid>
+                        
+                        <Grid Margin="0 5 0 0">
+                            <Border  CornerRadius="5" Background="#FF7B7B7B" Grid.Row="1" Margin="0 5 0 5" Cursor="Hand" PreviewMouseDown="AddKeyWord">
+                                <Label Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    Add Keyword
+                                </Label>
+                            </Border>
+                        </Grid>
+
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+           
+
+        </Grid>
+    </Border>
+</Window>
