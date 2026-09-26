@@ -48,7 +48,7 @@ namespace PhoenixTranslator
                 Button.Click += ScanPath_Click;
             }
 
-            Button = PathBox.Template.FindName("IsShowBtn", PathBox) as ToggleButton;
+            Button = PathBox.Template.FindName("IsBrowseBtn", PathBox) as ToggleButton;
 
             if (Button != null)
             {
@@ -146,8 +146,17 @@ namespace PhoenixTranslator
 
                 if (Parent != null)
                 {
-                    PathBox.Text = Parent.FullName;
-                    ScanPath();
+                    string TempPath = PathBox.Text;
+                    try 
+                    { 
+                        PathBox.Text = Parent.FullName;
+                        ScanPath();
+                    }
+                    catch
+                    {
+                        PathBox.Text = TempPath;
+                    }
+
                 }
             }
         }
@@ -199,6 +208,7 @@ namespace PhoenixTranslator
             }
 
         }
+        public SkyrimEntry CurrentEntry = null;
         public void ShowAvailableFiles(SkyrimEntry Entry, List<string>Files)
         {
             AvailableFilesView.Visibility = Visibility.Visible;
@@ -206,27 +216,26 @@ namespace PhoenixTranslator
 
             AvailableFileList.Items.Clear();
 
-            if (SearchInFo != null)
+            if (Entry != null)
             {
-                foreach (var File in SearchInFo[Entry])
+                CurrentEntry = Entry;
+
+                if (SearchInFo != null)
                 {
-                    AvailableFileList.Items.Add(File);
+                    foreach (var File in SearchInFo[Entry])
+                    {
+                        AvailableFileList.Items.Add(File.Substring(Entry.Path.Length));
+                    }
+                }
+                else
+                {
+                    foreach (var File in Files)
+                    {
+                        AvailableFileList.Items.Add(File.Substring(Entry.Path.Length));
+                    }
                 }
             }
-            else
-            {
-                foreach (var File in Files)
-                {
-                    AvailableFileList.Items.Add(File);
-                }
-            }
-        }
-
-
-
-        private void Close_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.Close();
+          
         }
 
         public bool IsLeftMouseDown = false;
@@ -255,7 +264,8 @@ namespace PhoenixTranslator
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ModFileDialog.Instance = new ModFileDialog();
+            e.Cancel = true;
+            this.Hide();
         }
 
         private void PathBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -270,21 +280,28 @@ namespace PhoenixTranslator
                 string SelectedFile = AvailableFileList.SelectedItem.ToString();
 
                 PhoenixApp.WorkWin.Dispatcher.Invoke(new Action(() => {
-                    PhoenixApp.WorkWin.LoadFile(SelectedFile);
+                    PhoenixApp.WorkWin.LoadFile(CurrentEntry.Path + SelectedFile);
                 }));
+
+                this.Hide();
             }
         }
 
-        private void LoadAll_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (var GetFile in AvailableFileList.Items)
-            {
-                PhoenixApp.WorkWin.Dispatcher.Invoke(new Action(() => {
-                    PhoenixApp.WorkWin.LoadFile(GetFile.ToString());
-                }));
-            }
+        //private void LoadAll_Click(object sender, RoutedEventArgs e)
+        //{
+        //    foreach (var GetFile in AvailableFileList.Items)
+        //    {
+        //        PhoenixApp.WorkWin.Dispatcher.Invoke(new Action(() => {
+        //            PhoenixApp.WorkWin.LoadFile(CurrentEntry.Path + GetFile.ToString());
+        //        }));
+        //    }
 
-            this.Close();
+        //    this.Close();
+        //}
+
+        private void Close_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Hide();
         }
     }
 }

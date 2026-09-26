@@ -1340,16 +1340,28 @@
         <Setter Property="FontSize" Value="13"/>
         <Setter Property="Padding" Value="35,0,65,0"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Tag" Value="Search inside mod file data..."/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
                         <Grid>
                             <Viewbox Width="16" Height="16" Stretch="Uniform" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <Canvas Width="1024" Height="1024">
                                     <Path Data="M426.666667,128 C261.12,128 128,261.12 128,426.666667 C128,592.213333 261.12,725.333333 426.666667,725.333333 C502.613333,725.333333 573.013333,701.44 630.613333,660.906667 L850.346667,880.64 C862.293333,892.586667 881.066667,892.586667 893.013333,880.64 C904.96,868.693333 904.96,849.92 893.013333,838.4 L673.706667,619.093333 C714.666667,561.066667 725.333333,490.666667 725.333333,426.666667 C725.333333,261.12 592.213333,128 426.666667,128 Z M426.666667,661.333333 C296.96,661.333333 192,556.373333 192,426.666667 C192,296.96 296.96,192 426.666667,192 C556.373333,192 661.333333,296.96 661.333333,426.666667 C661.333333,556.373333 556.373333,661.333333 426.666667,661.333333 Z" Fill="#A0A0A0" IsHitTestVisible="False"/>
                                 </Canvas>
                             </Viewbox>
+
+                            <TextBlock x:Name="PlaceholderText"
+                                   Text="{TemplateBinding Tag}"
+                                   Foreground="#FF888888"
+                                   FontStyle="Italic"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   Margin="{TemplateBinding Padding}"
+                                   VerticalAlignment="Center"
+                                   IsHitTestVisible="False"
+                                   Visibility="Collapsed"/>
 
                             <ScrollViewer x:Name="PART_ContentHost" Margin="0" VerticalAlignment="Center"/>
 
@@ -1364,12 +1376,12 @@
                                         <Setter Property="Template">
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="ToggleButton">
-                                                    <Border x:Name="btnBorder" Background="{TemplateBinding Background}" CornerRadius="3">
+                                                    <Border x:Name="btnBorder" Background="{TemplateBinding Background}" CornerRadius="4">
                                                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                     </Border>
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter TargetName="btnBorder" Property="Background" Value="#50FFFFFF"/>
+                                                            <Setter TargetName="btnBorder" Property="Background" Value="#40FFFFFF"/>
                                                         </Trigger>
                                                     </ControlTemplate.Triggers>
                                                 </ControlTemplate>
@@ -1379,13 +1391,13 @@
                                 </StackPanel.Resources>
 
                                 <ToggleButton x:Name="IsClearBtn" ToolTip="ClearBtn" Margin="0,0,5,0">
-                                    <Border CornerRadius="5" BorderThickness="0.5" BorderBrush="White">
+                                    <Border CornerRadius="4" BorderThickness="0.5" BorderBrush="White">
                                         <TextBlock Padding="10 5 10 5" Text="Clear" Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
                                     </Border>
                                 </ToggleButton>
 
                                 <ToggleButton x:Name="IsSearchBtn" ToolTip="SearchBtn" Margin="0,0,5,0">
-                                    <Border CornerRadius="5" BorderThickness="0.5" BorderBrush="White">
+                                    <Border CornerRadius="4" BorderThickness="0.5" BorderBrush="White">
                                         <TextBlock Padding="10 5 10 5" Text="Search" Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
                                     </Border>
                                 </ToggleButton>
@@ -1393,18 +1405,20 @@
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="Text" Value="">
+                            <Setter TargetName="PlaceholderText" Property="Visibility" Value="Visible"/>
+                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="#FFFAE306"/>
+                            <Setter Property="BorderBrush" Value="White"/>
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="BorderBrush" Value="#FFFAE306"/>
+                            <Setter Property="BorderBrush" Value="White"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
 
     <Style x:Key="PathBox" TargetType="TextBox">
         <Setter Property="Height" Value="35"/>
@@ -1416,10 +1430,11 @@
         <Setter Property="FontSize" Value="13"/>
         <Setter Property="Padding" Value="35,0,65,0"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Tag" Value="Please enter the path..."/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
                         <Grid>
                             <Viewbox Width="16" Height="16" Stretch="Uniform" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <Canvas Width="1024" Height="1024">
@@ -1427,8 +1442,18 @@
                                 </Canvas>
                             </Viewbox>
 
-                            <ScrollViewer x:Name="PART_ContentHost" Margin="0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="PlaceholderText"
+                                   Text="{TemplateBinding Tag}"
+                                   Foreground="#FF888888"
+                                   FontStyle="Italic"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   Margin="{TemplateBinding Padding}"
+                                   VerticalAlignment="Center"
+                                   IsHitTestVisible="False"
+                                   Visibility="Collapsed"/>
 
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="0" VerticalAlignment="Center"/>
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0">
                                 <StackPanel.Resources>
@@ -1441,12 +1466,12 @@
                                         <Setter Property="Template">
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="ToggleButton">
-                                                    <Border x:Name="btnBorder" Background="{TemplateBinding Background}" CornerRadius="3">
+                                                    <Border x:Name="btnBorder" Background="{TemplateBinding Background}" CornerRadius="4">
                                                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                     </Border>
                                                     <ControlTemplate.Triggers>
                                                         <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter TargetName="btnBorder" Property="Background" Value="#50FFFFFF"/>
+                                                            <Setter TargetName="btnBorder" Property="Background" Value="#40FFFFFF"/>
                                                         </Trigger>
                                                     </ControlTemplate.Triggers>
                                                 </ControlTemplate>
@@ -1456,33 +1481,34 @@
                                 </StackPanel.Resources>
 
                                 <ToggleButton x:Name="IsBackBtn" ToolTip="BackBtn" Margin="0,0,5,0">
-                                    <Border CornerRadius="5" BorderThickness="0.5" BorderBrush="White">
+                                    <Border CornerRadius="4" BorderThickness="0.5" BorderBrush="White">
                                         <TextBlock Padding="10 5 10 5" Text="Back" Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
                                     </Border>
                                 </ToggleButton>
-                                
-                                <ToggleButton x:Name="IsShowBtn" ToolTip="ShowBtn" Margin="0,0,5,0">
-                                    <Border CornerRadius="5" BorderThickness="0.5" BorderBrush="White">
-                                        <TextBlock Padding="10 5 10 5" Text="..." Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
-                                    </Border>
-                                </ToggleButton>
-                                
-                                <ToggleButton x:Name="IsSelectBtn" ToolTip="SelectBtn" Margin="0,0,5,0">
-                                    <Border CornerRadius="5" BorderThickness="0.5" BorderBrush="White">
-                                        <TextBlock Padding="10 5 10 5" Text="SCan" Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
+
+                                <ToggleButton x:Name="IsBrowseBtn" ToolTip="BrowseBtn" Margin="0,0,5,0">
+                                    <Border CornerRadius="4" BorderThickness="0.5" BorderBrush="White">
+                                        <TextBlock Padding="10 5 10 5" Text="Browse" Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
                                     </Border>
                                 </ToggleButton>
 
-                             
+                                <ToggleButton x:Name="IsSelectBtn" ToolTip="SelectBtn" Margin="0,0,5,0">
+                                    <Border CornerRadius="4" BorderThickness="0.5" BorderBrush="White">
+                                        <TextBlock Padding="10 5 10 5" Text="Select" Foreground="White" FontSize="12" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="ClearType"/>
+                                    </Border>
+                                </ToggleButton>
                             </StackPanel>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="Text" Value="">
+                            <Setter TargetName="PlaceholderText" Property="Visibility" Value="Visible"/>
+                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="#FFFAE306"/>
+                            <Setter Property="BorderBrush" Value="White"/>
                         </Trigger>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="BorderBrush" Value="#FFFAE306"/>
+                            <Setter Property="BorderBrush" Value="White"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

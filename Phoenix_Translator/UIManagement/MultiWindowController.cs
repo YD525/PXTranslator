@@ -61,100 +61,107 @@ namespace PhoenixTranslator.UIManagement
         //If null is returned, grouping is performed based on default similarity.
         public static List<BaseUnit> CheckLinks(ModFile Mod, List<BaseUnit> TempUnits, BaseUnit Unit)
         {
-            if (Unit.Type == "INFO" || Unit.Type == "DIAL" || Unit.Type == "BOOK")
+            try
             {
-                var Key = Unit.Key;
-
-                if (Mod.Type != GameFileType.ESP) return null;
-
-                RecordItem GetRecord = null;
-
-                if (Mod.EspReader.Records.ContainsKey(Key))
+                if (Unit.Type == "INFO" || Unit.Type == "DIAL" || Unit.Type == "BOOK")
                 {
-                    GetRecord = Mod.EspReader.Records[Key];
-                }
+                    var Key = Unit.Key;
 
-                List<string> FindKeys = new List<string>();
+                    if (Mod.Type != GameFileType.ESP) return null;
 
-                if (GetRecord != null)
-                {
-                    List<BaseUnit> Links = new List<BaseUnit>();
+                    RecordItem GetRecord = null;
 
-                    if (GetRecord.ParentSig == "INFO" || GetRecord.ParentSig == "DIAL")
+                    if (Mod.EspReader.Records.ContainsKey(Key))
                     {
-                        ManagedDialContext DialogueLink = null;
+                        GetRecord = Mod.EspReader.Records[Key];
+                    }
 
-                        if (Mod.DialNodeCache.ContainsKey(GetRecord.UniqueKey))
+                    List<string> FindKeys = new List<string>();
+
+                    if (GetRecord != null)
+                    {
+                        List<BaseUnit> Links = new List<BaseUnit>();
+
+                        if (GetRecord.ParentSig == "INFO" || GetRecord.ParentSig == "DIAL")
                         {
-                            DialogueLink = Mod.DialNodeCache[GetRecord.UniqueKey];
-                        }
+                            ManagedDialContext DialogueLink = null;
 
-                        List<ManagedDialNode> TempLinks = new List<ManagedDialNode>();
-
-                        if (DialogueLink != null)
-                        {
-                            if (DialogueLink.Head != null) TempLinks.Add(DialogueLink.Head);
-                            if (DialogueLink.Links != null) TempLinks.AddRange(DialogueLink.Links);
-                        }
-
-                        if (TempLinks.Count > 0)
-                        {
-                            foreach (var GetLink in TempLinks)
+                            if (Mod.DialNodeCache.ContainsKey(GetRecord.UniqueKey))
                             {
-                                if (GetLink.RecordOffset >= 0)
+                                DialogueLink = Mod.DialNodeCache[GetRecord.UniqueKey];
+                            }
+
+                            List<ManagedDialNode> TempLinks = new List<ManagedDialNode>();
+
+                            if (DialogueLink != null)
+                            {
+                                if (DialogueLink.Head != null) TempLinks.Add(DialogueLink.Head);
+                                if (DialogueLink.Links != null) TempLinks.AddRange(DialogueLink.Links);
+                            }
+
+                            if (TempLinks.Count > 0)
+                            {
+                                foreach (var GetLink in TempLinks)
                                 {
-                                    var GetLinkRecord = Mod.EspReader.GetRecordItemByOffsets(false, GetLink.RecordOffset, GetLink.SubOffset);
-                                    if (GetLinkRecord != null)
-                                        FindKeys.Add(GetLinkRecord.UniqueKey);
+                                    if (GetLink.RecordOffset >= 0)
+                                    {
+                                        var GetLinkRecord = Mod.EspReader.GetRecordItemByOffsets(false, GetLink.RecordOffset, GetLink.SubOffset);
+                                        if (GetLinkRecord != null)
+                                            FindKeys.Add(GetLinkRecord.UniqueKey);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        if (GetRecord.ParentSig == "BOOK")
+                        {
+                            var GetBookInFo = Mod.EspReader.GetBookInFo(GetRecord);
+                            if (GetBookInFo != null)
+                            {
+                                RecordItem Tittle = null;
+                                RecordItem Content = null;
+
+                                if (GetBookInFo.TittleSubOffset != -1)
+                                    Tittle = Mod.EspReader.GetRecordItemByOffsets(false, GetBookInFo.RecordOffset, GetBookInFo.TittleSubOffset);
+
+                                if (GetBookInFo.ContentSubOffset != -1)
+                                    Content = Mod.EspReader.GetRecordItemByOffsets(false, GetBookInFo.RecordOffset, GetBookInFo.ContentSubOffset);
+
+                                List<RecordItem> BookLinks = new List<RecordItem>();
+
+                                if (Tittle != null) BookLinks.Add(Tittle);
+                                if (Content != null) BookLinks.Add(Content);
+
+                                foreach (var GetLink in BookLinks)
+                                {
+                                    FindKeys.Add(GetLink.UniqueKey);
                                 }
                             }
                         }
                     }
-                    else
-                    if (GetRecord.ParentSig == "BOOK")
+
+
+                    var UnitDict = TempUnits.ToDictionary(U => U.Key);
+                    List<BaseUnit> Units = new List<BaseUnit>();
+
+                    foreach (var GetKey in FindKeys)
                     {
-                        var GetBookInFo = Mod.EspReader.GetBookInFo(GetRecord);
-                        if (GetBookInFo != null)
+                        if (UnitDict.TryGetValue(GetKey, out var FoundUnit))
                         {
-                            RecordItem Tittle = null;
-                            RecordItem Content = null;
-
-                            if (GetBookInFo.TittleSubOffset != -1)
-                                Tittle = Mod.EspReader.GetRecordItemByOffsets(false, GetBookInFo.RecordOffset, GetBookInFo.TittleSubOffset);
-
-                            if (GetBookInFo.ContentSubOffset != -1)
-                                Content = Mod.EspReader.GetRecordItemByOffsets(false, GetBookInFo.RecordOffset, GetBookInFo.ContentSubOffset);
-
-                            List<RecordItem> BookLinks = new List<RecordItem>();
-
-                            if (Tittle != null) BookLinks.Add(Tittle);
-                            if (Content != null) BookLinks.Add(Content);
-
-                            foreach (var GetLink in BookLinks)
-                            {
-                                FindKeys.Add(GetLink.UniqueKey);
-                            }
+                            Units.Add(FoundUnit);
                         }
                     }
+
+                    if (Units.Count > 0)
+                        return Units;
                 }
 
-
-                var UnitDict = TempUnits.ToDictionary(U => U.Key);
-                List<BaseUnit> Units = new List<BaseUnit>();
-
-                foreach (var GetKey in FindKeys)
-                {
-                    if (UnitDict.TryGetValue(GetKey, out var FoundUnit))
-                    {
-                        Units.Add(FoundUnit);
-                    }
-                }
-
-                if (Units.Count > 0)
-                    return Units;
+                return null;
             }
-
-            return null;
+            catch 
+            { 
+                return null; 
+            }
         }
         public static string LastSetAttachKey = "";
 
@@ -239,7 +246,7 @@ namespace PhoenixTranslator.UIManagement
 
                                                 if (TempLinks.Count > 0)
                                                 {
-                                                    TrackingWin.LoadDialogueRecords(SelectKey,Mod, TempLinks, Token);
+                                                    TrackingWin.LoadDialogueRecords(SelectKey, Mod, TempLinks, Token);
                                                 }
                                                 else
                                                 {
@@ -297,7 +304,7 @@ namespace PhoenixTranslator.UIManagement
 
                                             if (Records.Count > 1)
                                             {
-                                                TrackingWin.LoadRelatedTextRecords(SelectKey,Records, Token);
+                                                TrackingWin.LoadRelatedTextRecords(SelectKey, Records, Token);
                                             }
                                             else
                                             {
